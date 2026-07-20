@@ -296,6 +296,39 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .form-footer .btn{flex:1}
 
 /* ============ SWITCH / SETTINGS ============ */
+
+/* Fix v2: Settings-Icons hart begrenzen, auch bei dynamisch erzeugten SVGs */
+#settings-main .set-row svg,
+#settings-main .set-row .set-ic svg{
+  width:22px !important;
+  height:22px !important;
+  min-width:22px !important;
+  min-height:22px !important;
+  max-width:22px !important;
+  max-height:22px !important;
+  flex:0 0 22px !important;
+  display:block;
+}
+#settings-main .set-ic{
+  width:38px;
+  height:38px;
+  min-width:38px;
+  flex:0 0 38px;
+  display:grid;
+  place-items:center;
+  color:var(--muted);
+}
+#settings-main .set-ic.danger{
+  color:var(--danger);
+}
+#settings-main .set-row[data-action]{
+  cursor:pointer;
+  overflow:hidden;
+}
+#settings-main .set-row[data-action] .grow{
+  min-width:0;
+}
+
 .set-group{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);
   overflow:hidden;margin-bottom:16px}
 .set-row{display:flex;align-items:center;gap:14px;padding:15px 16px;border-bottom:1px solid var(--line)}
@@ -1357,11 +1390,11 @@ function renderSettings(){
 
     <div class="set-note">Daten</div>
     <div class="set-group">
-      <div class="set-row" data-action="export"><div class="grow"><div class="st-title">Daten exportieren</div><div class="st-sub">Pläne & Verlauf als Datei sichern</div></div>${svg('save')}</div>
-      <div class="set-row" data-action="import"><div class="grow"><div class="st-title">Daten importieren</div><div class="st-sub">Aus einer Sicherung laden</div></div>${svg('copy')}</div>
-      <div class="set-row" data-action="reset"><div class="grow"><div class="st-title" style="color:var(--danger)">Alles zurücksetzen</div><div class="st-sub">Eigene Pläne, Verlauf & Einstellungen löschen</div></div><span style="color:var(--danger)">${svg('trash')}</span></div>
+      <div class="set-row" data-action="export"><div class="grow"><div class="st-title">Daten exportieren</div><div class="st-sub">Pläne & Verlauf als Datei sichern</div></div><span class="set-ic">${svg('save')}</span></div>
+      <div class="set-row" data-action="import"><div class="grow"><div class="st-title">Daten importieren</div><div class="st-sub">Aus einer Sicherung laden</div></div><span class="set-ic">${svg('copy')}</span></div>
+      <div class="set-row" data-action="reset"><div class="grow"><div class="st-title" style="color:var(--danger)">Alles zurücksetzen</div><div class="st-sub">Eigene Pläne, Verlauf & Einstellungen löschen</div></div><span class="set-ic danger">${svg('trash')}</span></div>
     </div>
-    <div class="app-foot">BARWORK v1.3 · Firebase Login inkl. Google Popup · lokale Nutzung weiterhin möglich.</div>
+    <div class="app-foot">BARWORK v1.4 · Firebase Login inkl. Google Popup · Settings-Fix</div>
     <input type="file" id="import-file" accept="application/json,.json" style="display:none">
   `;
   // wire switches
