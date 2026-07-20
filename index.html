@@ -595,27 +595,95 @@ input,select,textarea{font-family:inherit;font-size:16px}
 
 
 /* ============ V3.4 ============ */
-/* Theme accent variables - explizit --accent & --accent-ink setzen,
-   damit ALLE Elemente (nicht nur --work-basierte) die Akzentfarbe übernehmen */
+/* Theme accent variables */
 [data-accent="green"] {--work:#c6f135;--work-ink:#12200a;--accent:#c6f135;--accent-ink:#12200a}
 [data-accent="orange"]{--work:#ff9124;--work-ink:#2a1400;--accent:#ff9124;--accent-ink:#2a1400}
 [data-accent="blue"]  {--work:#4aa8ff;--work-ink:#01162a;--accent:#4aa8ff;--accent-ink:#01162a}
 [data-accent="red"]   {--work:#ff5478;--work-ink:#2a020a;--accent:#ff5478;--accent-ink:#2a020a}
 [data-accent="pink"]  {--work:#ff5ac8;--work-ink:#2a0421;--accent:#ff5ac8;--accent-ink:#2a0421}
-/* Zusätzliche Akzent-Highlights in den Einstellungen */
 #settings-main .set-note{color:var(--accent);opacity:.85}
 #settings-main .set-ic:not(.danger){color:color-mix(in srgb,var(--accent) 55%,var(--muted))}
 #settings-main .theme-seg button.on,
-#settings-main .rpe-btn.on,
-#settings-main .sync-pill.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+#settings-main .rpe-btn.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .section-label{color:color-mix(in srgb,var(--accent) 45%,var(--muted2))}
 .brand-sub{color:color-mix(in srgb,var(--accent) 40%,var(--muted))}
 .wk-round{color:var(--accent)}
 .hist-ic{color:var(--accent)}
-/* Akzentfarben-Row: nicht in eine Zeile pressen -> untereinander stellen,
-   damit der Text „Persönlicher Farbtouch" nicht abgeschnitten wird */
 #settings-main .set-row.accent-row{flex-direction:column;align-items:stretch;gap:12px}
-#settings-main .set-row.accent-row .theme-accent-row{display:flex;flex-wrap:wrap;gap:10px}
+/* ============ V3.5 NEW FEATURES ============ */
+/* Deload / Recovery banner */
+.deload-banner{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--rest) 22%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--rest) 45%,var(--line));border-radius:18px;padding:14px 16px;margin:8px 0 4px}
+.deload-ic{width:44px;height:44px;flex:none;border-radius:12px;background:var(--rest);color:var(--rest-ink);display:grid;place-items:center}
+.deload-ic svg{width:24px;height:24px}
+.deload-info{flex:1;min-width:0}
+.deload-nm{font-family:var(--font-d);font-size:18px;letter-spacing:.5px;line-height:1.1}
+.deload-sub{color:var(--muted);font-size:12.5px;font-weight:700;margin-top:3px}
+.deload-x{width:32px;height:32px;flex:none;border-radius:9px;background:var(--panel2);color:var(--muted);display:grid;place-items:center;border:1px solid var(--line)}
+.deload-x svg{width:16px;height:16px}
+/* Streak freeze tokens */
+.freeze-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:var(--muted);background:var(--panel2);border:1px solid var(--line);padding:3px 8px;border-radius:8px;margin-top:5px}
+.freeze-badge svg{width:12px;height:12px;color:#4aa8ff}
+/* Skill tree */
+.skill-req{color:var(--muted2);font-size:11px;font-weight:700;margin-top:2px;display:flex;align-items:center;gap:4px}
+.skill-req svg{width:11px;height:11px}
+.skill-card.locked{opacity:.55}
+.skill-card.locked .skill-progress i{background:var(--muted2)}
+.skill-locked-msg{background:var(--panel2);border:1px dashed var(--line2);border-radius:10px;padding:8px 10px;color:var(--muted);font-size:12px;font-weight:700;margin-top:8px;display:flex;align-items:center;gap:6px}
+.skill-locked-msg svg{width:14px;height:14px}
+/* Hold timer for statics */
+.hold-timer{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 15%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:14px;padding:14px;margin:10px 0}
+.hold-timer .hold-title{color:var(--accent);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:6px}
+.hold-timer .hold-target{color:var(--chalk);font-size:15px;font-weight:700}
+.hold-timer .hold-target b{font-family:var(--font-d);font-size:22px;letter-spacing:.5px}
+.hold-timer .hold-actions{display:flex;gap:8px;margin-top:10px}
+.hold-timer .hold-actions button{flex:1;padding:10px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--chalk);font-weight:800;font-size:13px}
+/* 1RM equivalent badge */
+.strength-badge{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,color-mix(in srgb,#f0c419 30%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,#f0c419 45%,var(--line));border-radius:9px;padding:5px 9px;font-size:11px;font-weight:800;color:#f0c419;text-transform:uppercase;letter-spacing:.6px;margin-top:4px}
+.strength-badge svg{width:12px;height:12px}
+.strength-card{background:linear-gradient(135deg,color-mix(in srgb,#f0c419 12%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,#f0c419 35%,var(--line));border-radius:16px;padding:14px;margin-bottom:16px}
+.strength-card .lbl{color:#f0c419;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px}
+.strength-list{display:flex;flex-direction:column;gap:8px}
+.strength-item{display:flex;justify-content:space-between;font-size:13.5px;font-weight:700}
+.strength-item span{color:var(--muted)}
+.strength-item b{color:var(--chalk);font-family:var(--font-d);letter-spacing:.5px;font-size:15px}
+/* Challenges */
+.chal-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;position:relative;overflow:hidden}
+.chal-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+.chal-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.chal-emoji{font-size:32px;line-height:1}
+.chal-info{flex:1;min-width:0}
+.chal-nm{font-family:var(--font-d);font-size:19px;letter-spacing:.5px;line-height:1.1}
+.chal-desc{color:var(--muted);font-size:12.5px;font-weight:600;margin-top:2px}
+.chal-progress{height:8px;border-radius:4px;background:var(--panel2);overflow:hidden;margin:8px 0}
+.chal-progress i{display:block;height:100%;background:var(--accent);border-radius:4px;transition:width .4s}
+.chal-stats{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;font-weight:700;margin-bottom:10px}
+.chal-stats b{color:var(--chalk);font-family:var(--font-d);font-size:15px;letter-spacing:.5px}
+.chal-actions{display:flex;gap:8px}
+.chal-actions button{flex:1;padding:10px;border-radius:10px;font-weight:800;font-size:13px}
+.chal-actions .active{background:var(--accent);color:var(--accent-ink);border:none}
+.chal-actions .cancel{background:var(--panel2);color:var(--danger);border:1px solid color-mix(in srgb,var(--danger) 30%,var(--line))}
+.chal-actions .start{background:var(--accent);color:var(--accent-ink);border:none}
+.chal-actions .log{background:var(--work);color:var(--work-ink);border:none}
+.chal-done{padding:10px 12px;background:color-mix(in srgb,var(--work) 15%,var(--panel2));color:var(--work);border:1px solid color-mix(in srgb,var(--work) 40%,var(--line));border-radius:10px;text-align:center;font-weight:800;font-size:13px}
+/* Park finder */
+.park-list{display:flex;flex-direction:column;gap:10px}
+.park-item{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.park-ic{width:44px;height:44px;flex:none;border-radius:12px;background:var(--ink2);color:var(--work);display:grid;place-items:center}
+.park-ic svg{width:22px;height:22px}
+.park-info{flex:1;min-width:0}
+.park-nm{font-weight:800;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.park-sub{color:var(--muted);font-size:12px;font-weight:600;margin-top:2px}
+.park-btn{padding:8px 12px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--chalk);font-weight:700;font-size:12.5px;flex:none;display:inline-flex;align-items:center;gap:5px}
+.park-btn svg{width:13px;height:13px}
+/* YouTube button in library */
+.yt-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:8px;background:#ff0033;color:#fff;font-size:11px;font-weight:800;margin-top:4px;text-decoration:none}
+.yt-btn svg{width:12px;height:12px}
+.yt-btn-workout{margin-top:6px;padding:7px 12px;border-radius:10px;background:#ff0033;color:#fff;font-size:12px;font-weight:800;display:inline-flex;align-items:center;gap:6px;transition:.14s;text-decoration:none;border:none}
+.yt-btn-workout:active{transform:scale(.95)}
+.yt-btn-workout svg{width:13px;height:13px}
+/* Grid for home shortcuts */
+.home-shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 4px}
+.home-shortcuts .btn{padding:14px 12px;font-size:14px}
 
 /* Compact plan cards */
 body[data-compact="1"] .plan-list{gap:8px}
@@ -796,12 +864,15 @@ body[data-compact="1"] .plan-card .pc-menu{width:30px;height:30px}
     <main class="home-main">
       <div id="install-banner" style="display:none"></div>
       <div id="resume-banner" class="resume-banner" style="display:none"></div>
+      <div id="deload-banner" class="deload-banner" style="display:none"></div>
       <div id="streak-banner" class="streak-banner" style="display:none"></div>
       <div id="goal-card" class="goal-card" style="display:none"></div>
       <div id="progr-host"></div>
-      <div class="pc-actions" style="margin:14px 0 4px">
-        <button class="btn btn-ghost" id="btn-stats" data-nav="stats" style="flex:1"></button>
-        <button class="btn btn-ghost" id="btn-skills" data-nav="skills" style="flex:1"></button>
+      <div class="home-shortcuts">
+        <button class="btn btn-ghost" id="btn-stats" data-nav="stats"></button>
+        <button class="btn btn-ghost" id="btn-skills" data-nav="skills"></button>
+        <button class="btn btn-ghost" id="btn-challenges" data-nav="challenges"></button>
+        <button class="btn btn-ghost" id="btn-parks" data-nav="parks"></button>
       </div>
       <div class="section-label">Deine Trainingspläne</div>
       <div class="plan-list" id="plan-list"></div>
@@ -997,6 +1068,28 @@ body[data-compact="1"] .plan-card .pc-menu{width:30px;height:30px}
   </div>
 </section>
 
+<!-- ===================== CHALLENGES ===================== -->
+<section id="view-challenges" class="view">
+  <div class="wrap">
+    <div class="view-head">
+      <button class="back-btn" data-nav="home"><span id="chal-back-ic"></span>Zurück</button>
+      <h2>Challenges</h2>
+      <span style="width:44px"></span>
+    </div>
+    <main class="home-main" id="chal-main"></main>
+  </div>
+</section>
+<!-- ===================== PARKS ===================== -->
+<section id="view-parks" class="view">
+  <div class="wrap">
+    <div class="view-head">
+      <button class="back-btn" data-nav="home"><span id="parks-back-ic"></span>Zurück</button>
+      <h2>Parks in der Nähe</h2>
+      <span style="width:44px"></span>
+    </div>
+    <main class="home-main" id="parks-main"></main>
+  </div>
+</section>
 <!-- ===================== SETTINGS ===================== -->
 <section id="view-settings" class="view">
   <div class="wrap">
@@ -1296,9 +1389,14 @@ const KEY='barwork.db.v1';
 const DEFAULTS={
   customPlans:[], overrides:{}, hidden:[], history:[],
   favorites:[], prs:{}, skills:{},
+  streakFreeze:{ tokens:2, lastGranted:0, usedThisMonth:0, monthKey:'' },
+  deloadDismissedAt:0,
+  challenges:{}, /* {chalId: {startDate, dayLogs:{day:{reps:N}}, completedAt}} */
+  parks:{ favorites:[] },
   flags:{ homeHintDismissed:false },
   settings:{ sound:true, vibrate:true, wakeLock:true, beeps:true, prepare:5,
              theme:'dark', accent:'green', compact:false, defaultPlanColor:'none',
+             bodyWeightKg:75,
              defaultRestEx:30, defaultRestCycle:120,
              trackReps:true, askRpe:true, askNotes:true, voice:false, weeklyGoal:3,
              reminderEnabled:false, reminderTime:'18:00', reminderDays:[1,2,3,4,5],
@@ -1414,27 +1512,176 @@ const ACHIEVEMENTS=[
   {id:'time_600',     emoji:'💎', name:'10 Stunden',  desc:'10 Stunden Gesamttraining',check:(s)=>s.totalMinutes>=600}
 ];
 
+/* YouTube search URL helper */
+function ytUrl(exerciseName){
+  const q = encodeURIComponent(String(exerciseName||'').trim()+' calisthenics tutorial');
+  return 'https://www.youtube.com/results?search_query='+q;
+}
+/* 1RM equivalents - Brzycki-inspired for bodyweight */
+function computeStrengthEquiv(){
+  const bw = +DB.settings.bodyWeightKg || 75;
+  const out = [];
+  const push_pr = (DB.prs.push_up && DB.prs.push_up.bestReps) || 0;
+  const chin_pr = (DB.prs.chin_up && DB.prs.chin_up.bestReps) || 0;
+  const pull_pr = (DB.prs.pull_up && DB.prs.pull_up.bestReps) || 0;
+  const dip_pr  = (DB.prs.dips && DB.prs.dips.bestReps) || 0;
+  const squat_pr = (DB.prs.squats && DB.prs.squats.bestReps) || 0;
+  /* Push Up: ~65% BW pro Wdh. → Bench-Press-Äquivalent */
+  if(push_pr>0){
+    const load = bw*0.65;
+    const oneRM = Math.round(load*(1+push_pr/30));
+    out.push({label:'Bankdrücken', reps:push_pr+' Push Ups', kg:oneRM, sub:'≈ 1RM Bench Press'});
+  }
+  /* Pull Up: 100% BW → Latzug/Klimmzug-Äquivalent */
+  if(pull_pr>0 || chin_pr>0){
+    const reps = Math.max(pull_pr, chin_pr);
+    const load = bw;
+    const oneRM = Math.round(load*(1+reps/30));
+    out.push({label:'Latzug', reps:reps+' Pull Ups', kg:oneRM, sub:'≈ 1RM Lat Pulldown'});
+  }
+  /* Dip: ~90% BW → Dip-Maschine */
+  if(dip_pr>0){
+    const load = bw*0.9;
+    const oneRM = Math.round(load*(1+dip_pr/30));
+    out.push({label:'Dips (Gewichtet)', reps:dip_pr+' Dips', kg:oneRM, sub:'≈ 1RM Weighted Dip'});
+  }
+  /* Squat: ~85% BW → Kniebeuge */
+  if(squat_pr>0){
+    const load = bw*0.85;
+    const oneRM = Math.round(load*(1+squat_pr/30));
+    out.push({label:'Kniebeuge', reps:squat_pr+' Squats', kg:oneRM, sub:'≈ 1RM Squat'});
+  }
+  return out;
+}
+/* Streak Freeze Tokens - 1 pro Monat, max 2 auf Vorrat */
+function grantMonthlyFreeze(){
+  const now = new Date();
+  const mk = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  const sf = DB.streakFreeze || (DB.streakFreeze={ tokens:2, lastGranted:0, usedThisMonth:0, monthKey:'' });
+  if(sf.monthKey !== mk){
+    sf.monthKey = mk;
+    sf.usedThisMonth = 0;
+    sf.tokens = Math.min(2, (sf.tokens||0) + 1);
+    sf.lastGranted = Date.now();
+    save();
+  }
+}
+/* Auto-consume freeze if a week is missed */
+function autoConsumeFreeze(){
+  const hist = DB.history||[];
+  if(!hist.length) return;
+  const sf = DB.streakFreeze;
+  if(!sf || !sf.tokens || sf.tokens<=0) return;
+  const weeks = new Set(hist.map(h=>isoWeekKey(h.date)));
+  const now = new Date();
+  const day = now.getDay()||7;
+  const thisMonday = new Date(now); thisMonday.setDate(now.getDate()-(day-1)); thisMonday.setHours(0,0,0,0);
+  const lastMonday = new Date(thisMonday); lastMonday.setDate(lastMonday.getDate()-7);
+  const twoAgo = new Date(thisMonday); twoAgo.setDate(twoAgo.getDate()-14);
+  const twoAgoKey = isoWeekKey(twoAgo);
+  const lastWkKey = isoWeekKey(lastMonday);
+  const thisWkKey = isoWeekKey(thisMonday);
+  /* If user trained 2 weeks ago but not last week, and no freeze applied, consume one */
+  if(weeks.has(twoAgoKey) && !weeks.has(lastWkKey) && sf.usedThisMonth < 2){
+    if(!sf.appliedWeeks || !sf.appliedWeeks.includes(lastWkKey)){
+      sf.tokens -= 1;
+      sf.usedThisMonth += 1;
+      sf.appliedWeeks = (sf.appliedWeeks||[]).concat([lastWkKey]).slice(-6);
+      save();
+      toast('🧊 Streak-Joker verbraucht – deine Serie ist gerettet!');
+    }
+  }
+}
+/* Get effective weeks set (with applied freezes) for streak calculation */
+function effectiveWeeksSet(){
+  const s = new Set((DB.history||[]).map(h=>isoWeekKey(h.date)));
+  const applied = (DB.streakFreeze && DB.streakFreeze.appliedWeeks) || [];
+  applied.forEach(w => s.add(w));
+  return s;
+}
+/* Deload / Recovery detection */
+function needsDeload(){
+  if(DB.deloadDismissedAt && (Date.now()-DB.deloadDismissedAt) < 3*86400000) return null;
+  const recent = (DB.history||[]).slice(0,6);
+  if(recent.length<3) return null;
+  /* 3+ Brutal in Folge */
+  const last3 = recent.slice(0,3);
+  const allBrutal = last3.every(h=>h.rpe===4);
+  if(allBrutal) return {reason:'Du hast die letzten 3 Trainings als brutal bewertet.', tip:'Plane einen Ruhetag oder eine leichte Woche ein.'};
+  /* > 5 Trainings in 7 Tagen */
+  const weekAgo = Date.now()-7*86400000;
+  const inWeek = (DB.history||[]).filter(h=>h.date>=weekAgo).length;
+  if(inWeek>=6) return {reason:'Du hast in den letzten 7 Tagen '+inWeek+' Trainings absolviert.', tip:'Gönn deinem Körper 1–2 Tage Erholung für maximales Wachstum.'};
+  /* Average RPE ≥ 3.5 in last 5 */
+  const rpeVals = recent.slice(0,5).map(h=>h.rpe).filter(x=>x);
+  if(rpeVals.length>=4){
+    const avg = rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length;
+    if(avg >= 3.5) return {reason:'Deine letzten Sessions waren durchschnittlich sehr hart (RPE '+avg.toFixed(1)+').', tip:'Ein Deload-Training mit 60% Volumen könnte deine Regeneration boosten.'};
+  }
+  return null;
+}
+/* Challenges Catalog */
+const CHALLENGES = [
+  { id:'ch_pushup100', name:'100 Push Ups Challenge', emoji:'💪', durationDays:30, exId:'push_up',
+    desc:'In 30 Tagen zu 100 Push Ups am Stück – progressive Steigerung.',
+    dailyReps: [20,25,30,35,10,40,45,10,50,55,60,10,65,70,10,75,80,85,10,90,10,95,100,10,100,10,100,100,10,100] },
+  { id:'ch_pullup10', name:'0 auf 10 Pull Ups', emoji:'🎖️', durationDays:60, exId:'pull_up',
+    desc:'Vom ersten Klimmzug bis zum Satz mit 10 sauberen Wiederholungen.',
+    dailyReps: null, target:10 },
+  { id:'ch_muscleup', name:'Muscle Up in 60 Tagen', emoji:'⚡', durationDays:60, exId:'muscle_up',
+    desc:'Systematisch zum ersten Muscle Up mit expliziven Pulls und Dips.',
+    dailyReps: null, target:1 },
+  { id:'ch_plank5', name:'5-Minuten-Plank Progression', emoji:'🔥', durationDays:30, exId:'plank',
+    desc:'Vom 30-Sekunden-Plank zum 5-Minuten-Bauchkiller.',
+    dailyReps: [30,35,40,45,50,55,60,70,80,90,100,110,120,135,150,165,180,195,210,225,240,255,270,285,300,300,300,300,300,300], isTime:true },
+  { id:'ch_dip20', name:'20 Dips in 30 Tagen', emoji:'🦾', durationDays:30, exId:'dips',
+    desc:'Baue Trizeps und Brust systematisch für 20 saubere Dips auf.',
+    dailyReps: null, target:20 },
+  { id:'ch_burpee500', name:'500 Burpees Total', emoji:'💥', durationDays:14, exId:'burpees',
+    desc:'Zwei Wochen, 500 Burpees insgesamt – frei einteilbar.',
+    dailyReps: null, target:500, aggregate:true }
+];
 /* Skill catalog */
 const SKILL_CATALOG=[
-  {id:'pullup',    name:'Pull Up',      icon:'flame', stages:[
+  {id:'pullup',    name:'Pull Up',      icon:'flame', category:'basic', stages:[
     {label:'1 Pull Up',target:1},{label:'5 Pull Ups',target:5},{label:'10 Pull Ups',target:10},{label:'15 Pull Ups',target:15},{label:'20 Pull Ups',target:20}]},
-  {id:'pushup',    name:'Push Up',      icon:'flame', stages:[
+  {id:'pushup',    name:'Push Up',      icon:'flame', category:'basic', stages:[
     {label:'10 Push Ups',target:10},{label:'25 Push Ups',target:25},{label:'50 Push Ups',target:50},{label:'75 Push Ups',target:75},{label:'100 Push Ups',target:100}]},
-  {id:'dip',       name:'Dip',          icon:'flame', stages:[
+  {id:'dip',       name:'Dip',          icon:'flame', category:'basic', stages:[
     {label:'5 Dips',target:5},{label:'10 Dips',target:10},{label:'15 Dips',target:15},{label:'20 Dips',target:20},{label:'30 Dips',target:30}]},
-  {id:'muscleup',  name:'Muscle Up',    icon:'bolt', stages:[
+  {id:'pistol',    name:'Pistol Squat', icon:'flame', category:'basic', stages:[
+    {label:'Assisted Pistol Squat',target:1},{label:'1 Pistol Squat',target:1},{label:'3 Pistol Squats',target:3},{label:'5 Pistol Squats',target:5},{label:'10 Pistol Squats',target:10}]},
+  {id:'muscleup',  name:'Muscle Up',    icon:'bolt', category:'advanced',
+    requires:[{skill:'pullup',stage:3},{skill:'dip',stage:3}], stages:[
     {label:'Assisted Muscle Up',target:1},{label:'1 Muscle Up',target:1},{label:'3 Muscle Ups',target:3},{label:'5 Muscle Ups',target:5},{label:'10 Muscle Ups',target:10}]},
-  {id:'handstand', name:'Handstand',    icon:'bolt', stages:[
+  {id:'handstand', name:'Handstand',    icon:'bolt', category:'advanced',
+    requires:[{skill:'pushup',stage:2}], stages:[
     {label:'Wall Handstand 10 s',target:10},{label:'Wall Handstand 30 s',target:30},{label:'Freestanding 5 s',target:5},{label:'Freestanding 15 s',target:15},{label:'Freestanding 30 s',target:30}]},
-  {id:'frontlever',name:'Front Lever',  icon:'bolt', stages:[
+  {id:'frontlever',name:'Front Lever',  icon:'bolt', category:'advanced',
+    requires:[{skill:'pullup',stage:3}], stages:[
     {label:'Tuck Front Lever 10 s',target:10},{label:'Advanced Tuck 10 s',target:10},{label:'One Leg Front Lever 5 s',target:5},{label:'Straddle Front Lever 5 s',target:5},{label:'Full Front Lever 5 s',target:5}]},
-  {id:'backlever', name:'Back Lever',   icon:'bolt', stages:[
+  {id:'backlever', name:'Back Lever',   icon:'bolt', category:'advanced',
+    requires:[{skill:'pullup',stage:3}], stages:[
     {label:'Tuck Back Lever 10 s',target:10},{label:'Advanced Tuck 10 s',target:10},{label:'Straddle Back Lever 5 s',target:5},{label:'Full Back Lever 5 s',target:5},{label:'Full Back Lever 10 s',target:10}]},
-  {id:'humanflag', name:'Human Flag',   icon:'bolt', stages:[
-    {label:'Vertical Flag 5 s',target:5},{label:'Vertical Flag 10 s',target:10},{label:'Tuck Flag 5 s',target:5},{label:'Straddle Flag 5 s',target:5},{label:'Full Flag 5 s',target:5}]},
-  {id:'pistol',    name:'Pistol Squat', icon:'flame', stages:[
-    {label:'Assisted Pistol Squat',target:1},{label:'1 Pistol Squat',target:1},{label:'3 Pistol Squats',target:3},{label:'5 Pistol Squats',target:5},{label:'10 Pistol Squats',target:10}]}
+  {id:'humanflag', name:'Human Flag',   icon:'bolt', category:'advanced',
+    requires:[{skill:'pullup',stage:3},{skill:'pushup',stage:3}], stages:[
+    {label:'Vertical Flag 5 s',target:5},{label:'Vertical Flag 10 s',target:10},{label:'Tuck Flag 5 s',target:5},{label:'Straddle Flag 5 s',target:5},{label:'Full Flag 5 s',target:5}]}
 ];
+/* Check if a skill is unlocked based on prerequisites */
+function skillIsUnlocked(sk){
+  if(!sk.requires || !sk.requires.length) return true;
+  return sk.requires.every(r=>{
+    const cur = (DB.skills[r.skill] && DB.skills[r.skill].stage) || 0;
+    return cur >= r.stage;
+  });
+}
+function skillPrereqLabel(sk){
+  if(!sk.requires || !sk.requires.length) return '';
+  return sk.requires.map(r=>{
+    const other = SKILL_CATALOG.find(x=>x.id===r.skill);
+    return other ? (other.name+' Stufe '+r.stage) : '';
+  }).filter(Boolean).join(' + ');
+}
 let DB;
 function load(){
   try{ DB = Object.assign({}, structuredClone(DEFAULTS), JSON.parse(localStorage.getItem(KEY)||'{}'));
@@ -1573,7 +1820,7 @@ function dayKey(d){ const dt=new Date(d); return dt.getFullYear()+'-'+String(dt.
 function computeStreak(){
   const hist=DB.history||[];
   if(!hist.length) return { current:0, best:0, weeks:new Set() };
-  const weeks=new Set(hist.map(h=>isoWeekKey(h.date)));
+  const weeks=effectiveWeeksSet();
   const now=new Date();
   let cur=0;
   const cursor=new Date(now); cursor.setHours(0,0,0,0);
@@ -1690,6 +1937,13 @@ function renderStats(){
     return `<div class="top-ex-row"><div class="top-ex-nm">${esc(disp)}</div>${spark}<div class="top-ex-val">${val}</div></div>`;
   }).join('');
   const prBlock = prArr.length ? `<div class="section-label" style="margin-top:18px">Persönliche Rekorde</div><div class="top-ex-list">${prRows}</div>` : '';
+  /* 1RM Strength Equivalent */
+  const strengthArr = computeStrengthEquiv();
+  const strengthBlock = strengthArr.length ? `<div class="strength-card">
+    <div class="lbl">💪 Krafttraining-Äquivalente (${DB.settings.bodyWeightKg||75} kg Körpergewicht)</div>
+    <div class="strength-list">${strengthArr.map(s=>`<div class="strength-item"><span>${esc(s.label)} · ${esc(s.reps)}</span><b>~ ${s.kg} kg</b></div>`).join('')}</div>
+    <div class="hint" style="margin-top:8px;font-size:11px">Geschätzte 1RM basierend auf Brzycki-Formel · Körpergewicht in Einstellungen anpassen</div>
+  </div>` : '';
   /* Heatmap */
   const heat = muscleHeatmap(28);
   const hasHeat = heat.some(x=>x.val>0);
@@ -1732,22 +1986,25 @@ function renderStats(){
     ${heatBlock}
     ${topBlock}
     ${prBlock}
+    ${strengthBlock}
     ${renderAchievementsBlock()}
   `;
 }
 function renderSkills(){
   $('#skills-back-ic').innerHTML=svg('left');
   const m=$('#skills-main'); if(!m) return;
-  const cards=SKILL_CATALOG.map(sk=>{
+  const renderCard = (sk)=>{
     const cur=(DB.skills[sk.id]&&DB.skills[sk.id].stage)||0;
     const total=sk.stages.length;
+    const unlocked=skillIsUnlocked(sk);
     const stagesHTML=sk.stages.map((s,i)=>{
       const cls = i<cur ? 'done' : (i===cur ? 'current' : '');
-      return `<div class="skill-stage ${cls}" data-skill="${esc(sk.id)}" data-stage="${i+1}">${esc(s.label)}</div>`;
+      return `<div class="skill-stage ${cls}" data-skill="${esc(sk.id)}" data-stage="${i+1}" ${!unlocked?'data-locked="1"':''}>${esc(s.label)}</div>`;
     }).join('');
     const pct=Math.round(cur/total*100);
     const stageLbl = cur>=total ? 'Alle Stufen erreicht 🎉' : (cur>0 ? `Stufe ${cur} / ${total}` : 'Noch nicht begonnen');
-    return `<div class="skill-card">
+    const lockMsg = !unlocked ? `<div class="skill-locked-msg">${svg('eyeoff')} Voraussetzung: ${esc(skillPrereqLabel(sk))}</div>` : '';
+    return `<div class="skill-card ${!unlocked?'locked':''}">
       <div class="skill-head">
         <div class="skill-ic">${svg(sk.icon)}</div>
         <div class="skill-info">
@@ -1757,10 +2014,17 @@ function renderSkills(){
       </div>
       <div class="skill-progress"><i style="width:${pct}%"></i></div>
       <div class="skill-stages">${stagesHTML}</div>
+      ${lockMsg}
     </div>`;
-  }).join('');
-  m.innerHTML = `<div class="section-label">Tippe auf eine Stufe, um deinen Fortschritt zu markieren.</div>${cards}`;
+  };
+  const basics = SKILL_CATALOG.filter(s=>s.category==='basic');
+  const advanced = SKILL_CATALOG.filter(s=>s.category==='advanced');
+  m.innerHTML = `<div class="section-label">🏗️ Grundübungen (Basis für alle Skills)</div>
+    ${basics.map(renderCard).join('')}
+    <div class="section-label" style="margin-top:20px">⚡ Fortgeschrittene Skills (mit Voraussetzungen)</div>
+    ${advanced.map(renderCard).join('')}`;
   $$('#skills-main .skill-stage').forEach(el=>el.addEventListener('click',()=>{
+    if(el.dataset.locked==='1'){ toast('Zuerst die Voraussetzungen erfüllen'); return; }
     const id=el.dataset.skill; const stage=+el.dataset.stage;
     const cur=(DB.skills[id]&&DB.skills[id].stage)||0;
     const newStage = cur===stage ? stage-1 : stage;
@@ -1890,14 +2154,18 @@ function openExercisePicker(targetRowIdx){
     $('#pick-list').innerHTML = items.map(x=>{
       const def = x.type==='time' ? `${x.defDur}<small>Sek.</small>` : `${x.defReps}<small>Wdh.</small>`;
       const tags = (x.muscle||[]).map(m=>`<span class="pi-tag">${esc(MUSCLE_LABEL[m]||m)}</span>`).join('');
-      return `<button class="picker-item" data-pickid="${esc(x.id)}">
+      return `<div class="picker-item" style="cursor:default">
         <div class="pi-info">
           <div class="pi-nm">${esc(x.name)}</div>
           <div class="pi-de">${esc(x.de||'')}</div>
           <div class="pi-tags">${tags}</div>
+          <a class="yt-btn" href="${ytUrl(x.name)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${svg('play')} YouTube</a>
         </div>
-        <div class="pi-def">${def}</div>
-      </button>`;
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+          <div class="pi-def">${def}</div>
+          <button class="btn btn-primary btn-sm" data-pickid="${esc(x.id)}">Wählen</button>
+        </div>
+      </div>`;
     }).join('');
     $$('#pick-list [data-pickid]').forEach(b=>b.addEventListener('click',()=>{
       const x=libGet(b.dataset.pickid); if(!x) return;
@@ -2075,6 +2343,181 @@ function fireReminder(){
   scheduleNextReminder();
 }
 
+/* ========================= CHALLENGES RENDER ========================= */
+function getChallengeState(chId){ return DB.challenges[chId]||null; }
+function startChallenge(chId){
+  const ch = CHALLENGES.find(x=>x.id===chId); if(!ch) return;
+  DB.challenges[chId] = { startDate:Date.now(), dayLogs:{}, completedAt:0 };
+  save(); toast('Challenge gestartet: '+ch.name); renderChallenges();
+}
+function cancelChallenge(chId){
+  confirmSheet('Challenge abbrechen?','Der Fortschritt geht verloren.','Abbrechen',()=>{
+    delete DB.challenges[chId]; save(); renderChallenges(); toast('Challenge abgebrochen');
+  });
+}
+function challengeDay(chId){
+  const st = getChallengeState(chId); if(!st) return 0;
+  return Math.floor((Date.now()-st.startDate)/86400000)+1;
+}
+function logChallengeDay(chId){
+  const ch = CHALLENGES.find(x=>x.id===chId);
+  const st = getChallengeState(chId); if(!ch||!st) return;
+  const day = challengeDay(chId);
+  const targetRepsToday = ch.dailyReps ? ch.dailyReps[Math.min(day-1, ch.dailyReps.length-1)] : (ch.target||10);
+  const unit = ch.isTime ? 'Sek.' : 'Wdh.';
+  const body = `<p style="color:var(--muted);font-weight:600;margin:2px 0 10px">Tag <b>${day}</b> von ${ch.durationDays} – wie viele hast du geschafft?</p>
+    <p style="color:var(--muted2);font-size:12px;font-weight:700;margin-bottom:14px">Vorschlag heute: <b style="color:var(--accent)">${targetRepsToday} ${unit}</b></p>
+    <div class="field"><label>Deine Leistung</label><input class="input" id="chal-val" type="number" inputmode="numeric" min="0" value="${targetRepsToday}" style="text-align:center;font-size:22px;font-family:var(--font-d)"></div>
+    <button class="btn btn-primary btn-block btn-lg" id="chal-save">${svg('check')} Eintragen</button>
+    <div style="height:8px"></div>
+    <button class="btn btn-ghost btn-block" id="chal-cancel">Abbrechen</button>`;
+  openSheet(ch.emoji+' '+ch.name, body);
+  $('#chal-save').addEventListener('click',()=>{
+    const val = clampInt($('#chal-val').value,0,9999,0);
+    st.dayLogs[day] = { reps:val, date:Date.now() };
+    /* Check completion */
+    if(ch.aggregate){
+      const total = Object.values(st.dayLogs).reduce((a,l)=>a+(l.reps||0),0);
+      if(total >= ch.target){ st.completedAt = Date.now(); toast('🏆 Challenge gemeistert!'); }
+    } else if(day >= ch.durationDays){
+      st.completedAt = Date.now(); toast('🏆 Challenge komplett!');
+    }
+    save(); closeSheet(); renderChallenges();
+  });
+  $('#chal-cancel').addEventListener('click', closeSheet);
+}
+function renderChallenges(){
+  $('#chal-back-ic').innerHTML=svg('left');
+  const m=$('#chal-main'); if(!m) return;
+  const active = CHALLENGES.filter(c => DB.challenges[c.id] && !DB.challenges[c.id].completedAt);
+  const available = CHALLENGES.filter(c => !DB.challenges[c.id]);
+  const done = CHALLENGES.filter(c => DB.challenges[c.id] && DB.challenges[c.id].completedAt);
+  const renderCard = (ch)=>{
+    const st = DB.challenges[ch.id];
+    const day = st ? challengeDay(ch.id) : 0;
+    const isDone = st && st.completedAt;
+    let progress = 0;
+    let statsHTML = '';
+    let actionsHTML = '';
+    if(!st){
+      actionsHTML = `<div class="chal-actions"><button class="start" data-cstart="${ch.id}">${svgFill('play')} Challenge starten</button></div>`;
+    } else if(isDone){
+      progress = 100;
+      statsHTML = `<div class="chal-done">🎉 Challenge komplett am ${new Date(st.completedAt).toLocaleDateString('de-DE')}</div>`;
+    } else {
+      const totalLogged = Object.keys(st.dayLogs||{}).length;
+      if(ch.aggregate){
+        const sum = Object.values(st.dayLogs).reduce((a,l)=>a+(l.reps||0),0);
+        progress = Math.min(100, Math.round(sum/ch.target*100));
+        statsHTML = `<div class="chal-stats"><span>Tag <b>${Math.min(day,ch.durationDays)}</b> / ${ch.durationDays}</span><span><b>${sum}</b> / ${ch.target} gesamt</span></div>`;
+      } else {
+        progress = Math.min(100, Math.round(totalLogged/ch.durationDays*100));
+        statsHTML = `<div class="chal-stats"><span>Tag <b>${Math.min(day,ch.durationDays)}</b> / ${ch.durationDays}</span><span><b>${totalLogged}</b> Einträge</span></div>`;
+      }
+      const alreadyToday = !!st.dayLogs[day];
+      actionsHTML = `<div class="chal-actions">
+        ${alreadyToday ? `<button class="active" disabled>${svg('check')} Heute erledigt</button>` : `<button class="log" data-clog="${ch.id}">${svg('plus')} Heute eintragen</button>`}
+        <button class="cancel" data-ccancel="${ch.id}">${svg('close')} Abbrechen</button>
+      </div>`;
+    }
+    return `<div class="chal-card">
+      <div class="chal-head">
+        <div class="chal-emoji">${ch.emoji}</div>
+        <div class="chal-info">
+          <div class="chal-nm">${esc(ch.name)}</div>
+          <div class="chal-desc">${esc(ch.desc)}</div>
+        </div>
+      </div>
+      <div class="chal-progress"><i style="width:${progress}%"></i></div>
+      ${statsHTML}
+      ${actionsHTML}
+    </div>`;
+  };
+  let html = '';
+  if(active.length){ html += '<div class="section-label">🔥 Aktive Challenges</div>'+active.map(renderCard).join(''); }
+  if(available.length){ html += '<div class="section-label" style="margin-top:20px">🎯 Verfügbare Challenges</div>'+available.map(renderCard).join(''); }
+  if(done.length){ html += '<div class="section-label" style="margin-top:20px">🏆 Gemeistert</div>'+done.map(renderCard).join(''); }
+  m.innerHTML = html || `<div class="empty">${svg('target')}<h3>Keine Challenges</h3></div>`;
+  $$('#chal-main [data-cstart]').forEach(b=>b.addEventListener('click',()=>startChallenge(b.dataset.cstart)));
+  $$('#chal-main [data-clog]').forEach(b=>b.addEventListener('click',()=>logChallengeDay(b.dataset.clog)));
+  $$('#chal-main [data-ccancel]').forEach(b=>b.addEventListener('click',()=>cancelChallenge(b.dataset.ccancel)));
+}
+/* ========================= PARK FINDER ========================= */
+let _parksCache = null;
+async function renderParks(){
+  $('#parks-back-ic').innerHTML=svg('left');
+  const m=$('#parks-main'); if(!m) return;
+  m.innerHTML = `<div class="section-label">🗺️ Calisthenics-Parks & Outdoor-Gyms in deiner Nähe</div>
+    <div id="parks-status" style="text-align:center;padding:30px 20px;color:var(--muted)">
+      ${svg('target')} <p style="margin-top:12px">Standort wird ermittelt...</p>
+    </div>`;
+  if(!navigator.geolocation){
+    $('#parks-status').innerHTML = `<div class="empty">${svg('eyeoff')}<h3>Geolocation nicht verfügbar</h3><p>Dein Browser unterstützt die Standortabfrage nicht.</p></div>`;
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    const lat = pos.coords.latitude, lng = pos.coords.longitude;
+    $('#parks-status').innerHTML = `<p style="color:var(--muted)">Suche im Umkreis von 15 km...</p>`;
+    try{
+      /* Overpass API: fitness_station + outdoor gyms + playgrounds with pull-up bars */
+      const radius = 15000; /* 15 km */
+      const query = `[out:json][timeout:20];(
+        node["leisure"="fitness_station"](around:${radius},${lat},${lng});
+        way["leisure"="fitness_station"](around:${radius},${lat},${lng});
+        node["sport"="calisthenics"](around:${radius},${lat},${lng});
+        way["sport"="calisthenics"](around:${radius},${lat},${lng});
+        node["leisure"="outdoor_fitness"](around:${radius},${lat},${lng});
+      );out center;`;
+      const res = await fetch('https://overpass-api.de/api/interpreter', {
+        method:'POST',
+        body:'data='+encodeURIComponent(query)
+      });
+      const data = await res.json();
+      const parks = (data.elements||[]).map(el=>{
+        const plat = el.lat || (el.center && el.center.lat);
+        const plng = el.lon || (el.center && el.center.lon);
+        if(plat==null||plng==null) return null;
+        const name = (el.tags && (el.tags.name || el.tags['name:de'])) || 'Fitness-Station';
+        const type = (el.tags && el.tags.sport) || (el.tags && el.tags.leisure) || '';
+        const d = haversine(lat,lng,plat,plng);
+        return { name, type, lat:plat, lng:plng, dist:d, id:el.id };
+      }).filter(Boolean).sort((a,b)=>a.dist-b.dist).slice(0,30);
+      if(!parks.length){
+        $('#parks-status').innerHTML = `<div class="empty">${svg('eyeoff')}<h3>Keine Spots gefunden</h3><p>Im Umkreis von 15 km wurden keine öffentlichen Fitness-Stationen gefunden. Trage neue Spots auf <a href="https://www.openstreetmap.org" target="_blank" style="color:var(--accent)">OpenStreetMap</a> ein!</p></div>`;
+        return;
+      }
+      const listHTML = parks.map(p=>{
+        const distStr = p.dist<1 ? Math.round(p.dist*1000)+' m' : p.dist.toFixed(1)+' km';
+        const mapUrl = `https://www.openstreetmap.org/?mlat=${p.lat}&mlon=${p.lng}#map=18/${p.lat}/${p.lng}`;
+        const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}`;
+        return `<div class="park-item">
+          <div class="park-ic">${svg('target')}</div>
+          <div class="park-info">
+            <div class="park-nm">${esc(p.name)}</div>
+            <div class="park-sub">${esc(p.type||'Fitness-Station')} · ${distStr}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;flex:none">
+            <a class="park-btn" href="${navUrl}" target="_blank" rel="noopener">${svg('right')} Route</a>
+            <a class="park-btn" href="${mapUrl}" target="_blank" rel="noopener">${svg('list')} Karte</a>
+          </div>
+        </div>`;
+      }).join('');
+      $('#parks-status').style.display='none';
+      m.insertAdjacentHTML('beforeend', `<div class="section-label" style="margin-top:8px">📍 ${parks.length} Spots im Umkreis von 15 km</div><div class="park-list">${listHTML}</div>
+        <div class="hint" style="text-align:center;margin-top:16px">Daten von <a href="https://www.openstreetmap.org" target="_blank" style="color:var(--accent)">OpenStreetMap</a>. Fehlt ein Spot? Trage ihn dort ein.</div>`);
+    }catch(err){
+      $('#parks-status').innerHTML = `<div class="empty">${svg('eyeoff')}<h3>Suche fehlgeschlagen</h3><p>${esc(err.message||'Netzwerkfehler')}</p><button class="btn btn-primary btn-sm" onclick="location.reload()">Neu laden</button></div>`;
+    }
+  }, err=>{
+    $('#parks-status').innerHTML = `<div class="empty">${svg('eyeoff')}<h3>Standort verweigert</h3><p>Bitte erlaube den Zugriff auf deinen Standort, um Parks in der Nähe zu finden.</p></div>`;
+  }, {timeout:10000, maximumAge:600000});
+}
+function haversine(lat1,lon1,lat2,lon2){
+  const R=6371, toRad=x=>x*Math.PI/180;
+  const dLat=toRad(lat2-lat1), dLon=toRad(lon2-lon1);
+  const a=Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+  return 2*R*Math.asin(Math.sqrt(a));
+}
 /* ========================= ROUTER ========================= */
 let currentView='home';
 function show(view, push=true){
@@ -2087,6 +2530,8 @@ function show(view, push=true){
   if(view==='settings') renderSettings();
   if(view==='stats') renderStats();
   if(view==='skills') renderSkills();
+  if(view==='challenges') renderChallenges();
+  if(view==='parks') renderParks();
   window.scrollTo(0,0);
   if(push){ try{ history.pushState({view},''); }catch(e){} }
   // status bar color
@@ -2108,7 +2553,6 @@ function planCardHTML(p){
   const est=Math.round(estimate(p)/60);
   const restLabel = p.restBetweenExercises+'s / '+fmt(p.restBetweenCycles);
   const fav=isFavorite(p.id);
-  /* Effektive Farbe: Plan-eigene Farbe > Standardfarbe aus Einstellungen > Akzent */
   const dfl=DB.settings.defaultPlanColor||'none';
   const effColor = p.color || (dfl!=='none' ? dfl : null);
   return `<article class="plan-card" data-id="${esc(p.id)}"${effColor?' data-color="'+esc(effColor)+'"':''}>
@@ -2144,7 +2588,10 @@ function renderHome(){
   $('#btn-settings').innerHTML = svg('gear');
   const b1=$('#btn-stats'); if(b1) b1.innerHTML=svg('chart')+' Statistik';
   const b2=$('#btn-skills'); if(b2) b2.innerHTML=svg('target')+' Skills';
+  const b3=$('#btn-challenges'); if(b3) b3.innerHTML=svg('trophy')+' Challenges';
+  const b4=$('#btn-parks'); if(b4) b4.innerHTML=svg('target')+' Parks';
   renderResumeBanner();
+  renderDeloadBanner();
   renderStreakBanner();
   renderGoalCard();
   const ph=$('#progr-host'); if(ph) renderProgressionCards(ph);
@@ -2194,12 +2641,30 @@ function renderStreakBanner(){
   if(!s.current && !s.best){ el.style.display='none'; return; }
   el.style.display='';
   const week=s.current===1?'Woche':'Wochen';
+  const tokens = (DB.streakFreeze && DB.streakFreeze.tokens) || 0;
+  const freezeBadge = tokens>0 ? `<div class="freeze-badge">${svg('droplet')} ${tokens} Streak-Joker</div>` : '';
   el.innerHTML=`<div class="streak-flame">${svg('flame')}</div>
     <div class="streak-info">
       <div class="streak-nm">${s.current} ${week} in Serie</div>
       <div class="streak-sub">${s.current>0?'🔥 Weiter so!':'Starte diese Woche eine neue Serie'}</div>
+      ${freezeBadge}
     </div>
     <div class="streak-best">Bestwert<b>${s.best}</b></div>`;
+}
+function renderDeloadBanner(){
+  const el=$('#deload-banner'); if(!el) return;
+  const d=needsDeload();
+  if(!d){ el.style.display='none'; return; }
+  el.style.display='';
+  el.innerHTML=`<div class="deload-ic">${svg('droplet')}</div>
+    <div class="deload-info">
+      <div class="deload-nm">🧘 Deload empfohlen</div>
+      <div class="deload-sub">${esc(d.reason)} ${esc(d.tip)}</div>
+    </div>
+    <button class="deload-x" id="deload-dismiss" aria-label="Ausblenden">${svg('close')}</button>`;
+  $('#deload-dismiss').addEventListener('click',()=>{
+    DB.deloadDismissedAt = Date.now(); save(); el.style.display='none';
+  });
 }
 function renderGoalCard(){
   const el=$('#goal-card'); if(!el) return;
@@ -2574,7 +3039,7 @@ function renderStep(){
       adjust.style.display='none';
       primary.classList.remove('paused');
       primary.innerHTML= W.paused? svgFill('play')+' Weiter' : svgFill('pause')+' Pause';
-      hintEl.innerHTML='<button class="wk-alt-btn" id="wk-alt-btn">'+svg('swap')+' Alternative Übung</button>';
+      hintEl.innerHTML='<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button class="wk-alt-btn" id="wk-alt-btn">'+svg('swap')+' Alternative Übung</button><a class="yt-btn-workout" href="'+ytUrl(e.name)+'" target="_blank" rel="noopener">'+svg('play')+' Auf YouTube</a></div>';
     } else {
       bigEl.textContent=e.reps;
       unitEl.textContent='Wiederholungen';
@@ -2595,7 +3060,10 @@ function renderStep(){
           + '</div>'
           + '<span class="tap-hint">'+svg('check')+' Tippe auf den Kreis, wenn du fertig bist</span>'
           + '<div class="long-hint">Langes Drücken für Übersicht</div>'
-          + '<button class="wk-alt-btn" id="wk-alt-btn">'+svg('swap')+' Alternative Übung</button>'
+          + '<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">'
+          +   '<button class="wk-alt-btn" id="wk-alt-btn">'+svg('swap')+' Alternative</button>'
+          +   '<a class="yt-btn-workout" href="'+ytUrl(e.name)+'" target="_blank" rel="noopener">'+svg('play')+' YouTube</a>'
+          + '</div>'
           + '</div>';
         /* Superset badge */
         if(e.supersetLink){
@@ -3003,7 +3471,7 @@ function renderSettings(){
           <button data-theme-opt="dark" class="${s.theme==='dark'?'on':''}">Dunkel</button>
           <button data-theme-opt="light" class="${s.theme==='light'?'on':''}">Hell</button>
         </div></div>
-      <div class="set-row accent-row"><div class="grow"><div class="st-title">Akzentfarbe</div><div class="st-sub">Persönlicher Farbtouch</div></div>
+      <div class="set-row"><div class="grow"><div class="st-title">Akzentfarbe</div><div class="st-sub">Persönlicher Farbtouch</div></div>
         <div class="theme-accent-row" id="accent-picker">
           <div class="theme-accent ${s.accent==='green'?'on':''}"  data-a="green"></div>
           <div class="theme-accent ${s.accent==='orange'?'on':''}" data-a="orange"></div>
@@ -3020,6 +3488,12 @@ function renderSettings(){
             return `<div class="color-swatch ${sel?'on':''}" data-c="${c}" data-defcol="${c}">${c==='none'?'×':''}</div>`;
           }).join('')}
         </div>
+      </div>
+    </div>
+    <div class="set-note">Körpergewicht (für Krafttrainings-Äquivalente)</div>
+    <div class="set-group">
+      <div class="set-row"><div class="grow"><div class="st-title">Dein Körpergewicht</div><div class="st-sub">Basis für 1RM-Berechnungen in der Statistik</div></div>
+        <div class="mini-input" style="width:100px"><input class="input" id="set-bw" type="number" inputmode="decimal" min="30" max="200" value="${s.bodyWeightKg||75}"><small style="display:block;text-align:center;color:var(--muted2);font-size:10px;font-weight:700;margin-top:2px">kg</small></div>
       </div>
     </div>
     <div class="set-note">Erinnerungen</div>
@@ -3081,9 +3555,9 @@ function renderSettings(){
   $$('#theme-seg [data-theme-opt]').forEach(b=> b.addEventListener('click',()=>{ setTheme(b.dataset.themeOpt); renderSettings(); }));
   $$('#accent-picker [data-a]').forEach(b=> b.addEventListener('click',()=>{ DB.settings.accent=b.dataset.a; document.body.dataset.accent=b.dataset.a; save(); renderSettings(); toast('Akzentfarbe geändert'); }));
   $$('#def-plan-color [data-defcol]').forEach(el=>el.addEventListener('click',()=>{
-    DB.settings.defaultPlanColor = el.dataset.defcol;
-    save(); renderSettings(); toast('Standardfarbe gespeichert');
+    DB.settings.defaultPlanColor = el.dataset.defcol; save(); renderSettings(); toast('Standardfarbe gespeichert');
   }));
+  const bw=$('#set-bw'); if(bw) bw.addEventListener('change',()=>{ DB.settings.bodyWeightKg=Math.max(30,Math.min(200,+bw.value||75)); save(); });
   const rt=$('#set-remtime'); if(rt) rt.addEventListener('change',()=>{ s.reminderTime=rt.value||'18:00'; save(); scheduleNextReminder(); });
   $$('#days-picker [data-remday]').forEach(b=> b.addEventListener('click',()=>{
     const day=+b.dataset.remday;
@@ -3639,6 +4113,8 @@ function init(){
   document.body.dataset.theme=DB.settings.theme||'dark';
   document.body.dataset.accent=DB.settings.accent||'green';
   document.body.dataset.compact=DB.settings.compact?'1':'';
+  grantMonthlyFreeze();
+  autoConsumeFreeze();
   const m=document.querySelector('meta[name=theme-color]'); if(m) m.setAttribute('content', DB.settings.theme==='light'?'#eef1f5':'#0B0E13');
   history.replaceState({view:'auth'},'');
   show('auth',false);
