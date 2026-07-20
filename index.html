@@ -609,10 +609,13 @@ input,select,textarea{font-family:inherit;font-size:16px}
 #settings-main .rpe-btn.on,
 #settings-main .sync-pill.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .section-label{color:color-mix(in srgb,var(--accent) 45%,var(--muted2))}
-.brand-title{color:var(--chalk)}
 .brand-sub{color:color-mix(in srgb,var(--accent) 40%,var(--muted))}
 .wk-round{color:var(--accent)}
 .hist-ic{color:var(--accent)}
+/* Akzentfarben-Row: nicht in eine Zeile pressen -> untereinander stellen,
+   damit der Text „Persönlicher Farbtouch" nicht abgeschnitten wird */
+#settings-main .set-row.accent-row{flex-direction:column;align-items:stretch;gap:12px}
+#settings-main .set-row.accent-row .theme-accent-row{display:flex;flex-wrap:wrap;gap:10px}
 
 /* Compact plan cards */
 body[data-compact="1"] .plan-list{gap:8px}
@@ -3000,7 +3003,7 @@ function renderSettings(){
           <button data-theme-opt="dark" class="${s.theme==='dark'?'on':''}">Dunkel</button>
           <button data-theme-opt="light" class="${s.theme==='light'?'on':''}">Hell</button>
         </div></div>
-      <div class="set-row"><div class="grow"><div class="st-title">Akzentfarbe</div><div class="st-sub">Persönlicher Farbtouch</div></div>
+      <div class="set-row accent-row"><div class="grow"><div class="st-title">Akzentfarbe</div><div class="st-sub">Persönlicher Farbtouch</div></div>
         <div class="theme-accent-row" id="accent-picker">
           <div class="theme-accent ${s.accent==='green'?'on':''}"  data-a="green"></div>
           <div class="theme-accent ${s.accent==='orange'?'on':''}" data-a="orange"></div>
@@ -3009,13 +3012,15 @@ function renderSettings(){
           <div class="theme-accent ${s.accent==='pink'?'on':''}"   data-a="pink"></div>
         </div></div>
       ${switchRow('compact','Kompakter Modus','Kleinere Plan-Karten in der Übersicht',s.compact)}
-      <div class="set-row"><div class="grow"><div class="st-title">Standardfarbe für alle Pläne</div><div class="st-sub">Gilt für Pläne ohne eigene Farbmarkierung</div></div></div>
-      <div class="set-row"><div class="color-picker" id="def-plan-color" style="width:100%">
-        ${['none','red','orange','yellow','green','blue','purple','pink'].map(c=>{
-          const sel=(s.defaultPlanColor||'none')===c;
-          return `<div class="color-swatch ${sel?'on':''}" data-defcol="${c}">${c==='none'?'×':''}</div>`;
-        }).join('')}
-      </div></div>
+      <div class="set-row" style="flex-direction:column;align-items:stretch;gap:12px">
+        <div><div class="st-title">Standardfarbe für alle Pläne</div><div class="st-sub">Gilt für Pläne ohne eigene Farbmarkierung</div></div>
+        <div class="color-picker" id="def-plan-color">
+          ${['none','red','orange','yellow','green','blue','purple','pink'].map(c=>{
+            const sel=(s.defaultPlanColor||'none')===c;
+            return `<div class="color-swatch ${sel?'on':''}" data-c="${c}" data-defcol="${c}">${c==='none'?'×':''}</div>`;
+          }).join('')}
+        </div>
+      </div>
     </div>
     <div class="set-note">Erinnerungen</div>
     <div class="set-group">
