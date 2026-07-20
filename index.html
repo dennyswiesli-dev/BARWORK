@@ -507,6 +507,21 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .hist-detail-ex .vals small{display:block;font-family:var(--font-b);font-size:10px;font-weight:700;color:var(--muted2);letter-spacing:1px;text-align:right}
 
 
+/* ============ V3.3 ============ */
+.resume-banner{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--rest) 25%,var(--panel)),var(--panel));
+  border:1px solid color-mix(in srgb,var(--rest) 45%,var(--line));border-radius:18px;padding:14px 16px;margin:8px 0 4px;position:relative}
+.resume-ic{width:44px;height:44px;flex:none;border-radius:12px;background:var(--rest);color:var(--rest-ink);display:grid;place-items:center}
+.resume-ic svg{width:22px;height:22px}
+.resume-info{flex:1;min-width:0}
+.resume-nm{font-family:var(--font-d);font-size:18px;letter-spacing:.5px;line-height:1.1}
+.resume-sub{color:var(--muted);font-size:12.5px;font-weight:700;margin-top:3px}
+.resume-actions{display:flex;gap:8px;flex:none}
+.resume-actions button{padding:9px 12px;border-radius:11px;font-weight:800;font-size:12.5px}
+.resume-actions .rb-go{background:var(--rest);color:var(--rest-ink)}
+.resume-actions .rb-x{background:var(--panel2);color:var(--muted);border:1px solid var(--line);width:38px;padding:9px 0}
+.resume-actions .rb-x svg{width:16px;height:16px}
+@media(max-width:400px){.resume-banner{flex-wrap:wrap}.resume-actions{width:100%;margin-top:4px}.resume-actions .rb-go{flex:1}}
+
 /* ============ V3.2 ============ */
 .picker-search{position:sticky;top:0;background:var(--panel);z-index:2;padding:8px 0 10px;margin:-4px 0 6px}
 .picker-search input{width:100%}
@@ -652,6 +667,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
     </header>
     <main class="home-main">
       <div id="install-banner" style="display:none"></div>
+      <div id="resume-banner" class="resume-banner" style="display:none"></div>
       <div id="streak-banner" class="streak-banner" style="display:none"></div>
       <div id="goal-card" class="goal-card" style="display:none"></div>
       <div id="progr-host"></div>
@@ -911,7 +927,7 @@ function svgFill(name){return '<svg viewBox="0 0 24 24" fill="currentColor" stro
 /* ========================= BUILT-IN PLANS ========================= */
 const BUILTINS = [
   {
-    id:'b-basic-beginner', builtin:true, name:'Basic Beginner', author:'Madbarz.com',
+    id:'b-basic-beginner', builtin:true, name:'Basic Beginner', author:'BARWORK Community',
     level:'Beginner', cycles:4, restBetweenExercises:30, restBetweenCycles:300,
     note:'4 Zyklen · 5 Min. Pause zwischen den Runden · 30 Sek. zwischen den Übungen.',
     exercises:[
@@ -925,7 +941,7 @@ const BUILTINS = [
     ]
   },
   {
-    id:'b-fullbody-7r', builtin:true, name:'Full Body Routine 7R', author:'Madbarz.com',
+    id:'b-fullbody-7r', builtin:true, name:'Full Body Routine 7R', author:'BARWORK Community',
     level:'Medium', cycles:4, restBetweenExercises:45, restBetweenCycles:120,
     note:'4 Zyklen · 2 Min. Pause zwischen den Runden · 45 Sek. zwischen den Übungen.',
     exercises:[
@@ -955,7 +971,7 @@ const BUILTINS = [
     ]
   },
   {
-    id:'b-pull-it', builtin:true, name:'Pull It', author:'Madbarz.com',
+    id:'b-pull-it', builtin:true, name:'Pull It', author:'BARWORK Community',
     level:'Medium', cycles:4, restBetweenExercises:30, restBetweenCycles:120,
     note:'4 Zyklen · 2 Min. Pause zwischen den Runden · 30 Sek. zwischen den Übungen.',
     exercises:[
@@ -969,7 +985,7 @@ const BUILTINS = [
     ]
   },
   {
-    id:'b-biceps-triceps', builtin:true, name:'Biceps Triceps', author:'Madbarz.com',
+    id:'b-biceps-triceps', builtin:true, name:'Biceps Triceps', author:'BARWORK Community',
     level:'Medium', cycles:4, restBetweenExercises:30, restBetweenCycles:240,
     note:'4 Zyklen · 4 Min. Pause zwischen den Runden · 30 Sek. zwischen den Übungen.',
     exercises:[
@@ -996,7 +1012,7 @@ const BUILTINS = [
     ]
   },
   {
-    id:'b-home-fullbody', builtin:true, name:'Home Full Body', author:'Madbarz.com',
+    id:'b-home-fullbody', builtin:true, name:'Home Full Body', author:'BARWORK Community',
     level:'Medium', cycles:4, restBetweenExercises:10, restBetweenCycles:120,
     note:'4 Zyklen · 2 Min. Pause zwischen den Runden · minimale Pause zwischen den Übungen.',
     exercises:[
@@ -1027,7 +1043,7 @@ const BUILTINS = [
     ]
   },
   {
-    id:'b-muscleup-hunt', builtin:true, name:'Muscle Up Hunt', author:'Madbarz.com',
+    id:'b-muscleup-hunt', builtin:true, name:'Muscle Up Hunt', author:'BARWORK Community',
     level:'Medium', cycles:3, restBetweenExercises:10, restBetweenCycles:120,
     note:'3 Zyklen · 2 Min. Pause zwischen den Runden · minimale Pause zwischen den Übungen.',
     exercises:[
@@ -1041,7 +1057,7 @@ const BUILTINS = [
     ]
   },
   {
-    id:'b-leg-routine', builtin:true, name:'Leg Routine', author:'Madbarz.com',
+    id:'b-leg-routine', builtin:true, name:'Leg Routine', author:'BARWORK Community',
     level:'Medium', cycles:2, restBetweenExercises:10, restBetweenCycles:300,
     note:'2 Zyklen · 5 Min. Pause nach jeder Runde · minimale Pause zwischen den Übungen.',
     exercises:[
@@ -1055,7 +1071,7 @@ const BUILTINS = [
     ]
   },
   {
-    id:'b-shoulder-routine', builtin:true, name:'Shoulder Routine', author:'Madbarz.com',
+    id:'b-shoulder-routine', builtin:true, name:'Shoulder Routine', author:'BARWORK Community',
     level:'Beginner', cycles:5, restBetweenExercises:45, restBetweenCycles:120,
     note:'5 Zyklen · 2 Min. Pause zwischen den Runden · 45 Sek. zwischen den Übungen.',
     exercises:[
@@ -1081,7 +1097,7 @@ const BUILTINS = [
     ]
   },
   {
-    id:'b-pull-push', builtin:true, name:'Pull - Push', author:'Madbarz.com',
+    id:'b-pull-push', builtin:true, name:'Pull - Push', author:'BARWORK Community',
     level:'Beginner', cycles:5, restBetweenExercises:30, restBetweenCycles:240,
     note:'5 Zyklen · 4 Min. Pause zwischen den Runden · 30 Sek. zwischen den Übungen.',
     exercises:[
@@ -1108,7 +1124,7 @@ const BUILTINS = [
     ]
   },
   {
-    id:'b-insane-cardio', builtin:true, name:'Insane Cardio', author:'Madbarz.com',
+    id:'b-insane-cardio', builtin:true, name:'Insane Cardio', author:'BARWORK Community',
     level:'Advanced', cycles:10, restBetweenExercises:0, restBetweenCycles:30,
     note:'10 Zyklen · 30 Sek. Pause zwischen den Runden · keine Pause zwischen den Übungen.',
     exercises:[
@@ -1734,7 +1750,10 @@ function show(view, push=true){
 }
 window.addEventListener('popstate', e=>{
   const target=(e.state&&e.state.view)||'home';
-  if(currentView==='workout' && target!=='workout'){ teardownWorkout(true); }
+  if(currentView==='workout' && target!=='workout' && W && !W.done){
+    /* Training pausieren statt beenden - Wiederaufnahme möglich */
+    W.paused=true; W.pausedAt=Date.now(); stopLoop(); releaseWake();
+  }
   show(target, false);
 });
 
@@ -1777,10 +1796,49 @@ function renderHome(){
   $('#btn-settings').innerHTML = svg('gear');
   const b1=$('#btn-stats'); if(b1) b1.innerHTML=svg('chart')+' Statistik';
   const b2=$('#btn-skills'); if(b2) b2.innerHTML=svg('target')+' Skills';
+  renderResumeBanner();
   renderStreakBanner();
   renderGoalCard();
   const ph=$('#progr-host'); if(ph) renderProgressionCards(ph);
   renderInstallBanner();
+}
+function renderResumeBanner(){
+  const el=$('#resume-banner'); if(!el) return;
+  if(!W || W.done || !W.plan){ el.style.display='none'; return; }
+  const doneEx=exercisesCompleted();
+  el.style.display='';
+  el.innerHTML=`<div class="resume-ic">${svg('play')}</div>
+    <div class="resume-info">
+      <div class="resume-nm">Training pausiert</div>
+      <div class="resume-sub">${esc(W.plan.name)} · ${doneEx} Übung${doneEx===1?'':'en'} absolviert</div>
+    </div>
+    <div class="resume-actions">
+      <button class="rb-go" id="rb-resume">${svg('play')} Fortsetzen</button>
+      <button class="rb-x"  id="rb-discard" aria-label="Verwerfen">${svg('close')}</button>
+    </div>`;
+  $('#rb-resume').addEventListener('click',()=>{ resumeWorkout(); });
+  $('#rb-discard').addEventListener('click',()=>{
+    confirmSheet('Training verwerfen?','Der bisherige Fortschritt wird als abgebrochen im Verlauf gespeichert.','Verwerfen',()=>{
+      teardownWorkout(true); renderHome();
+    });
+  });
+}
+function resumeWorkout(){
+  if(!W || W.done){ return; }
+  show('workout', true);
+  /* UI wiederherstellen */
+  $('#wk-done').style.display='none';
+  $('#wk-stage').style.display='';
+  $('.wk-controls').style.display='';
+  $('.wk-top').style.display='';
+  $('.progress').style.display='';
+  $('#wk-dots').style.display='';
+  updateSoundBtn();
+  renderDots();
+  requestWake();
+  renderStep();
+  startLoop();
+  W.paused=false;
 }
 function renderStreakBanner(){
   const el=$('#streak-banner'); if(!el) return;
@@ -2027,6 +2085,18 @@ function buildSteps(p){
 }
 function startWorkout(id){
   const p=findPlan(id); if(!p) return;
+  /* Wenn bereits ein pausiertes Training läuft: kurz nachfragen */
+  if(W && !W.done && exercisesCompleted()>0 && W.plan.id!==id){
+    const body=`<p style="color:var(--muted);font-weight:600;margin:2px 0 14px">Du hast noch ein pausiertes Training <b>${esc(W.plan.name)}</b> mit ${exercisesCompleted()} absolvierten Übungen. Was möchtest du tun?</p>
+      <button class="action" id="pw-resume">${svg('play')}<span>Pausiertes Training fortsetzen</span></button>
+      <button class="action" id="pw-new">${svg('bolt')}<span>Neues Training starten (altes verwerfen)</span></button>
+      <button class="action" id="pw-cancel">${svg('close')}<span>Abbrechen</span></button>`;
+    openSheet('Pausiertes Training gefunden', body);
+    $('#pw-resume').addEventListener('click',()=>{ closeSheet(); resumeWorkout(); });
+    $('#pw-new').addEventListener('click',()=>{ closeSheet(); teardownWorkout(true); setTimeout(()=>startWorkout(id), 50); });
+    $('#pw-cancel').addEventListener('click', closeSheet);
+    return;
+  }
   ac(); if(audioCtx&&audioCtx.state==='suspended'){ try{audioCtx.resume();}catch(e){} }
   W={ plan:p, steps:buildSteps(p), idx:0, remaining:0, total:0, paused:false,
       activeMs:0, lastTs:0, lastBeepSec:null, done:false, cyclesTotal:p.cycles,
@@ -2512,7 +2582,7 @@ function renderSettings(){
       <div class="set-row" data-action="import"><div class="grow"><div class="st-title">Daten importieren</div><div class="st-sub">Aus einer Sicherung laden</div></div><span class="set-ic">${svg('copy')}</span></div>
       <div class="set-row" data-action="reset"><div class="grow"><div class="st-title" style="color:var(--danger)">Alles zurücksetzen</div><div class="st-sub">Eigene Pläne, Verlauf & Einstellungen löschen</div></div><span class="set-ic danger">${svg('trash')}</span></div>
     </div>
-    <div class="app-foot">BARWORK v3.2 · Bibliothek · Achievements · Übersicht · Teilen · Progression</div>
+    <div class="app-foot">BARWORK v3.3 · Copyright-freie Pläne · Training fortsetzen</div>
     <input type="file" id="import-file" accept="application/json,.json" style="display:none">
   `;
   // wire switches
