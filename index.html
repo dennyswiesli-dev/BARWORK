@@ -362,6 +362,9 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .hist-r{text-align:right;flex:none}
 .hist-r b{font-family:var(--font-d);font-size:19px;letter-spacing:.5px}
 .hist-r span{display:block;color:var(--muted2);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.hist-del{width:36px;height:36px;flex:none;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--muted2);display:grid;place-items:center;transition:.14s;margin-left:4px}
+.hist-del:hover,.hist-del:active{background:color-mix(in srgb,var(--danger) 15%,var(--panel2));color:var(--danger);border-color:color-mix(in srgb,var(--danger) 35%,transparent)}
+.hist-del svg{width:18px;height:18px}
 
 /* ============ EMPTY / BANNER / TOAST ============ */
 .empty{text-align:center;padding:50px 24px;color:var(--muted)}
@@ -1410,6 +1413,7 @@ function openHistoryDetail(h){
   const d=new Date(h.date);
   const dstr=d.toLocaleDateString('de-DE',{day:'2-digit',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
   const rpeLabel = h.rpe? ({1:'😀 Leicht',2:'🙂 Normal',3:'😵 Hart',4:'☠️ Brutal'}[h.rpe]) : null;
+  const idx = (DB.history||[]).findIndex(x=>x.date===h.date && x.planId===h.planId);
   /* group entries by exercise name */
   const grouped={};
   (h.entries||[]).forEach(en=>{
@@ -1435,8 +1439,15 @@ function openHistoryDetail(h){
     </div>
     <div style="color:var(--muted);font-weight:600;margin-bottom:14px">${esc(dstr)}</div>
     ${exRows ? '<div class="section-label" style="margin-top:0">Übungen</div><div class="hist-detail-exlist">'+exRows+'</div>' : '<div class="empty" style="padding:20px 0">Keine Übungsdetails vorhanden (älteres Training)</div>'}
+    <div style="height:14px"></div>
+    <button class="btn btn-danger btn-block" id="detail-del">${svg('trash')} Dieses Training löschen</button>
   `;
   openSheet(h.planName, body);
+  const delBtn=$('#detail-del');
+  if(delBtn) delBtn.addEventListener('click',()=>{
+    closeSheet();
+    setTimeout(()=>{ if(idx>=0) deleteHistoryEntry(idx); }, 220);
+  });
 }
 
 /* ========================= ROUTER ========================= */
@@ -2115,6 +2126,14 @@ document.addEventListener('visibilitychange',()=>{
 });
 
 /* ========================= HISTORY ========================= */
+function deleteHistoryEntry(idx){
+  const h=DB.history[idx]; if(!h) return;
+  const d=new Date(h.date);
+  const dstr=d.toLocaleDateString('de-DE',{day:'2-digit',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
+  confirmSheet('Training löschen?', h.planName+' vom '+dstr+' wird aus dem Verlauf entfernt.', 'Löschen', ()=>{
+    DB.history.splice(idx,1); save(); renderHistory(); toast('Training gelöscht');
+  });
+}
 function renderHistory(){
   $('#hist-back-ic').innerHTML=svg('left');
   $('#btn-clear-hist').innerHTML=svg('trash');
@@ -2139,11 +2158,17 @@ function renderHistory(){
         <div class="hist-dt">${dstr}${partial?' · abgebrochen':''}${h.rpe?' · '+({1:'😀',2:'🙂',3:'😵',4:'☠️'}[h.rpe]):''}</div>
       </div>
       <div class="hist-r"><b>${fmt(h.durationSec)}</b><span>${h.cyclesCompleted}/${h.cyclesTotal} Runden</span></div>
+      <button class="hist-del" data-histdel="${i}" aria-label="Training löschen">${svg('trash')}</button>
     </div>`;
   }).join('');
   m.innerHTML=toggle + `<div class="section-label">${DB.history.length} Einheiten</div><div class="hist-list">${items}</div>`;
-  $$('#hist-main .hist-item[data-histidx]').forEach(el=>el.addEventListener('click',()=>{
+  $$('#hist-main .hist-item[data-histidx]').forEach(el=>el.addEventListener('click',e=>{
+    if(e.target.closest('[data-histdel]')) return;
     openHistoryDetail(DB.history[+el.dataset.histidx]);
+  }));
+  $$('#hist-main [data-histdel]').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation();
+    deleteHistoryEntry(+b.dataset.histdel);
   }));
   $$('#hist-main [data-histmode]').forEach(b=>b.addEventListener('click',()=>{
     _histMode=b.dataset.histmode; renderHistory();
@@ -2215,7 +2240,7 @@ function renderSettings(){
       <div class="set-row" data-action="import"><div class="grow"><div class="st-title">Daten importieren</div><div class="st-sub">Aus einer Sicherung laden</div></div><span class="set-ic">${svg('copy')}</span></div>
       <div class="set-row" data-action="reset"><div class="grow"><div class="st-title" style="color:var(--danger)">Alles zurücksetzen</div><div class="st-sub">Eigene Pläne, Verlauf & Einstellungen löschen</div></div><span class="set-ic danger">${svg('trash')}</span></div>
     </div>
-    <div class="app-foot">BARWORK v3.0 · Vergleich · Kalender · Sprachansage · Wochenziel · Skills · PRs</div>
+    <div class="app-foot">BARWORK v3.1 · Einzelnes Training löschen · sichere Bestätigung</div>
     <input type="file" id="import-file" accept="application/json,.json" style="display:none">
   `;
   // wire switches
@@ -2327,7 +2352,22 @@ $('#btn-new-plan').addEventListener('click',()=>openEditor(null));
 $('#btn-save-plan').addEventListener('click',savePlan);
 $('#btn-add-ex').addEventListener('click',()=>{ syncEditorFromDom(); editing.exercises.push({name:'',reps:10}); renderExEditor(); });
 $('#btn-reset-plan').addEventListener('click',()=>{ if(editing){ confirmSheet('Zurücksetzen?','Deine Änderungen an diesem Standardplan gehen verloren.','Zurücksetzen',()=>{ resetBuiltin(editing.id); editing=null; show('home'); }); } });
-$('#btn-clear-hist').addEventListener('click',()=>{ if(!DB.history.length){toast('Verlauf ist leer');return;} confirmSheet('Verlauf löschen?','Alle gespeicherten Einheiten werden entfernt.','Löschen',()=>{ DB.history=[]; save(); renderHistory(); toast('Verlauf gelöscht'); }); });
+$('#btn-clear-hist').addEventListener('click',()=>{
+  if(!DB.history.length){ toast('Verlauf ist leer'); return; }
+  const count=DB.history.length;
+  const body=`<p style="color:var(--muted);font-weight:600;margin:2px 0 12px">Du hast <b style="color:var(--danger)">${count}</b> gespeicherte Einheit${count===1?'':'en'}. Diese Aktion kann nicht rückgängig gemacht werden.</p>
+    <p style="color:var(--muted2);font-size:13px;margin-bottom:14px">Zum Bestätigen bitte <b>LÖSCHEN</b> eingeben:</p>
+    <input class="input" id="clear-confirm" placeholder="LÖSCHEN" autocomplete="off" autocapitalize="characters">
+    <div style="height:12px"></div>
+    <button class="btn btn-danger solid btn-block btn-lg" id="clear-yes" disabled>${svg('trash')} Alles löschen</button>
+    <div style="height:10px"></div>
+    <button class="btn btn-ghost btn-block" id="clear-no">Abbrechen</button>`;
+  openSheet('Kompletten Verlauf löschen?', body);
+  const inp=$('#clear-confirm'), yes=$('#clear-yes');
+  inp.addEventListener('input',()=>{ yes.disabled = inp.value.trim().toUpperCase()!=='LÖSCHEN'; });
+  yes.addEventListener('click',()=>{ if(yes.disabled) return; DB.history=[]; save(); renderHistory(); closeSheet(); toast('Verlauf gelöscht'); });
+  $('#clear-no').addEventListener('click',closeSheet);
+});
 
 // editor delegation (exercise rows)
 $('#ex-editor').addEventListener('click',e=>{
