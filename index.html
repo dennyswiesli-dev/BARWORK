@@ -703,138 +703,49 @@ const firebaseConfig = {
 let FB={ ready:false, user:null, auth:null, db:null, googleProvider:null, lastError:'', syncing:false, localMode:false, saveTimer:null };
 let FIRE=null;
 function userLabel(){ return FB.user ? (FB.user.displayName || FB.user.email || 'Eingeloggt') : 'Nicht eingeloggt'; }
-function cloudMsg(){
-  if(FB.lastError) return 'Sync-Fehler';
-  if(FB.user && FB.ready) return 'Cloud-Sync aktiv';
-  if(FB.localMode) return 'Lokaler Modus';
-  return 'Nicht eingeloggt';
-}
-function authStatus(msg, ok){
-  const el=$('#auth-status'); if(!el) return;
-  el.textContent=msg||''; el.style.display=msg?'block':'none'; el.classList.toggle('ok',!!ok);
-}
+function cloudMsg(){ if(FB.lastError) return 'Sync-Fehler'; if(FB.user && FB.ready) return 'Cloud-Sync aktiv'; if(FB.localMode) return 'Lokaler Modus'; return 'Nicht eingeloggt'; }
+function authStatus(msg, ok){ const el=$('#auth-status'); if(!el) return; el.textContent=msg||''; el.style.display=msg?'block':'none'; el.classList.toggle('ok',!!ok); }
 function cleanForCloud(obj){ return JSON.parse(JSON.stringify(obj||{})); }
-function mergeUniqueById(a,b){
-  const m=new Map(); (a||[]).concat(b||[]).forEach(x=>{ if(x&&x.id) m.set(x.id,x); }); return Array.from(m.values());
-}
-function mergeHistory(a,b){
-  const m=new Map(); (a||[]).concat(b||[]).forEach(x=>{
-    if(!x||!x.date) return; const k=[x.date,x.planId,x.durationSec,x.completed].join('|'); if(!m.has(k)) m.set(k,x);
-  });
-  return Array.from(m.values()).sort((x,y)=>(y.date||0)-(x.date||0)).slice(0,200);
-}
-function mergeDb(local, remote){
-  if(!remote) return local;
-  const l=structuredClone(local||DEFAULTS), r=structuredClone(remote||{});
-  return {
-    customPlans: mergeUniqueById(l.customPlans, r.customPlans),
-    overrides: Object.assign({}, r.overrides||{}, l.overrides||{}),
-    hidden: Array.from(new Set([...(r.hidden||[]),...(l.hidden||[])])),
-    history: mergeHistory(l.history, r.history),
-    flags: Object.assign({}, DEFAULTS.flags, r.flags||{}, l.flags||{}),
-    settings: Object.assign({}, DEFAULTS.settings, r.settings||{}, l.settings||{})
-  };
-}
+function mergeUniqueById(a,b){ const m=new Map(); (a||[]).concat(b||[]).forEach(x=>{ if(x&&x.id) m.set(x.id,x); }); return Array.from(m.values()); }
+function mergeHistory(a,b){ const m=new Map(); (a||[]).concat(b||[]).forEach(x=>{ if(!x||!x.date) return; const k=[x.date,x.planId,x.durationSec,x.completed].join('|'); if(!m.has(k)) m.set(k,x); }); return Array.from(m.values()).sort((x,y)=>(y.date||0)-(x.date||0)).slice(0,200); }
+function mergeDb(local, remote){ if(!remote) return local; const l=structuredClone(local||DEFAULTS), r=structuredClone(remote||{}); return { customPlans: mergeUniqueById(l.customPlans,r.customPlans), overrides:Object.assign({},r.overrides||{},l.overrides||{}), hidden:Array.from(new Set([...(r.hidden||[]),...(l.hidden||[])])), history:mergeHistory(l.history,r.history), flags:Object.assign({},DEFAULTS.flags,r.flags||{},l.flags||{}), settings:Object.assign({},DEFAULTS.settings,r.settings||{},l.settings||{}) }; }
 async function initFirebase(){
   try{
-    const appMod = await import('https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js');
-    const authMod = await import('https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js');
-    const fsMod = await import('https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js');
+    const appMod=await import('https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js');
+    const authMod=await import('https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js');
+    const fsMod=await import('https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js');
     FIRE={...appMod,...authMod,...fsMod};
     const app=FIRE.initializeApp(firebaseConfig);
     FB.auth=FIRE.getAuth(app); FB.db=FIRE.getFirestore(app);
     FB.googleProvider=new FIRE.GoogleAuthProvider();
     FB.googleProvider.setCustomParameters({ prompt:'select_account' });
     FB.ready=true;
-    try{ await FIRE.getRedirectResult(FB.auth); }catch(redirErr){ FB.lastError=redirErr.message||String(redirErr); authStatus(firebaseErrorText(redirErr), false); }
-    FIRE.onAuthStateChanged(FB.auth, async (user)=>{
-      FB.user=user; if(user) FB.lastError='';
-      if(user){ await loadCloudDb(); show('home', true); toast('Eingeloggt: '+userLabel()); }
-      else if(!FB.localMode){ show('auth', false); renderAuth(); }
-      renderSettings();
-    });
-  }catch(err){
-    FB.lastError=err.message||String(err);
-    authStatus('Firebase konnte nicht geladen werden. Du kannst lokal weitertrainieren.', false);
-    renderAuth();
-  }
+    FIRE.onAuthStateChanged(FB.auth, async (user)=>{ FB.user=user; if(user) FB.lastError=''; if(user){ await loadCloudDb(); show('home',true); toast('Eingeloggt: '+userLabel()); } else if(!FB.localMode){ show('auth',false); renderAuth(); } renderSettings(); });
+  }catch(err){ FB.lastError=err.message||String(err); authStatus('Firebase konnte nicht geladen werden. Du kannst lokal weitertrainieren.',false); renderAuth(); }
 }
 function userDocRef(){ return FIRE.doc(FB.db,'users',FB.user.uid,'barwork','state'); }
-async function loadCloudDb(){
-  if(!FB.ready || !FB.user) return;
-  try{
-    const snap=await FIRE.getDoc(userDocRef());
-    if(snap.exists()){
-      DB=mergeDb(DB, snap.data().db);
-      try{ localStorage.setItem(KEY, JSON.stringify(DB)); }catch(e){}
-    }
-    await cloudSaveNow(true);
-  }catch(err){ FB.lastError=err.message||String(err); toast('Cloud-Sync fehlgeschlagen'); }
-}
-function cloudScheduleSave(){
-  if(!FB.ready || !FB.user || FB.syncing) return;
-  clearTimeout(FB.saveTimer);
-  FB.saveTimer=setTimeout(()=>cloudSaveNow(false),900);
-}
-async function cloudSaveNow(silent){
-  if(!FB.ready || !FB.user) return;
-  FB.syncing=true; FB.lastError=''; renderSettings();
-  try{
-    await FIRE.setDoc(userDocRef(), { db: cleanForCloud(DB), updatedAt: FIRE.serverTimestamp(), app:'BARWORK' }, { merge:true });
-    if(!silent) toast('Fortschritt synchronisiert');
-  }catch(err){ FB.lastError=err.message||String(err); if(!silent) toast('Cloud-Sync fehlgeschlagen'); }
-  finally{ FB.syncing=false; renderSettings(); }
-}
-async function doAuth(mode){
-  if(!FB.ready){ authStatus('Firebase ist noch nicht bereit. Bitte kurz warten.', false); return; }
-  const email=$('#auth-email').value.trim(); const pass=$('#auth-pass').value;
-  if(!email || !pass){ authStatus('Bitte E-Mail und Passwort eingeben.', false); return; }
-  if(pass.length<6){ authStatus('Das Passwort muss mindestens 6 Zeichen haben.', false); return; }
-  authStatus(mode==='register'?'Konto wird erstellt...':'Login läuft...', true);
-  try{
-    if(mode==='register') await FIRE.createUserWithEmailAndPassword(FB.auth,email,pass);
-    else await FIRE.signInWithEmailAndPassword(FB.auth,email,pass);
-    FB.localMode=false; authStatus('', true);
-  }catch(err){ authStatus(firebaseErrorText(err), false); }
-}
+async function loadCloudDb(){ if(!FB.ready||!FB.user) return; try{ const snap=await FIRE.getDoc(userDocRef()); if(snap.exists()){ DB=mergeDb(DB,snap.data().db); try{ localStorage.setItem(KEY,JSON.stringify(DB)); }catch(e){} } await cloudSaveNow(true); }catch(err){ FB.lastError=err.message||String(err); toast('Cloud-Sync fehlgeschlagen'); } }
+function cloudScheduleSave(){ if(!FB.ready||!FB.user||FB.syncing) return; clearTimeout(FB.saveTimer); FB.saveTimer=setTimeout(()=>cloudSaveNow(false),900); }
+async function cloudSaveNow(silent){ if(!FB.ready||!FB.user) return; FB.syncing=true; FB.lastError=''; renderSettings(); try{ await FIRE.setDoc(userDocRef(), { db:cleanForCloud(DB), updatedAt:FIRE.serverTimestamp(), app:'BARWORK' }, { merge:true }); if(!silent) toast('Fortschritt synchronisiert'); }catch(err){ FB.lastError=err.message||String(err); if(!silent) toast('Cloud-Sync fehlgeschlagen'); } finally{ FB.syncing=false; renderSettings(); } }
+async function doAuth(mode){ if(!FB.ready){ authStatus('Firebase ist noch nicht bereit. Bitte kurz warten.',false); return; } const email=$('#auth-email').value.trim(); const pass=$('#auth-pass').value; if(!email||!pass){ authStatus('Bitte E-Mail und Passwort eingeben.',false); return; } if(pass.length<6){ authStatus('Das Passwort muss mindestens 6 Zeichen haben.',false); return; } authStatus(mode==='register'?'Konto wird erstellt...':'Login läuft...',true); try{ if(mode==='register') await FIRE.createUserWithEmailAndPassword(FB.auth,email,pass); else await FIRE.signInWithEmailAndPassword(FB.auth,email,pass); FB.localMode=false; authStatus('',true); }catch(err){ authStatus(firebaseErrorText(err),false); } }
 async function doGoogleLogin(){
   if(!FB.ready){ authStatus('Firebase ist noch nicht bereit. Bitte kurz warten.', false); return; }
   try{
     FB.localMode=false;
-    authStatus('Weiterleitung zu Google...', true);
-    await FIRE.signInWithRedirect(FB.auth, FB.googleProvider);
-  }catch(err){ authStatus(firebaseErrorText(err), false); }
+    authStatus('Google Login wird geöffnet...', true);
+    const result = await FIRE.signInWithPopup(FB.auth, FB.googleProvider);
+    authStatus('', true);
+    toast('Eingeloggt: '+(result.user.displayName || result.user.email || 'Google'));
+  }catch(err){
+    if(err && err.code === 'auth/popup-closed-by-user') authStatus('Google Login wurde abgebrochen.', false);
+    else if(err && (err.code === 'auth/popup-blocked' || err.code === 'auth/cancelled-popup-request')) authStatus('Der Browser hat das Google-Popup blockiert. Bitte Popups für diese Seite erlauben und nochmals versuchen.', false);
+    else authStatus(firebaseErrorText(err), false);
+  }
 }
-async function doPasswordReset(){
-  if(!FB.ready){ authStatus('Firebase ist noch nicht bereit. Bitte kurz warten.', false); return; }
-  const email=$('#auth-email').value.trim();
-  if(!email){ authStatus('Bitte zuerst die E-Mail-Adresse eingeben.', false); return; }
-  try{ await FIRE.sendPasswordResetEmail(FB.auth,email); authStatus('Passwort-E-Mail wurde gesendet.', true); }
-  catch(err){ authStatus(firebaseErrorText(err), false); }
-}
-async function logout(){
-  try{ await cloudSaveNow(true); if(FB.auth) await FIRE.signOut(FB.auth); FB.localMode=false; show('auth',true); }
-  catch(err){ toast('Logout fehlgeschlagen'); }
-}
-function firebaseErrorText(err){
-  const c=(err&&err.code)||'';
-  const map={
-    'auth/invalid-email':'Die E-Mail-Adresse ist ungültig.',
-    'auth/user-not-found':'Kein Konto mit dieser E-Mail gefunden.',
-    'auth/wrong-password':'Passwort ist nicht korrekt.',
-    'auth/invalid-credential':'Login-Daten sind ungültig.',
-    'auth/email-already-in-use':'Für diese E-Mail existiert bereits ein Konto.',
-    'auth/weak-password':'Das Passwort ist zu schwach. Bitte mindestens 6 Zeichen verwenden.',
-    'auth/network-request-failed':'Netzwerkfehler. Bitte Internetverbindung prüfen.',
-    'auth/popup-blocked':'Popup wurde blockiert. Bitte Google Login erneut versuchen.',
-    'auth/unauthorized-domain':'Diese Domain ist in Firebase Authentication nicht autorisiert. Bitte GitHub-Pages-Domain in Firebase hinterlegen.'
-  };
-  return map[c] || ('Firebase-Fehler: '+(err.message||c||'unbekannt'));
-}
-function renderAuth(){
-  if(FB.lastError && !FB.ready) authStatus('Firebase konnte nicht geladen werden. Du kannst lokal weitertrainieren.', false);
-  ['auth-login','auth-register','auth-reset','auth-google'].forEach(id=>{ const b=$('#'+id); if(b) b.disabled=!FB.ready; });
-}
+async function doPasswordReset(){ if(!FB.ready){ authStatus('Firebase ist noch nicht bereit. Bitte kurz warten.',false); return; } const email=$('#auth-email').value.trim(); if(!email){ authStatus('Bitte zuerst die E-Mail-Adresse eingeben.',false); return; } try{ await FIRE.sendPasswordResetEmail(FB.auth,email); authStatus('Passwort-E-Mail wurde gesendet.',true); }catch(err){ authStatus(firebaseErrorText(err),false); } }
+async function logout(){ try{ await cloudSaveNow(true); if(FB.auth) await FIRE.signOut(FB.auth); FB.localMode=false; show('auth',true); }catch(err){ toast('Logout fehlgeschlagen'); } }
+function firebaseErrorText(err){ const c=(err&&err.code)||''; const map={ 'auth/invalid-email':'Die E-Mail-Adresse ist ungültig.', 'auth/user-not-found':'Kein Konto mit dieser E-Mail gefunden.', 'auth/wrong-password':'Passwort ist nicht korrekt.', 'auth/invalid-credential':'Login-Daten sind ungültig.', 'auth/email-already-in-use':'Für diese E-Mail existiert bereits ein Konto.', 'auth/weak-password':'Das Passwort ist zu schwach. Bitte mindestens 6 Zeichen verwenden.', 'auth/network-request-failed':'Netzwerkfehler. Bitte Internetverbindung prüfen.', 'auth/popup-blocked':'Der Browser hat das Google-Popup blockiert. Bitte Popups für diese Seite erlauben.', 'auth/unauthorized-domain':'Diese Domain ist in Firebase Authentication nicht autorisiert. Bitte GitHub-Pages-Domain in Firebase hinterlegen.' }; return map[c] || ('Firebase-Fehler: '+(err.message||c||'unbekannt')); }
+function renderAuth(){ if(FB.lastError&&!FB.ready) authStatus('Firebase konnte nicht geladen werden. Du kannst lokal weitertrainieren.',false); ['auth-login','auth-register','auth-reset','auth-google'].forEach(id=>{ const b=$('#'+id); if(b) b.disabled=!FB.ready; }); }
 
 
 /* ========================= HELPERS ========================= */
@@ -1403,8 +1314,7 @@ function renderSettings(){
   m.innerHTML=`
     <div class="set-note">Konto & Sync</div>
     <div class="set-group">
-      <div class="set-row"><div class="grow"><div class="st-title">${esc(userLabel())}</div><div class="st-sub">${cloudMsg()}</div></div>
-        <span class="sync-pill ${FB.user&&FB.ready&&!FB.lastError?'on':(FB.lastError?'err':'')}"><i class="sync-dot"></i>${FB.syncing?'Synchronisiert...':(FB.user?'Firebase':'Lokal')}</span></div>
+      <div class="set-row"><div class="grow"><div class="st-title">${esc(userLabel())}</div><div class="st-sub">${cloudMsg()}</div></div><span class="sync-pill ${FB.user&&FB.ready&&!FB.lastError?'on':(FB.lastError?'err':'')}"><i class="sync-dot"></i>${FB.syncing?'Synchronisiert...':(FB.user?'Firebase':'Lokal')}</span></div>
       ${FB.user?`<div class="set-row"><button class="btn btn-soft btn-block" id="btn-sync-now">${svg('save')} Jetzt synchronisieren</button></div><div class="set-row"><button class="btn btn-danger btn-block" id="btn-logout">Abmelden</button></div>`:`<div class="set-row"><button class="btn btn-primary btn-block" id="btn-go-login">Einloggen / registrieren</button></div>`}
     </div>
     ${standalone?'':`<div class="set-note">App</div>
@@ -1451,7 +1361,7 @@ function renderSettings(){
       <div class="set-row" data-action="import"><div class="grow"><div class="st-title">Daten importieren</div><div class="st-sub">Aus einer Sicherung laden</div></div>${svg('copy')}</div>
       <div class="set-row" data-action="reset"><div class="grow"><div class="st-title" style="color:var(--danger)">Alles zurücksetzen</div><div class="st-sub">Eigene Pläne, Verlauf & Einstellungen löschen</div></div><span style="color:var(--danger)">${svg('trash')}</span></div>
     </div>
-    <div class="app-foot">BARWORK v1.2 · Firebase Login inkl. Google · lokale Nutzung weiterhin möglich.</div>
+    <div class="app-foot">BARWORK v1.3 · Firebase Login inkl. Google Popup · lokale Nutzung weiterhin möglich.</div>
     <input type="file" id="import-file" accept="application/json,.json" style="display:none">
   `;
   // wire switches

@@ -18,14 +18,14 @@ Alle Daten (eigene Pläne, Verlauf) bleiben lokal auf dem Gerät.
 
 
 ### Firebase Login, Google Login & Fortschrittsspeicherung
-Diese Version enthält Firebase Authentication mit E-Mail/Passwort, Google Login sowie Firestore-Sync pro Benutzerkonto.
+Diese Version enthält Firebase Authentication mit E-Mail/Passwort, Google Login per Popup sowie Firestore-Sync pro Benutzerkonto.
 
 Vor dem produktiven Einsatz bitte in Firebase kontrollieren:
 - Authentication → Sign-in method → E-Mail/Passwort aktivieren.
 - Authentication → Sign-in method → Google aktivieren.
 - Authentication → Settings → Authorized domains → deine GitHub-Pages-Domain eintragen, z. B. `deinname.github.io`.
 - Firestore Database anlegen.
-- Firestore Rules für die App setzen, damit Benutzer nur die eigenen Daten lesen und schreiben können:
+- Firestore Rules setzen:
 
 ```js
 rules_version = '2';
@@ -38,4 +38,4 @@ service cloud.firestore {
 }
 ```
 
-Die App kann weiterhin ohne Login lokal genutzt werden. Beim Login werden lokale Daten mit Cloud-Daten zusammengeführt.
+Hinweis: Google Login nutzt bewusst Popup statt Redirect, weil Redirect-Flows bei Hosting außerhalb von Firebase Hosting in modernen Browsern durch Third-Party-Storage-Einschränkungen hängen bleiben können.
