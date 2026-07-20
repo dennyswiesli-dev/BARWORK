@@ -365,6 +365,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .auth-divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--muted2);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
 .auth-divider:before,.auth-divider:after{content:"";height:1px;background:var(--line);flex:1}
 .auth-small{color:var(--muted2);font-size:12px;font-weight:600;text-align:center;margin-top:12px}
+.google-g{display:inline-grid;place-items:center;width:21px;height:21px;border-radius:50%;background:#fff;color:#111;font-weight:900;font-family:Arial,sans-serif;font-size:15px;line-height:1}
 .sync-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:800}
 .sync-dot{width:8px;height:8px;border-radius:50%;background:var(--muted2)}
 .sync-pill.on .sync-dot{background:var(--work)}
@@ -372,11 +373,11 @@ input,select,textarea{font-family:inherit;font-size:16px}
 
 </style>
 </head>
-<body data-theme="dark" data-view="home">
+<body data-theme="dark" data-view="auth">
 
 
 <!-- ===================== LOGIN ===================== -->
-<section id="view-auth" class="view">
+<section id="view-auth" class="view active">
   <main class="auth-main">
     <div class="auth-card">
       <img class="auth-logo" src="icon-192.png" alt="BARWORK Logo">
@@ -395,6 +396,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
         <button class="btn btn-primary" id="auth-login">Einloggen</button>
         <button class="btn btn-ghost" id="auth-register">Registrieren</button>
       </div>
+      <button class="btn btn-soft btn-block" id="auth-google" style="margin-top:10px"><span class="google-g">G</span> Mit Google anmelden</button>
       <button class="btn btn-soft btn-block" id="auth-reset" style="margin-top:10px">Passwort zurücksetzen</button>
       <div class="auth-divider">oder</div>
       <button class="btn btn-ghost btn-block" id="auth-local">Ohne Login lokal weiter</button>
@@ -404,7 +406,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
 </section>
 
 <!-- ===================== HOME ===================== -->
-<section id="view-home" class="view active">
+<section id="view-home" class="view">
   <div class="wrap">
     <header class="topbar">
       <div class="brand">
@@ -698,8 +700,9 @@ const firebaseConfig = {
   appId: "1:409722949417:web:f55e8bebaad6ac44d0b138",
   measurementId: "G-WD8Z1Y4WD7"
 };
-let FB={ ready:false, user:null, auth:null, db:null, lastError:'', syncing:false, localMode:false, saveTimer:null };
+let FB={ ready:false, user:null, auth:null, db:null, googleProvider:null, lastError:'', syncing:false, localMode:false, saveTimer:null };
 let FIRE=null;
+function userLabel(){ return FB.user ? (FB.user.displayName || FB.user.email || 'Eingeloggt') : 'Nicht eingeloggt'; }
 function cloudMsg(){
   if(FB.lastError) return 'Sync-Fehler';
   if(FB.user && FB.ready) return 'Cloud-Sync aktiv';
@@ -739,10 +742,14 @@ async function initFirebase(){
     const fsMod = await import('https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js');
     FIRE={...appMod,...authMod,...fsMod};
     const app=FIRE.initializeApp(firebaseConfig);
-    FB.auth=FIRE.getAuth(app); FB.db=FIRE.getFirestore(app); FB.ready=true;
+    FB.auth=FIRE.getAuth(app); FB.db=FIRE.getFirestore(app);
+    FB.googleProvider=new FIRE.GoogleAuthProvider();
+    FB.googleProvider.setCustomParameters({ prompt:'select_account' });
+    FB.ready=true;
+    try{ await FIRE.getRedirectResult(FB.auth); }catch(redirErr){ FB.lastError=redirErr.message||String(redirErr); authStatus(firebaseErrorText(redirErr), false); }
     FIRE.onAuthStateChanged(FB.auth, async (user)=>{
-      FB.user=user; FB.lastError='';
-      if(user){ await loadCloudDb(); show('home', true); toast('Eingeloggt: '+(user.email||'Benutzer')); }
+      FB.user=user; if(user) FB.lastError='';
+      if(user){ await loadCloudDb(); show('home', true); toast('Eingeloggt: '+userLabel()); }
       else if(!FB.localMode){ show('auth', false); renderAuth(); }
       renderSettings();
     });
@@ -779,6 +786,7 @@ async function cloudSaveNow(silent){
   finally{ FB.syncing=false; renderSettings(); }
 }
 async function doAuth(mode){
+  if(!FB.ready){ authStatus('Firebase ist noch nicht bereit. Bitte kurz warten.', false); return; }
   const email=$('#auth-email').value.trim(); const pass=$('#auth-pass').value;
   if(!email || !pass){ authStatus('Bitte E-Mail und Passwort eingeben.', false); return; }
   if(pass.length<6){ authStatus('Das Passwort muss mindestens 6 Zeichen haben.', false); return; }
@@ -789,7 +797,16 @@ async function doAuth(mode){
     FB.localMode=false; authStatus('', true);
   }catch(err){ authStatus(firebaseErrorText(err), false); }
 }
+async function doGoogleLogin(){
+  if(!FB.ready){ authStatus('Firebase ist noch nicht bereit. Bitte kurz warten.', false); return; }
+  try{
+    FB.localMode=false;
+    authStatus('Weiterleitung zu Google...', true);
+    await FIRE.signInWithRedirect(FB.auth, FB.googleProvider);
+  }catch(err){ authStatus(firebaseErrorText(err), false); }
+}
 async function doPasswordReset(){
+  if(!FB.ready){ authStatus('Firebase ist noch nicht bereit. Bitte kurz warten.', false); return; }
   const email=$('#auth-email').value.trim();
   if(!email){ authStatus('Bitte zuerst die E-Mail-Adresse eingeben.', false); return; }
   try{ await FIRE.sendPasswordResetEmail(FB.auth,email); authStatus('Passwort-E-Mail wurde gesendet.', true); }
@@ -808,13 +825,15 @@ function firebaseErrorText(err){
     'auth/invalid-credential':'Login-Daten sind ungültig.',
     'auth/email-already-in-use':'Für diese E-Mail existiert bereits ein Konto.',
     'auth/weak-password':'Das Passwort ist zu schwach. Bitte mindestens 6 Zeichen verwenden.',
-    'auth/network-request-failed':'Netzwerkfehler. Bitte Internetverbindung prüfen.'
+    'auth/network-request-failed':'Netzwerkfehler. Bitte Internetverbindung prüfen.',
+    'auth/popup-blocked':'Popup wurde blockiert. Bitte Google Login erneut versuchen.',
+    'auth/unauthorized-domain':'Diese Domain ist in Firebase Authentication nicht autorisiert. Bitte GitHub-Pages-Domain in Firebase hinterlegen.'
   };
   return map[c] || ('Firebase-Fehler: '+(err.message||c||'unbekannt'));
 }
 function renderAuth(){
-  authStatus(FB.lastError && !FB.ready ? 'Firebase konnte nicht geladen werden. Du kannst lokal weitertrainieren.' : '', false);
-  ['auth-login','auth-register','auth-reset'].forEach(id=>{ const b=$('#'+id); if(b) b.disabled=!FB.ready; });
+  if(FB.lastError && !FB.ready) authStatus('Firebase konnte nicht geladen werden. Du kannst lokal weitertrainieren.', false);
+  ['auth-login','auth-register','auth-reset','auth-google'].forEach(id=>{ const b=$('#'+id); if(b) b.disabled=!FB.ready; });
 }
 
 
@@ -1384,7 +1403,7 @@ function renderSettings(){
   m.innerHTML=`
     <div class="set-note">Konto & Sync</div>
     <div class="set-group">
-      <div class="set-row"><div class="grow"><div class="st-title">${FB.user ? esc(FB.user.email||'Eingeloggt') : 'Nicht eingeloggt'}</div><div class="st-sub">${cloudMsg()}</div></div>
+      <div class="set-row"><div class="grow"><div class="st-title">${esc(userLabel())}</div><div class="st-sub">${cloudMsg()}</div></div>
         <span class="sync-pill ${FB.user&&FB.ready&&!FB.lastError?'on':(FB.lastError?'err':'')}"><i class="sync-dot"></i>${FB.syncing?'Synchronisiert...':(FB.user?'Firebase':'Lokal')}</span></div>
       ${FB.user?`<div class="set-row"><button class="btn btn-soft btn-block" id="btn-sync-now">${svg('save')} Jetzt synchronisieren</button></div><div class="set-row"><button class="btn btn-danger btn-block" id="btn-logout">Abmelden</button></div>`:`<div class="set-row"><button class="btn btn-primary btn-block" id="btn-go-login">Einloggen / registrieren</button></div>`}
     </div>
@@ -1432,7 +1451,7 @@ function renderSettings(){
       <div class="set-row" data-action="import"><div class="grow"><div class="st-title">Daten importieren</div><div class="st-sub">Aus einer Sicherung laden</div></div>${svg('copy')}</div>
       <div class="set-row" data-action="reset"><div class="grow"><div class="st-title" style="color:var(--danger)">Alles zurücksetzen</div><div class="st-sub">Eigene Pläne, Verlauf & Einstellungen löschen</div></div><span style="color:var(--danger)">${svg('trash')}</span></div>
     </div>
-    <div class="app-foot">BARWORK v1.1 · Login mit Firebase · lokale Nutzung weiterhin möglich.</div>
+    <div class="app-foot">BARWORK v1.2 · Firebase Login inkl. Google · lokale Nutzung weiterhin möglich.</div>
     <input type="file" id="import-file" accept="application/json,.json" style="display:none">
   `;
   // wire switches
@@ -1461,6 +1480,7 @@ function renderSettings(){
   const sn=$('#btn-sync-now'); if(sn) sn.addEventListener('click', ()=>cloudSaveNow(false));
   const gl=$('#btn-go-login'); if(gl) gl.addEventListener('click', ()=>show('auth',true));
 }
+
 function switchRow(key,title,sub,on){
   return `<div class="set-row"><div class="grow"><div class="st-title">${esc(title)}</div><div class="st-sub">${esc(sub)}</div></div>
     <button class="switch ${on?'on':''}" data-k="${key}" role="switch" aria-checked="${on}" aria-label="${esc(title)}"></button></div>`;
@@ -1581,9 +1601,11 @@ $('#sheet-x').addEventListener('click',closeSheet);
 // auth controls
 $('#auth-login').addEventListener('click',()=>doAuth('login'));
 $('#auth-register').addEventListener('click',()=>doAuth('register'));
+$('#auth-google').addEventListener('click',doGoogleLogin);
 $('#auth-reset').addEventListener('click',doPasswordReset);
 $('#auth-local').addEventListener('click',()=>{ FB.localMode=true; show('home',true); toast('Lokaler Modus aktiv'); });
 $('#auth-pass').addEventListener('keydown',e=>{ if(e.key==='Enter') doAuth('login'); });
+
 /* ========================= INIT ========================= */
 function init(){
   load();

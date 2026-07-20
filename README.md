@@ -17,13 +17,15 @@ Offline-Betrieb und Installation auf dem Home-Bildschirm.
 Alle Daten (eigene Pläne, Verlauf) bleiben lokal auf dem Gerät.
 
 
-### Firebase Login & Fortschrittsspeicherung
-Diese Version enthält Firebase Authentication mit E-Mail/Passwort sowie Firestore-Sync pro Benutzerkonto.
+### Firebase Login, Google Login & Fortschrittsspeicherung
+Diese Version enthält Firebase Authentication mit E-Mail/Passwort, Google Login sowie Firestore-Sync pro Benutzerkonto.
 
 Vor dem produktiven Einsatz bitte in Firebase kontrollieren:
 - Authentication → Sign-in method → E-Mail/Passwort aktivieren.
+- Authentication → Sign-in method → Google aktivieren.
+- Authentication → Settings → Authorized domains → deine GitHub-Pages-Domain eintragen, z. B. `deinname.github.io`.
 - Firestore Database anlegen.
-- Firestore Rules für die App setzen, z. B. nur Zugriff auf die eigenen User-Daten zulassen:
+- Firestore Rules für die App setzen, damit Benutzer nur die eigenen Daten lesen und schreiben können:
 
 ```js
 rules_version = '2';
