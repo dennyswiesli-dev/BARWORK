@@ -1689,8 +1689,7 @@ function renderStep(){
   // phase accent
   wv.classList.remove('phase-rest');
   const isRest = st.kind==='rest'||st.kind==='cycleRest'||st.kind==='prepare';
-  document.documentElement.style.setProperty('--accent', isRest && st.kind!=='prepare' ? 'var(--rest)' : 'var(--work)');
-  // easier: set on workout view via inline var
+  // Accent-Farbe nur innerhalb der Workout-View setzen, damit sie außerhalb nicht durchleakt
   wv.style.setProperty('--accent', (st.kind==='rest'||st.kind==='cycleRest') ? getVar('--rest') : getVar('--work'));
   wv.style.setProperty('--accent-ink', (st.kind==='rest'||st.kind==='cycleRest') ? getVar('--rest-ink') : getVar('--work-ink'));
 
@@ -1861,8 +1860,12 @@ function adjustTime(delta){
 }
 function finishWorkout(){
   stopLoop(); W.done=true; releaseWake();
+  const early = arguments[0]===true;
   const now=Date.now();
   const dur=Math.round(W.activeMs/1000);
+  /* Bei frühem Abschluss die tatsächlich absolvierten Übungen/Runden zählen */
+  const cyclesCompleted = early ? (W._earlyCyclesCompleted||0) : W.plan.cycles;
+  const exercisesDone = early ? (W._earlyExercisesDone||0) : W.exercisesTotal;
   /* Update PRs from tracked entries */
   const newPRs=[];
   (W.entries||[]).forEach(en=>{
@@ -1874,11 +1877,13 @@ function finishWorkout(){
   });
   /* History with entries */
   DB.history.unshift({ planId:W.plan.id, planName:W.plan.name, date:now,
-    durationSec:dur, cyclesCompleted:W.plan.cycles, cyclesTotal:W.plan.cycles,
-    exercises:W.exercisesTotal, completed:true,
+    durationSec:dur, cyclesCompleted, cyclesTotal:W.plan.cycles,
+    exercises:exercisesDone, completed:true, earlyFinish: early || undefined,
     entries:structuredClone(W.entries||[]) });
   DB.history=DB.history.slice(0,200); save();
   W.newPRs=newPRs;
+  /* Accent-Farbe für Done-Screen auf Standard zurücksetzen */
+  resetWorkoutAccent();
   /* done screen */
   $('#wk-stage').style.display='none';
   $('.wk-controls').style.display='none';
@@ -1886,7 +1891,7 @@ function finishWorkout(){
   $('.progress').style.display='none';
   $('#wk-dots').style.display='none';
   $('#done-badge').innerHTML=svg('trophy');
-  $('#done-sub').textContent=W.plan.name+(W.plan.author?' · '+W.plan.author:'');
+  $('#done-sub').textContent=W.plan.name+(W.plan.author?' · '+W.plan.author:'') + (early?' · früh abgeschlossen':'');
   let prsHTML='';
   if(newPRs.length){
     prsHTML='<div class="pr-list"><div class="pr-head">'+svg('trophy')+' Neue persönliche Rekorde</div>';
@@ -1897,8 +1902,8 @@ function finishWorkout(){
     prsHTML+='</div>';
   }
   $('#done-stats').innerHTML=`
-    <div class="stat"><b>${W.plan.cycles}</b><span>Runden</span></div>
-    <div class="stat"><b>${W.exercisesTotal}</b><span>Übungen</span></div>
+    <div class="stat"><b>${cyclesCompleted}${early?'/'+W.plan.cycles:''}</b><span>Runden</span></div>
+    <div class="stat"><b>${exercisesDone}</b><span>Übungen</span></div>
     <div class="stat"><b>${fmt(dur)}</b><span>Zeit</span></div>`;
   const prHost=$('#done-prs'); if(prHost) prHost.innerHTML=prsHTML;
   $('#wk-done').style.display='flex';
@@ -1935,16 +1940,42 @@ function teardownWorkout(silent){
       const dur=Math.round(W.activeMs/1000);
       const cyclesCompleted=Math.floor(doneEx/W.plan.exercises.length);
       DB.history.unshift({ planId:W.plan.id, planName:W.plan.name, date:Date.now(),
-        durationSec:dur, cyclesCompleted, cyclesTotal:W.plan.cycles, exercises:W.exercisesTotal, completed:false });
+        durationSec:dur, cyclesCompleted, cyclesTotal:W.plan.cycles, exercises:W.exercisesTotal, completed:false,
+        entries: structuredClone(W.entries||[]) });
       DB.history=DB.history.slice(0,200); save();
     }
   }
   W=null;
+  resetWorkoutAccent();
+}
+function resetWorkoutAccent(){
+  const wv=$('#view-workout');
+  if(wv){ wv.style.removeProperty('--accent'); wv.style.removeProperty('--accent-ink'); }
+  document.documentElement.style.removeProperty('--accent');
+  document.documentElement.style.removeProperty('--accent-ink');
+}
+function finishEarly(){
+  /* Manuell als abgeschlossen speichern - nur bereits absolvierte Übungen zählen */
+  if(!W || W.done) return;
+  const doneEx=exercisesCompleted();
+  const cyclesCompleted=Math.floor(doneEx/W.plan.exercises.length);
+  W._earlyCyclesCompleted=cyclesCompleted;
+  W._earlyExercisesDone=doneEx;
+  finishWorkout(true);
 }
 function closeWorkout(){
-  if(W && !W.done && exercisesCompleted()>0){
-    confirmSheet('Training beenden?','Dein Fortschritt wird im Verlauf gespeichert.','Beenden',()=>{ teardownWorkout(); history.back(); });
-  } else { teardownWorkout(); history.back(); }
+  if(!W || W.done){ teardownWorkout(); history.back(); return; }
+  const doneEx=exercisesCompleted();
+  if(doneEx<=0){ teardownWorkout(); history.back(); return; }
+  /* Sheet mit 3 Optionen anbieten */
+  const body=`<p style="color:var(--muted);font-weight:600;margin:2px 0 14px">Du hast bereits ${doneEx} Übung${doneEx===1?'':'en'} absolviert. Wie möchtest du weitermachen?</p>
+    <button class="action" id="wk-continue">${svg('play')}<span>Training fortsetzen</span></button>
+    <button class="action" id="wk-finish" style="color:var(--work)">${svg('check')}<span>Training abschließen (als erledigt speichern)</span></button>
+    <button class="action danger" id="wk-abort">${svg('close')}<span>Als abgebrochen speichern</span></button>`;
+  openSheet('Training beenden?', body);
+  $('#wk-continue').addEventListener('click', closeSheet);
+  $('#wk-finish').addEventListener('click', ()=>{ closeSheet(); finishEarly(); });
+  $('#wk-abort').addEventListener('click', ()=>{ closeSheet(); teardownWorkout(); history.back(); });
 }
 function updateSoundBtn(){
   const b=$('#wk-sound'); b.classList.toggle('off',!DB.settings.sound);
@@ -2197,8 +2228,8 @@ $('#wk-hint').addEventListener('click',e=>{
   vibe(10);
 });
 $('#wk-adjust').addEventListener('click',e=>{ const b=e.target.closest('[data-adj]'); if(b) adjustTime(+b.dataset.adj); });
-$('#done-home').addEventListener('click',()=>{ W=null; history.length>1?history.back():show('home',true); });
-$('#done-again').addEventListener('click',()=>{ const id=W.plan.id; W=null; startWorkout(id); });
+$('#done-home').addEventListener('click',()=>{ W=null; resetWorkoutAccent(); history.length>1?history.back():show('home',true); });
+$('#done-again').addEventListener('click',()=>{ const id=W.plan.id; W=null; resetWorkoutAccent(); startWorkout(id); });
 
 // sheet close
 $('#scrim').addEventListener('click',closeSheet);
