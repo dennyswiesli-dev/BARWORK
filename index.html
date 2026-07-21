@@ -845,48 +845,6 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .buddy-code-display .lbl{color:var(--accent);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
 .buddy-code-display .code{font-family:var(--font-d);font-size:36px;letter-spacing:8px;color:var(--chalk);line-height:1;user-select:all}
 .buddy-code-display .hint{color:var(--muted);font-size:11px;font-weight:600;margin-top:8px}
-/* ===== PHASE E: Buddies View + Weekly Plans + Settings Tabs ===== */
-/* Settings Tabs */
-.set-tabs{display:flex;gap:6px;overflow-x:auto;padding:8px 0 12px;margin-bottom:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.set-tabs::-webkit-scrollbar{display:none}
-.set-tab{flex:none;padding:9px 14px;border-radius:11px;background:var(--panel);border:1px solid var(--line);color:var(--muted);font-weight:800;font-size:13px;white-space:nowrap;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.14s}
-.set-tab:active{transform:scale(.96)}
-.set-tab.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.set-tab svg{width:14px;height:14px}
-/* Weekly Plan Card */
-.wplan-card{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 15%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));border-radius:18px;padding:14px 16px;margin:8px 0 4px}
-.wplan-title{font-family:var(--font-d);font-size:20px;letter-spacing:.5px;margin-bottom:4px}
-.wplan-sub{color:var(--muted);font-size:12.5px;font-weight:700;margin-bottom:10px}
-.wplan-today{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px;display:flex;align-items:center;gap:10px}
-.wplan-today .day{color:var(--accent);font-family:var(--font-d);font-size:14px;letter-spacing:1px;text-transform:uppercase}
-.wplan-today .pl{color:var(--chalk);font-weight:800;font-size:14px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wplan-today .rest{color:var(--muted);font-weight:700;font-size:13px}
-.wplan-actions{display:flex;gap:8px}
-.wplan-actions button{flex:1;padding:10px;border-radius:11px;font-weight:800;font-size:13px;border:none}
-.wplan-actions .start{background:var(--accent);color:var(--accent-ink)}
-.wplan-actions .edit{background:var(--panel2);color:var(--chalk);border:1px solid var(--line)}
-/* Weekly Plan Editor */
-.wplan-day-row{display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:6px}
-.wplan-day-lbl{width:64px;flex:none;color:var(--accent);font-family:var(--font-d);font-size:14px;letter-spacing:1px;text-transform:uppercase}
-.wplan-day-plan{flex:1;min-width:0;color:var(--chalk);font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wplan-day-plan.empty{color:var(--muted2);font-weight:600;font-style:italic}
-.wplan-day-tools{display:flex;gap:4px}
-.wplan-day-tools button{width:32px;height:32px;border-radius:9px;background:var(--panel);border:1px solid var(--line);color:var(--muted);display:grid;place-items:center}
-.wplan-day-tools button svg{width:14px;height:14px}
-.wplan-list-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;display:flex;align-items:center;gap:10px}
-.wplan-list-card .info{flex:1;min-width:0}
-.wplan-list-card .nm{font-family:var(--font-d);font-size:17px;letter-spacing:.5px}
-.wplan-list-card .sub{color:var(--muted);font-size:12px;font-weight:600;margin-top:2px}
-.wplan-list-card .badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
-.wplan-list-card .badge{font-size:10px;font-weight:800;background:var(--ink2);color:var(--accent);padding:2px 6px;border-radius:5px;letter-spacing:.5px;text-transform:uppercase}
-.wplan-list-card.active{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--panel))}
-.wplan-list-card .actions{display:flex;gap:6px;flex:none}
-.wplan-list-card .actions button{width:36px;height:36px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--chalk);display:grid;place-items:center}
-.wplan-list-card .actions button svg{width:15px;height:15px}
-/* Buddies View */
-.buddies-empty{text-align:center;padding:40px 20px;color:var(--muted)}
-.buddies-empty svg{width:60px;height:60px;color:var(--muted2);margin-bottom:14px}
-.buddies-empty h3{font-family:var(--font-d);font-size:22px;color:var(--chalk);margin-bottom:6px}
 /* ========= PHASE D ========= */
 /* Ladder input */
 .ladder-viz{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:8px;font-family:var(--font-d);font-size:14px;letter-spacing:1px;color:var(--accent);text-align:center;word-break:break-all}
@@ -939,12 +897,10 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .ss-len-badge{display:inline-block;background:var(--accent);color:var(--accent-ink);padding:1px 6px;border-radius:5px;font-size:10px;font-weight:900;margin-left:4px;letter-spacing:.5px}
 /* ============ WEEKLY PLANS ============ */
 .wk-day-row{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
-.wk-day-lbl{width:60px;flex:none;font-family:var(--font-d);font-size:15px;letter-spacing:.5px;color:var(--chalk)}
+.wk-day-lbl{width:56px;flex:none;font-family:var(--font-d);font-size:15px;letter-spacing:.5px;color:var(--chalk)}
 .wk-day-lbl.today{color:var(--accent)}
 .wk-day-picker{flex:1;min-width:0}
 .wk-day-picker select{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:9px 32px 9px 10px;color:var(--chalk);font-weight:600;font-size:13.5px;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%2393a1b3' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 8px center;background-size:16px}
-.wk-day-rest{color:var(--muted2);font-size:12.5px;font-weight:600}
-/* Weekly plan card in list */
 .wp-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;margin-bottom:12px;position:relative}
 .wp-card.active{border-color:var(--accent);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 8%,var(--panel)),var(--panel))}
 .wp-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--muted2);border-radius:var(--r-lg) 0 0 var(--r-lg)}
@@ -952,23 +908,20 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .wp-head{display:flex;align-items:flex-start;gap:10px;justify-content:space-between;margin-bottom:10px}
 .wp-name{font-family:var(--font-d);font-size:20px;letter-spacing:.5px;line-height:1;flex:1;min-width:0}
 .wp-days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:10px}
-.wp-day{aspect-ratio:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted2);font-size:10px;font-weight:800;text-align:center;letter-spacing:.5px}
+.wp-day{aspect-ratio:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted2);font-size:10px;font-weight:800;text-align:center}
 .wp-day.has{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .wp-day.today{outline:2px solid var(--chalk);outline-offset:1px}
 .wp-day .d-lbl{font-size:9px;letter-spacing:1px}
-.wp-day .d-ic{font-size:14px;margin-top:1px}
+.wp-day .d-ic{font-size:13px;margin-top:1px}
 .wp-actions{display:flex;gap:6px}
 .wp-actions button{flex:1;padding:8px 10px;border-radius:9px;font-weight:800;font-size:12.5px;border:1px solid var(--line);background:var(--panel2);color:var(--chalk)}
 .wp-actions button.primary{background:var(--accent);color:var(--accent-ink);border:none}
-.wp-actions button.danger{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 35%,var(--line))}
-/* Today's plan banner on home */
 .today-banner{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 22%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:18px;padding:14px 16px;margin:8px 0 4px}
 .today-banner .em{width:44px;height:44px;flex:none;border-radius:12px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--font-d);font-size:14px;letter-spacing:.5px}
 .today-banner .info{flex:1;min-width:0}
 .today-banner .nm{font-family:var(--font-d);font-size:18px;letter-spacing:.5px;line-height:1.1}
 .today-banner .sub{color:var(--muted);font-size:12.5px;font-weight:700;margin-top:3px}
 .today-banner button{padding:9px 12px;border-radius:11px;font-weight:800;font-size:12.5px;background:var(--accent);color:var(--accent-ink);border:none;flex:none;display:flex;align-items:center;gap:5px}
-/* Home shortcuts: 3 columns for 6 buttons */
 .home-shortcuts-6{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 4px}
 .home-shortcuts-6 .btn{padding:12px 8px;font-size:12.5px;flex-direction:column;gap:3px;display:flex;align-items:center;justify-content:center}
 .home-shortcuts-6 .btn svg{width:20px;height:20px;margin-bottom:2px}
@@ -1153,7 +1106,6 @@ body[data-compact="1"] .plan-card .pc-menu{width:30px;height:30px}
       <div id="install-banner" style="display:none"></div>
       <div id="resume-banner" class="resume-banner" style="display:none"></div>
       <div id="deload-banner" class="deload-banner" style="display:none"></div>
-      <div id="wplan-slot"></div>
       <div id="month-report-slot"></div>
       <div id="report-slot"></div>
       <div id="streak-banner" class="streak-banner" style="display:none"></div>
@@ -1367,45 +1319,6 @@ body[data-compact="1"] .plan-card .pc-menu{width:30px;height:30px}
   </div>
 </section>
 
-<!-- ===================== BUDDIES ===================== -->
-<section id="view-buddies" class="view">
-  <div class="wrap">
-    <div class="view-head">
-      <button class="back-btn" data-nav="home"><span id="buddies-back-ic"></span>Zurück</button>
-      <h2>Buddies</h2>
-      <button class="icon-btn" id="btn-add-buddy-view" aria-label="Buddy hinzufügen"></button>
-    </div>
-    <main class="home-main" id="buddies-main"></main>
-  </div>
-</section>
-<!-- ===================== WEEKLY PLANS ===================== -->
-<section id="view-wplans" class="view">
-  <div class="wrap">
-    <div class="view-head">
-      <button class="back-btn" data-nav="home"><span id="wplans-back-ic"></span>Zurück</button>
-      <h2>Wochenpläne</h2>
-      <button class="icon-btn" id="btn-new-wplan" aria-label="Neu"></button>
-    </div>
-    <main class="home-main" id="wplans-main"></main>
-  </div>
-</section>
-<!-- ===================== WEEKLY PLAN EDITOR ===================== -->
-<section id="view-wplan-editor" class="view">
-  <div class="wrap">
-    <div class="view-head">
-      <button class="back-btn" id="wpe-back-btn"><span id="wpe-back-ic"></span>Zurück</button>
-      <h2 id="wpe-title">Wochenplan</h2>
-      <span style="width:44px"></span>
-    </div>
-    <main class="form-main" id="wpe-main"></main>
-  </div>
-  <div class="form-footer">
-    <div class="wrap">
-      <button class="btn btn-ghost" id="wpe-btn-delete">Löschen</button>
-      <button class="btn btn-primary" id="wpe-btn-save">Speichern</button>
-    </div>
-  </div>
-</section>
 <!-- ===================== WARMUP/COOLDOWN PLAN EDITOR ===================== -->
 <section id="view-wc-editor" class="view">
   <div class="wrap">
@@ -1466,7 +1379,7 @@ body[data-compact="1"] .plan-card .pc-menu{width:30px;height:30px}
     <main class="form-main">
       <div class="field">
         <label for="wke-name">Name</label>
-        <input class="input" id="wke-name" placeholder="z.B. Mein Push-Pull-Legs Split" maxlength="60">
+        <input class="input" id="wke-name" placeholder="z.B. Push-Pull-Legs Split" maxlength="60">
       </div>
       <div class="section-label" style="margin-top:8px">Wochentage</div>
       <div id="wke-days"></div>
@@ -1810,14 +1723,13 @@ const DEFAULTS={
   exerciseNotes:{},
   warmupPlan:null, cooldownPlan:null,
   buddyCode:'', buddies:[],
-  weeklyPlans:[], activeWeeklyPlanId:null,
   lastReport:{ weekKey:'', dismissedAt:0 },
   lastMonthReport:{ monthKey:'', dismissedAt:0 },
   bodyMetrics:[], /* [{date, weight, chest, arm, waist, thigh}] */
   recoveryScores:[], /* [{date, sleep, soreness, energy, score}] */
   progressPhotos:[], /* [{id, date, dataUrl}] limit 20 */
   skillHistory:{}, /* {skillId: [{date, stage}]} */
-  weeklyPlans:[], /* [{id, name, active, days:{1:planId, 2:planId, ...}}] Mon=1, Sun=7 */
+  weeklyPlans:[], /* [{id, name, days:{1:planId, ...}}] Mo=1, So=7 */
   activeWeeklyPlanId:null,
   flags:{ homeHintDismissed:false, onboarded:false },
   settings:{ sound:true, vibrate:true, wakeLock:true, beeps:true, prepare:5,
@@ -2209,8 +2121,6 @@ function load(){
     if(!DB.exerciseNotes||typeof DB.exerciseNotes!=='object') DB.exerciseNotes={};
     if(!Array.isArray(DB.buddies)) DB.buddies=[];
     if(!DB.lastReport||typeof DB.lastReport!=='object') DB.lastReport={weekKey:'',dismissedAt:0};
-    if(!Array.isArray(DB.weeklyPlans)) DB.weeklyPlans=[];
-    if(!DB.activeWeeklyPlanId) DB.activeWeeklyPlanId=null;
     if(!DB.lastMonthReport||typeof DB.lastMonthReport!=='object') DB.lastMonthReport={monthKey:'',dismissedAt:0};
     if(!Array.isArray(DB.bodyMetrics)) DB.bodyMetrics=[];
     if(!Array.isArray(DB.recoveryScores)) DB.recoveryScores=[];
@@ -2277,10 +2187,8 @@ function mergeDb(local, remote){
     cooldownPlan: pickNewer(l.cooldownPlan, r.cooldownPlan),
     buddyCode:l.buddyCode||r.buddyCode||'',
     buddies:mergeUniqueById(l.buddies,r.buddies),
-    weeklyPlans: mergeUniqueById(l.weeklyPlans, r.weeklyPlans),
-    activeWeeklyPlanId: pickSection('activeWeeklyPlanId', null),
     weeklyPlans:mergeUniqueById(l.weeklyPlans,r.weeklyPlans),
-    activeWeeklyPlanId: pickSection('activeWeeklyPlanId', null),
+    activeWeeklyPlanId: (l.activeWeeklyPlanId||r.activeWeeklyPlanId||null),
     lastReport:Object.assign({weekKey:'',dismissedAt:0}, remoteNewer?(l.lastReport||{}):(r.lastReport||{}), remoteNewer?(r.lastReport||{}):(l.lastReport||{})),
     updatedAt: Math.max(lTs, rTs)
   };
@@ -2310,67 +2218,48 @@ async function loadCloudDb(){
       const localFresh = !DB.ts || Object.keys(DB.ts||{}).length===0;
       const localEmpty = (!DB.customPlans||!DB.customPlans.length) && (!DB.history||!DB.history.length);
       if(localFresh || localEmpty){
-        /* Cloud ist die Wahrheit → tief mergen mit DEFAULTS für neue Felder */
-        const merged = structuredClone(DEFAULTS);
-        Object.keys(cloudDb||{}).forEach(key=>{
-          const cVal = cloudDb[key];
-          const dVal = merged[key];
-          if(cVal && typeof cVal === 'object' && !Array.isArray(cVal) && dVal && typeof dVal === 'object' && !Array.isArray(dVal)){
-            /* Objekt: Feld-Merge (Cloud gewinnt, Defaults füllen fehlende Felder) */
-            merged[key] = Object.assign({}, dVal, cVal);
-          } else {
-            /* Array oder Primitive: direkt übernehmen */
-            merged[key] = cVal;
-          }
-        });
-        DB = merged;
+        /* Cloud ist die Wahrheit → komplett übernehmen mit Merge von DEFAULTS für neue Felder */
+        DB = Object.assign({}, structuredClone(DEFAULTS), cloudDb);
+        DB.settings = Object.assign({}, DEFAULTS.settings, cloudDb.settings||{});
+        DB.flags = Object.assign({}, DEFAULTS.flags, cloudDb.flags||{});
       } else {
         /* Beide Seiten haben Daten → normales timestamp-basiertes Merging */
         DB = mergeDb(DB, cloudDb);
       }
     } else {
-      /* NEUER USER: Cloud ist leer - lokale Daten behalten wenn vorhanden */
+      /* NEUER USER: Cloud ist leer */
       const hadLocalData = (DB.customPlans||[]).length > 0 || (DB.history||[]).length > 0 || (DB.favorites||[]).length > 0;
-      if(!hadLocalData){
+      if(hadLocalData){
+        const wantMigrate = await new Promise(resolve => {
+          const body = `<p style="color:var(--muted);font-weight:600;margin:2px 0 12px">Du hast bereits <b style="color:var(--chalk)">lokale Trainingsdaten</b>. Willst du sie in dein neues Cloud-Konto übernehmen?</p>
+            <button class="btn btn-primary btn-block btn-lg" id="mig-yes">${svg('save')} Lokale Daten übernehmen</button>
+            <div style="height:8px"></div>
+            <button class="btn btn-ghost btn-block" id="mig-no">Mit leerem Konto starten</button>`;
+          openSheet('Neues Konto', body);
+          $('#mig-yes').addEventListener('click', ()=>{ closeSheet(); resolve(true); });
+          $('#mig-no').addEventListener('click', ()=>{ closeSheet(); resolve(false); });
+        });
+        if(!wantMigrate) DB = structuredClone(DEFAULTS);
+      } else {
         DB = structuredClone(DEFAULTS);
       }
-      /* Bei hadLocalData: DB bleibt wie es ist und wird beim cloudSaveNow hochgeladen */
     }
     try{ localStorage.setItem(KEY, JSON.stringify(DB)); }catch(e){}
     document.body.dataset.theme = DB.settings.theme || 'dark';
     document.body.dataset.accent = DB.settings.accent || 'green';
     document.body.dataset.compact = DB.settings.compact ? '1' : '';
-    /* Views nur neu rendern wenn wir tatsächlich in einer View sind - kein Crash beim Login-Flow */
-    try{
-      if(currentView==='settings') renderSettings();
-      else if(currentView==='home') renderHome();
-      else if(currentView==='stats') renderStats();
-    }catch(renderErr){}
-    /* cloudSaveNow im Hintergrund - nicht blockierend */
-    cloudSaveNow(true).catch(()=>{});
+    if(currentView==='settings') renderSettings();
+    else if(currentView==='home') renderHome();
+    else if(currentView==='stats') renderStats();
+    await cloudSaveNow(true);
     setTimeout(()=>maybeStartOnboarding(), 400);
   }catch(err){
     FB.lastError = err.message || String(err);
-    toast('Cloud-Sync fehlgeschlagen: '+(err.message||err));
+    toast('Cloud-Sync fehlgeschlagen');
   }
 }
 function cloudScheduleSave(){ if(!FB.ready||!FB.user||FB.syncing) return; clearTimeout(FB.saveTimer); FB.saveTimer=setTimeout(()=>cloudSaveNow(false),900); }
-async function cloudSaveNow(silent){
-  if(!FB.ready||!FB.user) return;
-  FB.syncing=true; FB.lastError='';
-  /* Settings nur re-rendern wenn wir tatsächlich auf der Settings-View sind */
-  try{ if(currentView==='settings') renderSettings(); }catch(e){}
-  try{
-    await FIRE.setDoc(userDocRef(), { db:cleanForCloud(DB), updatedAt:FIRE.serverTimestamp(), app:'BARWORK' }, { merge:true });
-    if(!silent) toast('Fortschritt synchronisiert');
-  }catch(err){
-    FB.lastError=err.message||String(err);
-    if(!silent) toast('Cloud-Sync fehlgeschlagen');
-  }finally{
-    FB.syncing=false;
-    try{ if(currentView==='settings') renderSettings(); }catch(e){}
-  }
-}
+async function cloudSaveNow(silent){ if(!FB.ready||!FB.user) return; FB.syncing=true; FB.lastError=''; renderSettings(); try{ await FIRE.setDoc(userDocRef(), { db:cleanForCloud(DB), updatedAt:FIRE.serverTimestamp(), app:'BARWORK' }, { merge:true }); if(!silent) toast('Fortschritt synchronisiert'); }catch(err){ FB.lastError=err.message||String(err); if(!silent) toast('Cloud-Sync fehlgeschlagen'); } finally{ FB.syncing=false; renderSettings(); } }
 async function doAuth(mode){ if(!FB.ready){ authStatus('Firebase ist noch nicht bereit. Bitte kurz warten.',false); return; } const email=$('#auth-email').value.trim(); const pass=$('#auth-pass').value; if(!email||!pass){ authStatus('Bitte E-Mail und Passwort eingeben.',false); return; } if(pass.length<6){ authStatus('Das Passwort muss mindestens 6 Zeichen haben.',false); return; } authStatus(mode==='register'?'Konto wird erstellt...':'Login läuft...',true); try{ if(mode==='register') await FIRE.createUserWithEmailAndPassword(FB.auth,email,pass); else await FIRE.signInWithEmailAndPassword(FB.auth,email,pass); FB.localMode=false; authStatus('',true); }catch(err){ authStatus(firebaseErrorText(err),false); } }
 async function doGoogleLogin(){
   if(!FB.ready){ authStatus('Firebase ist noch nicht bereit. Bitte kurz warten.', false); return; }
@@ -3091,196 +2980,6 @@ function fireReminder(){
   scheduleNextReminder();
 }
 
-/* ========================= BUDDIES VIEW ========================= */
-function renderBuddiesView(){
-  const bi=$('#buddies-back-ic'); if(bi) bi.innerHTML=svg('left');
-  const ab=$('#btn-add-buddy-view'); if(ab){ ab.innerHTML=svg('plus'); if(!ab._bound){ ab._bound=true; ab.addEventListener('click', openAddBuddySheet); }}
-  const m=$('#buddies-main'); if(!m) return;
-  if(!FB.user){
-    m.innerHTML=`<div class="buddies-empty">${svg('list')}<h3>Login erforderlich</h3><p>Buddy-Features brauchen ein Cloud-Konto.</p><button class="btn btn-primary" data-nav="auth" style="margin-top:14px">Einloggen</button></div>`;
-    return;
-  }
-  const code=ensureBuddyCode();
-  const buddies=DB.buddies||[];
-  const codeCard=`<div class="buddy-code-display"><div class="lbl">Dein Buddy-Code</div><div class="code">${esc(code)}</div><div class="hint">Teile ihn mit Freunden, damit sie dich hinzufügen können.</div></div>`;
-  let listHTML='';
-  if(!buddies.length){
-    listHTML=`<div class="buddies-empty" style="padding:24px 20px">${svg('list')}<h3>Noch keine Buddies</h3><p>Füge Freunde per Code hinzu.</p><button class="btn btn-primary" id="bud-add-first" style="margin-top:14px">${svg('plus')} Buddy hinzufügen</button></div>`;
-  } else {
-    const rows=buddies.map(b=>`<div class="buddy-item"><div class="buddy-av">${esc((b.nickname||'B')[0].toUpperCase())}</div><div class="buddy-info"><div class="buddy-nm">${esc(b.nickname||'Buddy')}</div><div class="buddy-sub">🔥 ${b.streakCurrent||0} W · ${b.weekWorkouts||0} Trainings · ${b.weekMinutes||0} Min</div></div><div class="buddy-actions"><button data-buddyrm="${esc(b.code)}" aria-label="Entfernen">${svg('trash')}</button></div></div>`).join('');
-    listHTML=`<div class="section-label">👥 Deine Buddies (${buddies.length})</div>${rows}<div class="hint" style="text-align:center;margin-top:12px">Ziehe von oben nach unten zum Aktualisieren</div>`;
-  }
-  m.innerHTML=codeCard+listHTML;
-  const btnFirst=$('#bud-add-first'); if(btnFirst) btnFirst.addEventListener('click', openAddBuddySheet);
-  $$('#buddies-main [data-buddyrm]').forEach(b=>b.addEventListener('click',()=>{
-    const c=b.dataset.buddyrm;
-    confirmSheet('Buddy entfernen?','Wird aus deiner Liste gelöscht.','Entfernen',()=>{
-      DB.buddies=(DB.buddies||[]).filter(x=>x.code!==c); save(); renderBuddiesView(); toast('Entfernt');
-    });
-  }));
-  /* Pull-to-refresh Simulation: Auto-Refresh beim Öffnen */
-  if(buddies.length && FB.ready){ refreshBuddies().then(()=>{ if(currentView==='buddies') renderBuddiesView(); }); }
-}
-/* ========================= WEEKLY PLANS ========================= */
-const DAYS_LABEL=['Mo','Di','Mi','Do','Fr','Sa','So'];
-const DAYS_LONG=['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'];
-function dayIndex(){ const d=new Date().getDay(); return d===0?6:d-1; } /* Mo=0..So=6 */
-function activeWeeklyPlan(){ return (DB.weeklyPlans||[]).find(p=>p.id===DB.activeWeeklyPlanId); }
-function todaysPlanFromWeekly(){
-  const wp=activeWeeklyPlan(); if(!wp) return null;
-  const day=dayIndex();
-  const planId=wp.days && wp.days[day];
-  if(!planId) return {rest:true, weeklyPlan:wp};
-  const p=findPlan(planId); if(!p) return null;
-  return {plan:p, weeklyPlan:wp};
-}
-function renderWeeklyPlanBanner(){
-  const el=$('#wplan-slot'); if(!el) return;
-  const info=todaysPlanFromWeekly();
-  if(!info){ el.innerHTML=''; return; }
-  const dayLbl=DAYS_LONG[dayIndex()];
-  if(info.rest){
-    el.innerHTML=`<div class="wplan-card"><div class="wplan-title">📅 ${esc(info.weeklyPlan.name)}</div><div class="wplan-sub">${esc(dayLbl)}</div><div class="wplan-today"><span class="day">Heute</span><span class="rest">🧘 Ruhetag</span></div></div>`;
-    return;
-  }
-  el.innerHTML=`<div class="wplan-card">
-    <div class="wplan-title">📅 ${esc(info.weeklyPlan.name)}</div>
-    <div class="wplan-sub">${esc(dayLbl)} · ${esc(info.plan.name)}</div>
-    <div class="wplan-today"><span class="day">Heute</span><span class="pl">${esc(info.plan.name)}</span></div>
-    <div class="wplan-actions">
-      <button class="start" data-wp-start="${esc(info.plan.id)}">${svgFill('play')} Starten</button>
-      <button class="edit" data-wp-edit>${svg('edit')} Wochenplan</button>
-    </div>
-  </div>`;
-  const s=el.querySelector('[data-wp-start]'); if(s) s.addEventListener('click',()=>startWorkout(info.plan.id));
-  const e=el.querySelector('[data-wp-edit]'); if(e) e.addEventListener('click',()=>openWeeklyPlanEditor(info.weeklyPlan.id));
-}
-function renderWeeklyPlansView(){
-  const bi=$('#wplans-back-ic'); if(bi) bi.innerHTML=svg('left');
-  const nb=$('#btn-new-wplan');
-  if(nb){ nb.innerHTML=svg('plus'); if(!nb._bound){ nb._bound=true; nb.addEventListener('click',()=>openWeeklyPlanEditor(null)); }}
-  const m=$('#wplans-main'); if(!m) return;
-  const plans=DB.weeklyPlans||[];
-  const aiBtn=`<button class="btn btn-primary btn-block btn-lg" id="wplan-ai" style="margin-bottom:12px">${svg('bolt')} Wochenplan mit KI generieren</button>`;
-  if(!plans.length){
-    m.innerHTML=aiBtn+`<div class="buddies-empty">${svg('cal')}<h3>Keine Wochenpläne</h3><p>Erstelle einen manuell oder lasse die KI einen für dich zusammenstellen.</p><button class="btn btn-ghost" style="margin-top:14px" id="wplan-manual">${svg('plus')} Manuell erstellen</button></div>`;
-    const mb=$('#wplan-manual'); if(mb) mb.addEventListener('click',()=>openWeeklyPlanEditor(null));
-  } else {
-    const rows=plans.map(wp=>{
-      const active=wp.id===DB.activeWeeklyPlanId;
-      const trainingDays=(wp.days||[]).filter(d=>d).length;
-      const restDays=7-trainingDays;
-      const dayBadges=DAYS_LABEL.map((lbl,i)=>{ const pid=wp.days&&wp.days[i]; const p=pid?findPlan(pid):null; return `<span class="badge" style="${!pid?'opacity:.4':''}">${lbl}${p?'':' 🧘'}</span>`; }).join('');
-      return `<div class="wplan-list-card ${active?'active':''}"><div class="info"><div class="nm">${esc(wp.name)}</div><div class="sub">${trainingDays} Trainings · ${restDays} Ruhetage</div><div class="badges">${dayBadges}</div></div><div class="actions">${!active?`<button data-wp-activate="${esc(wp.id)}" aria-label="Aktivieren">${svg('check')}</button>`:''}<button data-wp-edit2="${esc(wp.id)}" aria-label="Bearbeiten">${svg('edit')}</button></div></div>`;
-    }).join('');
-    m.innerHTML=aiBtn+`<div class="section-label">Deine Wochenpläne</div>`+rows;
-    $$('#wplans-main [data-wp-activate]').forEach(b=>b.addEventListener('click',()=>{
-      DB.activeWeeklyPlanId=b.dataset.wpActivate; save(); renderWeeklyPlansView(); toast('Aktiviert');
-    }));
-    $$('#wplans-main [data-wp-edit2]').forEach(b=>b.addEventListener('click',()=>openWeeklyPlanEditor(b.dataset.wpEdit2)));
-  }
-  const ai=$('#wplan-ai'); if(ai) ai.addEventListener('click',openWeeklyPlanAI);
-}
-let _editingWp=null;
-function blankWeeklyPlan(){
-  return { id:'wp_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6), name:'Mein Wochenplan', days:[null,null,null,null,null,null,null] };
-}
-function openWeeklyPlanEditor(id){
-  _editingWp = id ? structuredClone((DB.weeklyPlans||[]).find(p=>p.id===id)) : blankWeeklyPlan();
-  if(!_editingWp) _editingWp = blankWeeklyPlan();
-  if(!Array.isArray(_editingWp.days) || _editingWp.days.length!==7) _editingWp.days=[null,null,null,null,null,null,null];
-  $('#wpe-back-ic').innerHTML=svg('left');
-  $('#wpe-title').textContent=id?'Wochenplan bearbeiten':'Neuer Wochenplan';
-  $('#wpe-btn-delete').style.display = id?'':'none';
-  renderWeeklyPlanEditor();
-  show('wplan-editor', true);
-}
-function renderWeeklyPlanEditor(){
-  const m=$('#wpe-main'); if(!m||!_editingWp) return;
-  const days=_editingWp.days.map((planId,i)=>{
-    const p=planId?findPlan(planId):null;
-    const lbl=p?esc(p.name):'Ruhetag';
-    const cls=p?'':'empty';
-    return `<div class="wplan-day-row"><div class="wplan-day-lbl">${DAYS_LABEL[i]}</div><div class="wplan-day-plan ${cls}">${lbl}</div><div class="wplan-day-tools"><button data-wp-pick="${i}" aria-label="Plan wählen">${svg('edit')}</button>${p?`<button data-wp-clear="${i}" aria-label="Löschen">${svg('close')}</button>`:''}</div></div>`;
-  }).join('');
-  m.innerHTML=`<div class="field"><label>Name des Wochenplans</label><input class="input" id="wpe-name" value="${esc(_editingWp.name||'')}" maxlength="40"></div>
-    <div class="section-label" style="margin-top:8px">Tageszuweisung</div>
-    ${days}
-    <div class="hint" style="margin-top:14px;text-align:center">Leere Tage werden als Ruhetage behandelt.</div>`;
-  $('#wpe-name').addEventListener('input',(e)=>{ _editingWp.name=e.target.value.trim()||'Wochenplan'; });
-  $$('#wpe-main [data-wp-pick]').forEach(b=>b.addEventListener('click',()=>openPlanPickerForDay(+b.dataset.wpPick)));
-  $$('#wpe-main [data-wp-clear]').forEach(b=>b.addEventListener('click',()=>{
-    _editingWp.days[+b.dataset.wpClear]=null; renderWeeklyPlanEditor();
-  }));
-}
-function openPlanPickerForDay(dayIdx){
-  const plans=getPlans();
-  const items=plans.map(p=>`<button class="picker-item" data-pickpl="${esc(p.id)}"><div class="pi-info"><div class="pi-nm">${esc(p.name)}</div><div class="pi-de">${esc(p.level||'')} · ${p.cycles} Runden · ${(p.exercises||[]).length} Übungen</div></div></button>`).join('');
-  const body=`<p style="color:var(--muted);font-weight:600;margin:2px 0 10px">Wähle einen Plan für <b style="color:var(--accent)">${DAYS_LONG[dayIdx]}</b>:</p>
-    <button class="btn btn-soft btn-block" id="pp-rest" style="margin-bottom:10px">🧘 Als Ruhetag setzen</button>
-    <div class="picker-list">${items}</div>`;
-  openSheet('Plan auswählen', body);
-  $('#pp-rest').addEventListener('click',()=>{ _editingWp.days[dayIdx]=null; closeSheet(); renderWeeklyPlanEditor(); });
-  $$('#sheet-body [data-pickpl]').forEach(b=>b.addEventListener('click',()=>{
-    _editingWp.days[dayIdx]=b.dataset.pickpl; closeSheet(); renderWeeklyPlanEditor();
-  }));
-}
-function saveWeeklyPlan(){
-  if(!_editingWp) return;
-  const nameEl=$('#wpe-name'); if(nameEl) _editingWp.name=nameEl.value.trim()||'Wochenplan';
-  if(!Array.isArray(DB.weeklyPlans)) DB.weeklyPlans=[];
-  const idx=DB.weeklyPlans.findIndex(p=>p.id===_editingWp.id);
-  if(idx>=0) DB.weeklyPlans[idx]=_editingWp; else DB.weeklyPlans.push(_editingWp);
-  if(!DB.activeWeeklyPlanId) DB.activeWeeklyPlanId=_editingWp.id;
-  save(); toast('Gespeichert'); _editingWp=null; history.back();
-}
-function deleteWeeklyPlan(){
-  if(!_editingWp) return;
-  confirmSheet('Wochenplan löschen?','Wird dauerhaft entfernt.','Löschen',()=>{
-    DB.weeklyPlans=(DB.weeklyPlans||[]).filter(p=>p.id!==_editingWp.id);
-    if(DB.activeWeeklyPlanId===_editingWp.id) DB.activeWeeklyPlanId=(DB.weeklyPlans[0]&&DB.weeklyPlans[0].id)||null;
-    save(); _editingWp=null; toast('Gelöscht'); history.back();
-  });
-}
-function openWeeklyPlanAI(){
-  const body=`<p style="color:var(--muted);font-weight:600;margin:2px 0 12px">Basierend auf deinem Level und Ziel bauen wir einen ausgewogenen Wochenplan aus deinen Favoriten oder allen verfügbaren Plänen.</p>
-    <div style="font-weight:800;font-size:13px;margin-bottom:6px">Trainingstage pro Woche</div>
-    <div class="aigen-choices" id="wpai-freq">
-      ${[2,3,4,5].map(v=>`<div class="aigen-choice ${v===3?'on':''}" data-wpfreq="${v}"><div class="em">${v===2?'🌿':v===3?'💪':v===4?'🔥':'⚡'}</div><div class="nm">${v}× / Woche</div></div>`).join('')}
-    </div>
-    <div style="font-weight:800;font-size:13px;margin-bottom:6px">Quelle</div>
-    <div class="aigen-choices" id="wpai-src">
-      <div class="aigen-choice on" data-wpsrc="favorites"><div class="em">⭐</div><div class="nm">Aus Favoriten</div></div>
-      <div class="aigen-choice" data-wpsrc="all"><div class="em">📚</div><div class="nm">Alle Pläne</div></div>
-    </div>
-    <button class="btn btn-primary btn-block btn-lg" id="wpai-gen">${svg('bolt')} Wochenplan generieren</button>`;
-  openSheet('🤖 KI-Wochenplan', body);
-  let freq=3, src='favorites';
-  $$('#wpai-freq [data-wpfreq]').forEach(el=>el.addEventListener('click',()=>{ freq=+el.dataset.wpfreq; $$('#wpai-freq .aigen-choice').forEach(x=>x.classList.toggle('on',x===el)); }));
-  $$('#wpai-src [data-wpsrc]').forEach(el=>el.addEventListener('click',()=>{ src=el.dataset.wpsrc; $$('#wpai-src .aigen-choice').forEach(x=>x.classList.toggle('on',x===el)); }));
-  $('#wpai-gen').addEventListener('click',()=>{
-    const wp=generateWeeklyPlan(freq, src);
-    if(!wp){ toast('Zu wenige Pläne verfügbar'); return; }
-    if(!Array.isArray(DB.weeklyPlans)) DB.weeklyPlans=[];
-    DB.weeklyPlans.push(wp);
-    DB.activeWeeklyPlanId=wp.id;
-    save(); closeSheet(); toast('Wochenplan erstellt!'); renderWeeklyPlansView();
-  });
-}
-function generateWeeklyPlan(freq, source){
-  let pool = source==='favorites' ? getPlans().filter(p=>isFavorite(p.id)) : getPlans();
-  if(!pool.length && source==='favorites') pool = getPlans();
-  if(pool.length<1) return null;
-  /* Verteile Trainingstage möglichst gleichmäßig, mit Ruhetagen dazwischen */
-  const daysArr=[null,null,null,null,null,null,null];
-  const schedules={
-    2:[0,3], 3:[0,2,4], 4:[0,1,3,4], 5:[0,1,2,4,5]
-  };
-  const trainingDays=schedules[freq]||schedules[3];
-  const shuffled=pool.slice().sort(()=>Math.random()-0.5);
-  trainingDays.forEach((d,i)=>{ daysArr[d]=shuffled[i%shuffled.length].id; });
-  return { id:'wp_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6), name:`KI-Wochenplan (${freq}×/Woche)`, days:daysArr };
-}
 /* ========================= WARM-UP / COOL-DOWN PLAN EDITOR ========================= */
 let _editingWc=null; /* {kind:'warmup'|'cooldown', plan:{name,exercises:[]}} */
 function defaultWarmup(){
@@ -3957,47 +3656,6 @@ function openPrTimeline(exId){
   }).join('');
   openSheet('PR-Historie · '+name,`<div class="pr-timeline">${rows}</div>`);
 }
-/* ========================= BUDDIES VIEW ========================= */
-async function renderBuddiesView(){
-  const bi=$('#buddies-back-ic'); if(bi) bi.innerHTML=svg('left');
-  const ab=$('#btn-add-buddy-view'); if(ab){ ab.innerHTML=svg('plus'); if(!ab._bound){ ab._bound=true; ab.addEventListener('click',openAddBuddySheet); } }
-  const m=$('#buddies-main'); if(!m) return;
-  if(!FB.user){
-    m.innerHTML=`<div class="empty">${svg('list')}<h3>Login erforderlich</h3><p>Buddy-Features brauchen ein Cloud-Konto zum Austausch.</p><button class="btn btn-primary btn-sm" data-nav="settings" style="margin-top:12px">Zu Einstellungen</button></div>`;
-    return;
-  }
-  const code = ensureBuddyCode();
-  const nick = (DB.settings.nickname||'').trim();
-  let html = `<div class="buddy-code-display">
-    <div class="lbl">Dein Buddy-Code</div>
-    <div class="code">${esc(code)}</div>
-    <div class="hint">Teile diesen Code mit Freunden</div>
-  </div>`;
-  if(!nick){
-    html += `<div class="banner" style="margin-bottom:14px"><div class="banner-ic">${svg('edit')}</div><div class="grow"><b>Nickname fehlt</b><span>Setze einen Nickname in den Einstellungen, damit Buddies dich erkennen.</span></div></div>`;
-  }
-  html += `<div class="pc-actions" style="margin-bottom:14px"><button class="btn btn-primary" style="flex:1" id="bv-add">${svg('plus')} Buddy hinzufügen</button><button class="btn btn-ghost" style="flex:1" id="bv-lb">${svg('trophy')} Leaderboard</button></div>`;
-  if(!Array.isArray(DB.buddies) || !DB.buddies.length){
-    html += `<div class="empty"><h3>Noch keine Buddies</h3><p>Frage einen Freund nach seinem Code und füge ihn oben hinzu.</p></div>`;
-  } else {
-    html += `<div class="section-label">Deine Buddies (${DB.buddies.length})</div>`;
-    html += await refreshBuddiesInList();
-  }
-  m.innerHTML = html;
-  const bv=$('#bv-add'); if(bv) bv.addEventListener('click', openAddBuddySheet);
-  const lb=$('#bv-lb'); if(lb) lb.addEventListener('click', openLeaderboardSheet);
-  $$('#buddies-main [data-buddyrm]').forEach(b=>b.addEventListener('click',()=>{
-    const code=b.dataset.buddyrm;
-    confirmSheet('Buddy entfernen?','Diese Aktion kann nicht rückgängig gemacht werden.','Entfernen',()=>{
-      DB.buddies=DB.buddies.filter(x=>x.code!==code); save(); renderBuddiesView(); toast('Buddy entfernt');
-    });
-  }));
-}
-async function refreshBuddiesInList(){
-  /* Silent-Refresh im Hintergrund */
-  try{ await refreshBuddies(); }catch(e){}
-  return DB.buddies.map(b=>`<div class="buddy-item"><div class="buddy-av">${esc((b.nickname||'B')[0].toUpperCase())}</div><div class="buddy-info"><div class="buddy-nm">${esc(b.nickname||'Buddy')}</div><div class="buddy-sub">🔥 ${b.streakCurrent||0} Wochen · ${b.weekWorkouts||0} Trainings · ${b.weekMinutes||0} Min</div></div><button class="buddy-actions" data-buddyrm="${esc(b.code)}"><button>${svg('trash')}</button></button></div>`).join('');
-}
 /* ========================= WEEKLY PLANS ========================= */
 const WEEKDAYS = [
   {v:1, short:'MO', full:'Montag'},
@@ -4015,62 +3673,48 @@ function getActiveWeeklyPlan(){
 }
 function todaysPlanFromWeekly(){
   const wp = getActiveWeeklyPlan();
-  if(!wp) return null;
-  const planId = wp.days && wp.days[String(todayWeekday())];
+  if(!wp || !wp.days) return null;
+  const planId = wp.days[String(todayWeekday())];
   if(!planId) return null;
   return findPlan(planId);
 }
 function renderWeeklyPlansView(){
   const bi=$('#weekly-back-ic'); if(bi) bi.innerHTML=svg('left');
-  const nb=$('#btn-new-weekly'); if(nb){ nb.innerHTML=svg('plus'); if(!nb._bound){ nb._bound=true; nb.addEventListener('click',()=>openWeeklyPlanEditor(null)); } }
+  const nb=$('#btn-new-weekly');
+  if(nb){ nb.innerHTML=svg('plus'); if(!nb._bound){ nb._bound=true; nb.addEventListener('click',function(){ openWeeklyPlanEditor(null); }); } }
   const m=$('#weekly-main'); if(!m) return;
   const weeklies = DB.weeklyPlans || [];
   if(!weeklies.length){
-    m.innerHTML=`<div class="empty">${svg('cal')}<h3>Noch keine Wochenpläne</h3><p>Erstelle einen Split (z.B. Push-Pull-Legs), damit auf der Startseite immer dein Trainingsplan des Tages angezeigt wird.</p><button class="btn btn-primary btn-block btn-lg" id="wpv-new" style="margin-top:14px">${svg('plus')} Neuer Wochenplan</button><div style="height:8px"></div><button class="btn btn-soft btn-block" id="wpv-ai">${svg('bolt')} Von KI generieren lassen</button></div>`;
-    $('#wpv-new').addEventListener('click',()=>openWeeklyPlanEditor(null));
-    $('#wpv-ai').addEventListener('click',openAiWeeklyGenerator);
+    m.innerHTML = '<div class="empty">'+svg('cal')+'<h3>Noch keine Wochenpläne</h3><p>Erstelle einen Split (z.B. Push-Pull-Legs), damit auf der Startseite immer dein Training des Tages angezeigt wird.</p><div style="height:16px"></div><button class="btn btn-primary btn-block btn-lg" id="wpv-new">'+svg('plus')+' Neuer Wochenplan</button><div style="height:8px"></div><button class="btn btn-soft btn-block" id="wpv-ai">'+svg('bolt')+' KI-Wochenplan generieren</button></div>';
+    const bn=$('#wpv-new'); if(bn) bn.addEventListener('click',function(){ openWeeklyPlanEditor(null); });
+    const ba=$('#wpv-ai'); if(ba) ba.addEventListener('click', openAiWeeklyGenerator);
     return;
   }
   const today = todayWeekday();
-  const cards = weeklies.map(w=>{
+  const cards = weeklies.map(function(w){
     const isActive = DB.activeWeeklyPlanId===w.id;
-    const days = w.days||{};
-    const daysHTML = WEEKDAYS.map(d=>{
+    const days = w.days || {};
+    const daysHTML = WEEKDAYS.map(function(d){
       const pid = days[String(d.v)];
-      const p = pid ? findPlan(pid) : null;
-      const hasPlan = !!p;
+      const hasPlan = !!pid && !!findPlan(pid);
       const isToday = d.v===today;
-      return `<div class="wp-day ${hasPlan?'has':''} ${isToday?'today':''}"><span class="d-lbl">${d.short}</span><span class="d-ic">${hasPlan?'💪':'—'}</span></div>`;
+      return '<div class="wp-day '+(hasPlan?'has':'')+' '+(isToday?'today':'')+'"><span class="d-lbl">'+d.short+'</span><span class="d-ic">'+(hasPlan?'💪':'—')+'</span></div>';
     }).join('');
-    return `<div class="wp-card ${isActive?'active':''}" data-wpid="${esc(w.id)}">
-      <div class="wp-head"><div class="wp-name">${esc(w.name)}</div>${isActive?'<span class="chip lvl" style="flex:none">Aktiv</span>':''}</div>
-      <div class="wp-days">${daysHTML}</div>
-      <div class="wp-actions">
-        ${isActive
-          ? '<button data-wpdeact="'+esc(w.id)+'">Deaktivieren</button>'
-          : '<button class="primary" data-wpact="'+esc(w.id)+'">Als aktiv setzen</button>'
-        }
-        <button data-wpedit="${esc(w.id)}">${svg('edit')} Bearbeiten</button>
-      </div>
-    </div>`;
+    const actionButtons = isActive
+      ? '<button data-wpdeact="'+esc(w.id)+'">Deaktivieren</button>'
+      : '<button class="primary" data-wpact="'+esc(w.id)+'">Als aktiv setzen</button>';
+    return '<div class="wp-card '+(isActive?'active':'')+'"><div class="wp-head"><div class="wp-name">'+esc(w.name)+'</div>'+(isActive?'<span class="chip lvl" style="flex:none">Aktiv</span>':'')+'</div><div class="wp-days">'+daysHTML+'</div><div class="wp-actions">'+actionButtons+'<button data-wpedit="'+esc(w.id)+'">'+svg('edit')+' Bearbeiten</button></div></div>';
   }).join('');
-  m.innerHTML = `<div class="section-label">Deine Wochenpläne</div>${cards}<div style="height:10px"></div>
-    <button class="btn btn-soft btn-block" id="wpv-ai">${svg('bolt')} KI-Wochenplan generieren</button>`;
-  $$('#weekly-main [data-wpact]').forEach(b=>b.addEventListener('click',()=>{
-    DB.activeWeeklyPlanId=b.dataset.wpact; save(); renderWeeklyPlansView(); toast('Wochenplan aktiviert');
-  }));
-  $$('#weekly-main [data-wpdeact]').forEach(b=>b.addEventListener('click',()=>{
-    DB.activeWeeklyPlanId=null; save(); renderWeeklyPlansView(); toast('Wochenplan deaktiviert');
-  }));
-  $$('#weekly-main [data-wpedit]').forEach(b=>b.addEventListener('click',()=>{
-    openWeeklyPlanEditor(b.dataset.wpedit);
-  }));
-  $('#wpv-ai').addEventListener('click',openAiWeeklyGenerator);
+  m.innerHTML = '<div class="section-label">Deine Wochenpläne</div>'+cards+'<div style="height:10px"></div><button class="btn btn-soft btn-block" id="wpv-ai">'+svg('bolt')+' KI-Wochenplan generieren</button>';
+  $$('#weekly-main [data-wpact]').forEach(function(b){ b.addEventListener('click',function(){ DB.activeWeeklyPlanId=b.dataset.wpact; save(); renderWeeklyPlansView(); toast('Wochenplan aktiviert'); }); });
+  $$('#weekly-main [data-wpdeact]').forEach(function(b){ b.addEventListener('click',function(){ DB.activeWeeklyPlanId=null; save(); renderWeeklyPlansView(); toast('Wochenplan deaktiviert'); }); });
+  $$('#weekly-main [data-wpedit]').forEach(function(b){ b.addEventListener('click',function(){ openWeeklyPlanEditor(b.dataset.wpedit); }); });
+  const ba=$('#wpv-ai'); if(ba) ba.addEventListener('click', openAiWeeklyGenerator);
 }
 let _editingWeekly = null;
 function openWeeklyPlanEditor(id){
   if(id){
-    const existing = (DB.weeklyPlans||[]).find(w=>w.id===id);
+    const existing = (DB.weeklyPlans||[]).find(function(w){ return w.id===id; });
     _editingWeekly = existing ? structuredClone(existing) : null;
   } else {
     _editingWeekly = { id:'wp_'+uid(), name:'', days:{} };
@@ -4085,22 +3729,25 @@ function openWeeklyPlanEditor(id){
   show('weekly-editor', true);
 }
 function renderWeeklyEditorDays(){
-  const host = $('#wke-days'); if(!host || !_editingWeekly) return;
+  const host = $('#wke-days');
+  if(!host || !_editingWeekly) return;
   const allPlans = getPlans();
   const today = todayWeekday();
-  host.innerHTML = WEEKDAYS.map(d=>{
+  host.innerHTML = WEEKDAYS.map(function(d){
     const currentId = _editingWeekly.days[String(d.v)] || '';
     const opts = ['<option value="">— Ruhetag —</option>'].concat(
-      allPlans.map(p=>`<option value="${esc(p.id)}" ${currentId===p.id?'selected':''}>${esc(p.name)}</option>`)
+      allPlans.map(function(p){ return '<option value="'+esc(p.id)+'"'+(currentId===p.id?' selected':'')+'>'+esc(p.name)+'</option>'; })
     ).join('');
-    return `<div class="wk-day-row"><div class="wk-day-lbl ${d.v===today?'today':''}">${d.short}</div><div class="wk-day-picker"><select data-wked="${d.v}">${opts}</select></div></div>`;
+    return '<div class="wk-day-row"><div class="wk-day-lbl '+(d.v===today?'today':'')+'">'+d.short+'</div><div class="wk-day-picker"><select data-wked="'+d.v+'">'+opts+'</select></div></div>';
   }).join('');
-  $$('#wke-days [data-wked]').forEach(sel=>sel.addEventListener('change',()=>{
-    const day = sel.dataset.wked;
-    const val = sel.value;
-    if(val) _editingWeekly.days[day] = val;
-    else delete _editingWeekly.days[day];
-  }));
+  $$('#wke-days [data-wked]').forEach(function(sel){
+    sel.addEventListener('change',function(){
+      const day = sel.dataset.wked;
+      const val = sel.value;
+      if(val) _editingWeekly.days[day] = val;
+      else delete _editingWeekly.days[day];
+    });
+  });
 }
 function saveWeeklyPlan(){
   if(!_editingWeekly) return;
@@ -4109,7 +3756,7 @@ function saveWeeklyPlan(){
   _editingWeekly.name = name;
   if(!Object.keys(_editingWeekly.days).length){ toast('Weise mindestens einem Wochentag einen Plan zu'); return; }
   if(!Array.isArray(DB.weeklyPlans)) DB.weeklyPlans=[];
-  const idx = DB.weeklyPlans.findIndex(w=>w.id===_editingWeekly.id);
+  const idx = DB.weeklyPlans.findIndex(function(w){ return w.id===_editingWeekly.id; });
   if(idx>=0) DB.weeklyPlans[idx] = _editingWeekly;
   else DB.weeklyPlans.push(_editingWeekly);
   save(); _editingWeekly=null; history.back(); toast('Wochenplan gespeichert');
@@ -4117,60 +3764,65 @@ function saveWeeklyPlan(){
 function deleteWeeklyPlan(){
   if(!_editingWeekly) return;
   const id = _editingWeekly.id;
-  confirmSheet('Wochenplan löschen?','Der Plan wird dauerhaft entfernt.','Löschen',()=>{
-    DB.weeklyPlans = (DB.weeklyPlans||[]).filter(w=>w.id!==id);
+  confirmSheet('Wochenplan löschen?','Der Plan wird dauerhaft entfernt.','Löschen',function(){
+    DB.weeklyPlans = (DB.weeklyPlans||[]).filter(function(w){ return w.id!==id; });
     if(DB.activeWeeklyPlanId===id) DB.activeWeeklyPlanId=null;
     save(); _editingWeekly=null; history.back(); toast('Gelöscht');
   });
 }
 /* ========================= AI WEEKLY PLAN GENERATOR ========================= */
 function openAiWeeklyGenerator(){
-  let state = { split:null, freq:null, level:null };
-  const body = `<p style="color:var(--muted);font-weight:600;margin:2px 0 12px">Wir bauen dir einen kompletten Wochenplan mit Trainingstagen und Ruhetagen:</p>
-    <div style="font-weight:800;font-size:13px;margin-bottom:6px">Split-Art</div>
-    <div class="aigen-choices" id="aiw-split">
-      ${[{v:'full',em:'⚡',nm:'Ganzkörper'},{v:'ul',em:'💪',nm:'Upper/Lower'},{v:'ppl',em:'🎯',nm:'Push/Pull/Legs'},{v:'bro',em:'🔥',nm:'Bro-Split'}].map(o=>`<div class="aigen-choice" data-aisplit="${o.v}"><div class="em">${o.em}</div><div class="nm">${esc(o.nm)}</div></div>`).join('')}
-    </div>
-    <div style="font-weight:800;font-size:13px;margin-bottom:6px">Trainings pro Woche</div>
-    <div class="aigen-choices" id="aiw-freq">
-      ${[3,4,5,6].map(v=>`<div class="aigen-choice ${v===4?'on':''}" data-aifreq="${v}"><div class="em">🗓️</div><div class="nm">${v}×</div></div>`).join('')}
-    </div>
-    <div style="font-weight:800;font-size:13px;margin-bottom:6px">Level</div>
-    <div class="aigen-choices" id="aiw-level">
-      ${[{v:'Beginner',em:'🌱',nm:'Beginner'},{v:'Medium',em:'💪',nm:'Fortg.'},{v:'Advanced',em:'🏆',nm:'Advanced'}].map(o=>`<div class="aigen-choice" data-ailvl="${o.v}"><div class="em">${o.em}</div><div class="nm">${esc(o.nm)}</div></div>`).join('')}
-    </div>
-    <button class="btn btn-primary btn-block btn-lg" id="aiw-gen" disabled>${svg('bolt')} Wochenplan erstellen</button>`;
+  let state = { split:null, freq:4, level:null };
+  const splitOpts = [
+    {v:'full',em:'⚡',nm:'Ganzkörper'},
+    {v:'ul',em:'💪',nm:'Upper/Lower'},
+    {v:'ppl',em:'🎯',nm:'Push/Pull/Legs'},
+    {v:'bro',em:'🔥',nm:'Bro-Split'}
+  ];
+  const freqOpts = [3,4,5,6];
+  const lvlOpts = [
+    {v:'Beginner',em:'🌱',nm:'Beginner'},
+    {v:'Medium',em:'💪',nm:'Fortg.'},
+    {v:'Advanced',em:'🏆',nm:'Advanced'}
+  ];
+  const splitHTML = splitOpts.map(function(o){ return '<div class="aigen-choice" data-aisplit="'+o.v+'"><div class="em">'+o.em+'</div><div class="nm">'+esc(o.nm)+'</div></div>'; }).join('');
+  const freqHTML = freqOpts.map(function(v){ return '<div class="aigen-choice '+(v===4?'on':'')+'" data-aifreq="'+v+'"><div class="em">🗓️</div><div class="nm">'+v+'×</div></div>'; }).join('');
+  const lvlHTML = lvlOpts.map(function(o){ return '<div class="aigen-choice" data-ailvl="'+o.v+'"><div class="em">'+o.em+'</div><div class="nm">'+esc(o.nm)+'</div></div>'; }).join('');
+  const body = '<p style="color:var(--muted);font-weight:600;margin:2px 0 12px">Wir bauen dir einen kompletten Wochenplan mit Trainings- und Ruhetagen:</p>'
+    + '<div style="font-weight:800;font-size:13px;margin-bottom:6px">Split-Art</div><div class="aigen-choices" id="aiw-split">'+splitHTML+'</div>'
+    + '<div style="font-weight:800;font-size:13px;margin-bottom:6px">Trainings pro Woche</div><div class="aigen-choices" id="aiw-freq">'+freqHTML+'</div>'
+    + '<div style="font-weight:800;font-size:13px;margin-bottom:6px">Level</div><div class="aigen-choices" id="aiw-level">'+lvlHTML+'</div>'
+    + '<button class="btn btn-primary btn-block btn-lg" id="aiw-gen" disabled>'+svg('bolt')+' Wochenplan erstellen</button>';
   openSheet('🤖 KI-Wochenplan', body);
-  state.freq = 4;
-  const checkReady=()=>{ $('#aiw-gen').disabled = !(state.split && state.freq && state.level); };
-  $$('#aiw-split [data-aisplit]').forEach(el=>el.addEventListener('click',()=>{
+  const checkReady = function(){ const b=$('#aiw-gen'); if(b) b.disabled = !(state.split && state.freq && state.level); };
+  $$('#aiw-split [data-aisplit]').forEach(function(el){ el.addEventListener('click',function(){
     state.split=el.dataset.aisplit;
-    $$('#aiw-split [data-aisplit]').forEach(x=>x.classList.toggle('on',x===el));
+    $$('#aiw-split [data-aisplit]').forEach(function(x){ x.classList.toggle('on',x===el); });
     checkReady();
-  }));
-  $$('#aiw-freq [data-aifreq]').forEach(el=>el.addEventListener('click',()=>{
+  }); });
+  $$('#aiw-freq [data-aifreq]').forEach(function(el){ el.addEventListener('click',function(){
     state.freq=+el.dataset.aifreq;
-    $$('#aiw-freq [data-aifreq]').forEach(x=>x.classList.toggle('on',x===el));
+    $$('#aiw-freq [data-aifreq]').forEach(function(x){ x.classList.toggle('on',x===el); });
     checkReady();
-  }));
-  $$('#aiw-level [data-ailvl]').forEach(el=>el.addEventListener('click',()=>{
+  }); });
+  $$('#aiw-level [data-ailvl]').forEach(function(el){ el.addEventListener('click',function(){
     state.level=el.dataset.ailvl;
-    $$('#aiw-level [data-ailvl]').forEach(x=>x.classList.toggle('on',x===el));
+    $$('#aiw-level [data-ailvl]').forEach(function(x){ x.classList.toggle('on',x===el); });
     checkReady();
-  }));
-  $('#aiw-gen').addEventListener('click',()=>{
+  }); });
+  const gen = $('#aiw-gen');
+  if(gen) gen.addEventListener('click',function(){
     const wp = generateWeeklyPlan(state.split, state.freq, state.level);
     if(!Array.isArray(DB.weeklyPlans)) DB.weeklyPlans=[];
     DB.weeklyPlans.push(wp);
     DB.activeWeeklyPlanId = wp.id;
     save(); closeSheet();
-    toast('Wochenplan "'+wp.name+'" erstellt & aktiviert!');
+    toast('Wochenplan erstellt & aktiviert');
     if(currentView==='weekly') renderWeeklyPlansView();
     else show('weekly', true);
   });
 }
 function generateWeeklyPlan(split, freq, level){
-  /* Split-Definition: welche Trainingstypen an welchem Trainingstag */
   const splitPatterns = {
     full: ['full','full','full','full','full','full'],
     ul:   ['upper','lower','upper','lower','upper','lower'],
@@ -4178,15 +3830,13 @@ function generateWeeklyPlan(split, freq, level){
     bro:  ['chest','back','shoulders','legs','arms','core']
   };
   const seq = splitPatterns[split] || splitPatterns.full;
-  /* Trainingstage im Verhältnis auf die Woche verteilen */
   const scheduleMap = {
-    3: [1,3,5],       /* Mo Mi Fr */
-    4: [1,2,4,5],     /* Mo Di Do Fr */
-    5: [1,2,3,5,6],   /* Mo Di Mi Fr Sa */
-    6: [1,2,3,4,5,6]  /* Mo-Sa */
+    3: [1,3,5],
+    4: [1,2,4,5],
+    5: [1,2,3,5,6],
+    6: [1,2,3,4,5,6]
   };
   const scheduled = scheduleMap[freq] || scheduleMap[4];
-  /* Passenden Plan aus Bibliothek für jeden Fokustyp holen (oder generieren) */
   const focusToPlanId = {
     full:['b-fullbody-7r','b-basic-beginner','b-fullbody-luis','b-home-fullbody'],
     upper:['b-pull-push','b-arm-routine','b-shoulder-routine'],
@@ -4200,24 +3850,20 @@ function generateWeeklyPlan(split, freq, level){
     arms:['b-arm-routine','b-biceps-triceps'],
     core:['b-abs-core']
   };
-  /* Passenden Trainingsplan aus Bibliothek picken - Level-Match wenn möglich */
   const allPlans = getPlans();
-  const pickPlanFor = (focus)=>{
+  const pickPlanFor = function(focus){
     const candIds = focusToPlanId[focus] || focusToPlanId.full;
-    /* Bevorzuge Pläne mit passendem Level */
-    for(const id of candIds){
-      const p = allPlans.find(pp=>pp.id===id);
+    for(let i=0;i<candIds.length;i++){
+      const p = allPlans.find(function(pp){ return pp.id===candIds[i]; });
       if(p && p.level===level) return p.id;
     }
-    /* Fallback: erster passender Plan egal welches Level */
-    for(const id of candIds){
-      if(allPlans.find(pp=>pp.id===id)) return id;
+    for(let i=0;i<candIds.length;i++){
+      if(allPlans.find(function(pp){ return pp.id===candIds[i]; })) return candIds[i];
     }
-    /* Fallback: erster verfügbarer Plan */
     return (allPlans[0] && allPlans[0].id) || null;
   };
   const days = {};
-  scheduled.forEach((dayNum, idx)=>{
+  scheduled.forEach(function(dayNum, idx){
     const focus = seq[idx % seq.length];
     const planId = pickPlanFor(focus);
     if(planId) days[String(dayNum)] = planId;
@@ -4225,9 +3871,69 @@ function generateWeeklyPlan(split, freq, level){
   const splitLabels = { full:'Ganzkörper', ul:'Upper/Lower', ppl:'Push/Pull/Legs', bro:'Bro-Split' };
   return {
     id:'wp_'+uid(),
-    name: `${splitLabels[split]} (${freq}× ${level})`,
-    days
+    name: (splitLabels[split]||'Wochenplan')+' ('+freq+'× '+level+')',
+    days: days
   };
+}
+/* ========================= TODAY BANNER ========================= */
+function renderTodayBanner(){
+  const el=$('#today-banner-slot');
+  if(!el) return;
+  const p = todaysPlanFromWeekly();
+  const wp = getActiveWeeklyPlan();
+  if(!wp){ el.innerHTML=''; return; }
+  const todayIdx = todayWeekday()-1;
+  const dayLbl = WEEKDAYS[todayIdx].full;
+  if(!p){
+    el.innerHTML = '<div class="today-banner"><div class="em">😴</div><div class="info"><div class="nm">Heute Ruhetag</div><div class="sub">'+esc(wp.name)+' · '+esc(dayLbl)+'</div></div></div>';
+    return;
+  }
+  const est = Math.round(estimate(p)/60);
+  el.innerHTML = '<div class="today-banner"><div class="em">'+WEEKDAYS[todayIdx].short+'</div><div class="info"><div class="nm">'+esc(p.name)+'</div><div class="sub">Heute · '+esc(dayLbl)+' · ~'+est+' Min</div></div><button id="tb-start">'+svgFill('play')+' Start</button></div>';
+  const btn = $('#tb-start');
+  if(btn) btn.addEventListener('click',function(){ startWorkout(p.id); });
+}
+/* ========================= BUDDIES VIEW ========================= */
+function renderBuddiesView(){
+  const bi=$('#buddies-back-ic'); if(bi) bi.innerHTML=svg('left');
+  const ab=$('#btn-add-buddy-view');
+  if(ab){ ab.innerHTML=svg('plus'); if(!ab._bound){ ab._bound=true; ab.addEventListener('click', openAddBuddySheet); } }
+  const m=$('#buddies-main'); if(!m) return;
+  if(!FB.user){
+    m.innerHTML = '<div class="empty">'+svg('list')+'<h3>Login erforderlich</h3><p>Buddy-Features brauchen ein Cloud-Konto zum Austausch.</p></div>';
+    return;
+  }
+  const code = ensureBuddyCode();
+  const nick = (DB.settings.nickname||'').trim();
+  let html = '<div class="buddy-code-display"><div class="lbl">Dein Buddy-Code</div><div class="code">'+esc(code)+'</div><div class="hint">Teile diesen Code mit Freunden</div></div>';
+  if(!nick){
+    html += '<div class="banner" style="margin-bottom:14px"><div class="banner-ic">'+svg('edit')+'</div><div class="grow"><b>Nickname fehlt</b><span>Setze einen Nickname in den Einstellungen, damit Buddies dich erkennen.</span></div></div>';
+  }
+  html += '<div class="pc-actions" style="margin-bottom:14px"><button class="btn btn-primary" style="flex:1" id="bv-add">'+svg('plus')+' Buddy hinzufügen</button><button class="btn btn-ghost" style="flex:1" id="bv-lb">'+svg('trophy')+' Leaderboard</button></div>';
+  const buddies = DB.buddies||[];
+  if(!buddies.length){
+    html += '<div class="empty"><h3>Noch keine Buddies</h3><p>Frage einen Freund nach seinem Code.</p></div>';
+  } else {
+    html += '<div class="section-label">Deine Buddies ('+buddies.length+')</div>';
+    html += buddies.map(function(b){
+      const av = esc((b.nickname||'B')[0].toUpperCase());
+      return '<div class="buddy-item"><div class="buddy-av">'+av+'</div><div class="buddy-info"><div class="buddy-nm">'+esc(b.nickname||'Buddy')+'</div><div class="buddy-sub">🔥 '+(b.streakCurrent||0)+' Wo · '+(b.weekWorkouts||0)+' Tr · '+(b.weekMinutes||0)+' Min</div></div><button class="buddy-actions" data-buddyrm="'+esc(b.code)+'"><button>'+svg('trash')+'</button></button></div>';
+    }).join('');
+    /* Silent refresh - fire and forget */
+    if(typeof refreshBuddies==='function'){
+      refreshBuddies().then(function(){ if(currentView==='buddies') renderBuddiesView(); }).catch(function(){});
+    }
+  }
+  m.innerHTML = html;
+  const bv=$('#bv-add'); if(bv) bv.addEventListener('click', openAddBuddySheet);
+  const lb=$('#bv-lb'); if(lb) lb.addEventListener('click', openLeaderboardSheet);
+  $$('#buddies-main [data-buddyrm]').forEach(function(b){ b.addEventListener('click',function(){
+    const c=b.dataset.buddyrm;
+    confirmSheet('Buddy entfernen?','Diese Aktion kann nicht rückgängig gemacht werden.','Entfernen',function(){
+      DB.buddies=(DB.buddies||[]).filter(function(x){ return x.code!==c; });
+      save(); renderBuddiesView(); toast('Entfernt');
+    });
+  }); });
 }
 /* ========================= LEADERBOARD & BUDDY SHEETS ========================= */
 function openAddBuddySheet(){
@@ -4308,9 +4014,6 @@ function show(view, push=true){
   if(view==='parks') renderParks();
   if(view==='buddies') renderBuddiesView();
   if(view==='weekly') renderWeeklyPlansView();
-  if(view==='buddies') renderBuddiesView();
-  if(view==='wplans') renderWeeklyPlansView();
-  if(view==='wplan-editor'){ /* handled by openWeeklyPlanEditor */ }
   if(view==='wc-editor'){ /* handled by openWcEditor */ }
   window.scrollTo(0,0);
   if(push){ try{ history.pushState({view},''); }catch(e){} }
@@ -4370,14 +4073,11 @@ function renderHome(){
   const b2=$('#btn-skills'); if(b2) b2.innerHTML=svg('target')+' Skills';
   const b3=$('#btn-challenges'); if(b3) b3.innerHTML=svg('trophy')+' Challenges';
   const b4=$('#btn-parks'); if(b4) b4.innerHTML=svg('dumbbell')+' Parks';
-  const b5=$('#btn-wplans'); if(b5) b5.innerHTML=svg('cal')+' Wochenplan';
+  const b5=$('#btn-wplans'); if(b5) b5.innerHTML=svg('cal')+' Wochen';
   const b6=$('#btn-buddies'); if(b6) b6.innerHTML=svg('list')+' Buddies';
   renderTodayBanner();
-  const b5=$('#btn-wplans'); if(b5) b5.innerHTML=svg('cal')+' Wochenplan';
-  const b6=$('#btn-buddies'); if(b6) b6.innerHTML=svg('list')+' Buddies';
   renderResumeBanner();
   renderDeloadBanner();
-  renderWeeklyPlanBanner();
   renderMonthlyReport();
   renderWeeklyReport();
   renderStreakBanner();
@@ -4438,24 +4138,6 @@ function renderStreakBanner(){
       ${freezeBadge}
     </div>
     <div class="streak-best">Bestwert<b>${s.best}</b></div>`;
-}
-function renderTodayBanner(){
-  const el=$('#today-banner-slot'); if(!el) return;
-  const p = todaysPlanFromWeekly();
-  if(!p){
-    /* Kein aktiver Wochenplan oder heute Ruhetag */
-    const wp = getActiveWeeklyPlan();
-    if(wp){
-      const dayLbl = WEEKDAYS[todayWeekday()-1].full;
-      el.innerHTML = `<div class="today-banner"><div class="em">😴</div><div class="info"><div class="nm">Heute Ruhetag</div><div class="sub">${esc(wp.name)} · ${esc(dayLbl)}</div></div></div>`;
-    } else {
-      el.innerHTML='';
-    }
-    return;
-  }
-  const dayLbl = WEEKDAYS[todayWeekday()-1].full;
-  el.innerHTML = `<div class="today-banner"><div class="em">${WEEKDAYS[todayWeekday()-1].short}</div><div class="info"><div class="nm">${esc(p.name)}</div><div class="sub">Heute · ${esc(dayLbl)} · ~${Math.round(estimate(p)/60)} Min</div></div><button id="tb-start">${svgFill('play')} Start</button></div>`;
-  $('#tb-start').addEventListener('click',()=>startWorkout(p.id));
 }
 function renderDeloadBanner(){
   const el=$('#deload-banner'); if(!el) return;
@@ -5467,67 +5149,6 @@ function renderHistory(){
 }
 
 /* ========================= SETTINGS ========================= */
-let _settingsTab = 'account';
-function applySettingsTabs(){
-  const m = $('#settings-main'); if(!m) return;
-  /* Section-Titel zu Tabs mappen */
-  const TAB_MAP = {
-    'Konto & Sync': 'account',
-    'Community (optional)': 'account',
-    'App': 'general',
-    'Erinnerungen': 'general',
-    'Während des Trainings': 'training',
-    'Wochenziel': 'training',
-    'Standardwerte für neue Pläne': 'training',
-    'Plan-Werkzeuge': 'training',
-    'Aufwärm- & Cool-Down-Pläne': 'training',
-    'Ausgeblendete Pläne': 'training',
-    'Darstellung': 'design',
-    'Körper & Regeneration': 'body',
-    'Körpergewicht (für 1RM-Berechnungen)': 'body',
-    'Daten': 'data'
-  };
-  /* Alle set-note tag+group-Paare zuordnen */
-  const nodes = Array.from(m.children);
-  const groups = []; /* [{noteEl, groupEl, tab}] */
-  for(let i=0; i<nodes.length; i++){
-    const n = nodes[i];
-    if(n.classList && n.classList.contains('set-note')){
-      const title = (n.textContent||'').trim();
-      const tab = TAB_MAP[title] || 'general';
-      const g = nodes[i+1];
-      if(g && g.classList && g.classList.contains('set-group')){
-        groups.push({noteEl:n, groupEl:g, tab, title});
-      }
-    }
-  }
-  /* Tab-Bar bauen */
-  const TABS = [
-    {v:'account', em:'👤', nm:'Konto'},
-    {v:'training', em:'💪', nm:'Training'},
-    {v:'design', em:'🎨', nm:'Design'},
-    {v:'body', em:'🧘', nm:'Körper'},
-    {v:'general', em:'🔔', nm:'Allgemein'},
-    {v:'data', em:'💾', nm:'Daten'}
-  ];
-  const bar = document.createElement('div');
-  bar.className = 'set-tabs';
-  bar.innerHTML = TABS.map(t=>`<button class="set-tab ${_settingsTab===t.v?'on':''}" data-stab="${t.v}"><span>${t.em}</span>${esc(t.nm)}</button>`).join('');
-  m.insertBefore(bar, m.firstChild);
-  /* Sections nach Tab filtern */
-  groups.forEach(g=>{
-    const show = g.tab===_settingsTab;
-    g.noteEl.style.display = show?'':'none';
-    g.groupEl.style.display = show?'':'none';
-  });
-  /* Alle Nicht-Section-Elemente (app-foot, hidden-input) immer anzeigen */
-  bar.querySelectorAll('[data-stab]').forEach(b=>b.addEventListener('click',()=>{
-    _settingsTab = b.dataset.stab;
-    applySettingsTabs._cleanup && applySettingsTabs._cleanup();
-    renderSettings();
-  }));
-  applySettingsTabs._cleanup = ()=>{ if(bar.parentNode) bar.parentNode.removeChild(bar); };
-}
 function renderSettings(){
   $('#set-back-ic').innerHTML=svg('left');
   const s=DB.settings;
@@ -5737,8 +5358,6 @@ function renderSettings(){
   const lo=$('#btn-logout'); if(lo) lo.addEventListener('click', logout);
   const sn=$('#btn-sync-now'); if(sn) sn.addEventListener('click', ()=>cloudSaveNow(false));
   const gl=$('#btn-go-login'); if(gl) gl.addEventListener('click', ()=>show('auth',true));
-  /* Settings-Tabs anwenden (Phase E) */
-  applySettingsTabs();
 }
 
 function switchRow(key,title,sub,on){
@@ -5821,13 +5440,15 @@ document.addEventListener('click',e=>{
 $('#btn-new-plan').addEventListener('click',()=>openEditor(null));
 $('#btn-save-plan').addEventListener('click',savePlan);
 /* Warm-up / Cool-down plan editor events */
+/* Weekly Plan Editor Events */
+(function(){
+  const s=$('#wke-save'); if(s) s.addEventListener('click',saveWeeklyPlan);
+  const d=$('#wke-delete'); if(d) d.addEventListener('click',deleteWeeklyPlan);
+  const b=$('#wke-back-btn'); if(b) b.addEventListener('click',function(){ _editingWeekly=null; history.back(); });
+  const a=$('#wke-ai-fill'); if(a) a.addEventListener('click',openAiWeeklyGenerator);
+})();
 $('#wc-btn-save').addEventListener('click',saveWcPlan);
 $('#wc-btn-delete').addEventListener('click',deleteWcPlan);
-/* Weekly Plan Editor Events */
-const wkeSaveBtn=$('#wke-save'); if(wkeSaveBtn) wkeSaveBtn.addEventListener('click',saveWeeklyPlan);
-const wkeDelBtn=$('#wke-delete'); if(wkeDelBtn) wkeDelBtn.addEventListener('click',deleteWeeklyPlan);
-const wkeBackBtn=$('#wke-back-btn'); if(wkeBackBtn) wkeBackBtn.addEventListener('click',()=>{ _editingWeekly=null; history.back(); });
-const wkeAiBtn=$('#wke-ai-fill'); if(wkeAiBtn) wkeAiBtn.addEventListener('click',openAiWeeklyGenerator);
 $('#wc-btn-add-ex').addEventListener('click',()=>{ syncWcEditor(); _editingWc.plan.exercises.push({name:'',duration:30}); renderWcExEditor(); });
 $('#wc-back-btn').addEventListener('click',()=>{ _editingWc=null; history.back(); });
 $('#wc-ex-editor').addEventListener('click',e=>{
