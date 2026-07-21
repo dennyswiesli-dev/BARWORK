@@ -594,8 +594,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .share-preview canvas{max-width:100%;height:auto;border-radius:10px}
 
 
-/* ============ V3.4 ============ */
-/* Theme accent variables */
+/* ============ V3.4-3.6 ============ */
 [data-accent="green"] {--work:#c6f135;--work-ink:#12200a;--accent:#c6f135;--accent-ink:#12200a}
 [data-accent="orange"]{--work:#ff9124;--work-ink:#2a1400;--accent:#ff9124;--accent-ink:#2a1400}
 [data-accent="blue"]  {--work:#4aa8ff;--work-ink:#01162a;--accent:#4aa8ff;--accent-ink:#01162a}
@@ -603,16 +602,13 @@ input,select,textarea{font-family:inherit;font-size:16px}
 [data-accent="pink"]  {--work:#ff5ac8;--work-ink:#2a0421;--accent:#ff5ac8;--accent-ink:#2a0421}
 #settings-main .set-note{color:var(--accent);opacity:.85}
 #settings-main .set-ic:not(.danger){color:color-mix(in srgb,var(--accent) 55%,var(--muted))}
-#settings-main .theme-seg button.on,
-#settings-main .rpe-btn.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+#settings-main .theme-seg button.on,#settings-main .rpe-btn.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .section-label{color:color-mix(in srgb,var(--accent) 45%,var(--muted2))}
 .brand-sub{color:color-mix(in srgb,var(--accent) 40%,var(--muted))}
 .wk-round{color:var(--accent)}
 .hist-ic{color:var(--accent)}
-/* Farb-Auswahl-Rows: vertikal stapeln, damit Text nicht abgeschnitten wird */
-#settings-main .set-row.accent-row,
-#settings-main .set-row.color-row{flex-direction:column;align-items:stretch;gap:12px}
-/* ============ V3.5 NEW FEATURES ============ */
+#settings-main .set-row.accent-row,#settings-main .set-row.color-row{flex-direction:column;align-items:stretch;gap:12px}
+/* Banners */
 .deload-banner{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--rest) 22%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--rest) 45%,var(--line));border-radius:18px;padding:14px 16px;margin:8px 0 4px}
 .deload-ic{width:44px;height:44px;flex:none;border-radius:12px;background:var(--rest);color:var(--rest-ink);display:grid;place-items:center}
 .deload-ic svg{width:24px;height:24px}
@@ -623,17 +619,21 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .deload-x svg{width:16px;height:16px}
 .freeze-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:var(--muted);background:var(--panel2);border:1px solid var(--line);padding:3px 8px;border-radius:8px;margin-top:5px}
 .freeze-badge svg{width:12px;height:12px;color:#4aa8ff}
+/* Skills */
 .skill-card.locked{opacity:.55}
 .skill-locked-msg{background:var(--panel2);border:1px dashed var(--line2);border-radius:10px;padding:8px 10px;color:var(--muted);font-size:12px;font-weight:700;margin-top:8px;display:flex;align-items:center;gap:6px}
 .skill-locked-msg svg{width:14px;height:14px}
+/* Strength card */
 .strength-card{background:linear-gradient(135deg,color-mix(in srgb,#f0c419 12%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,#f0c419 35%,var(--line));border-radius:16px;padding:14px;margin-bottom:16px}
 .strength-card .lbl{color:#f0c419;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px}
 .strength-list{display:flex;flex-direction:column;gap:8px}
 .strength-item{display:flex;justify-content:space-between;font-size:13.5px;font-weight:700}
 .strength-item span{color:var(--muted)}
 .strength-item b{color:var(--chalk);font-family:var(--font-d);letter-spacing:.5px;font-size:15px}
+/* Challenges */
 .chal-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;position:relative;overflow:hidden}
 .chal-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+.chal-card.custom::before{background:#a273ff}
 .chal-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .chal-emoji{font-size:32px;line-height:1}
 .chal-info{flex:1;min-width:0}
@@ -643,15 +643,18 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .chal-progress i{display:block;height:100%;background:var(--accent);border-radius:4px;transition:width .4s}
 .chal-stats{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;font-weight:700;margin-bottom:10px}
 .chal-stats b{color:var(--chalk);font-family:var(--font-d);font-size:15px;letter-spacing:.5px}
-.chal-actions{display:flex;gap:8px}
-.chal-actions button{flex:1;padding:10px;border-radius:10px;font-weight:800;font-size:13px;border:none}
+.chal-actions{display:flex;gap:8px;flex-wrap:wrap}
+.chal-actions button{flex:1;min-width:100px;padding:10px;border-radius:10px;font-weight:800;font-size:13px;border:none}
 .chal-actions .active{background:var(--panel2);color:var(--work);border:1px solid color-mix(in srgb,var(--work) 40%,var(--line))}
 .chal-actions .cancel{background:var(--panel2);color:var(--danger);border:1px solid color-mix(in srgb,var(--danger) 30%,var(--line))}
 .chal-actions .start{background:var(--accent);color:var(--accent-ink)}
 .chal-actions .log{background:var(--work);color:var(--work-ink)}
+.chal-actions .edit{background:var(--panel2);color:var(--chalk);border:1px solid var(--line)}
 .chal-done{padding:10px 12px;background:color-mix(in srgb,var(--work) 15%,var(--panel2));color:var(--work);border:1px solid color-mix(in srgb,var(--work) 40%,var(--line));border-radius:10px;text-align:center;font-weight:800;font-size:13px}
+/* Parks */
 .park-list{display:flex;flex-direction:column;gap:10px}
-.park-item{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.park-item{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer}
+.park-item.fav{border-color:color-mix(in srgb,#f0c419 50%,var(--line))}
 .park-ic{width:44px;height:44px;flex:none;border-radius:12px;background:var(--ink2);color:var(--work);display:grid;place-items:center}
 .park-ic svg{width:22px;height:22px}
 .park-info{flex:1;min-width:0}
@@ -659,13 +662,111 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .park-sub{color:var(--muted);font-size:12px;font-weight:600;margin-top:2px}
 .park-btn{padding:8px 12px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--chalk);font-weight:700;font-size:12.5px;flex:none;display:inline-flex;align-items:center;gap:5px;text-decoration:none}
 .park-btn svg{width:13px;height:13px}
-.yt-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:8px;background:#ff0033;color:#fff;font-size:11px;font-weight:800;margin-top:6px;text-decoration:none}
+.park-fav-btn{width:32px;height:32px;flex:none;border-radius:9px;background:transparent;color:var(--muted2);border:1px solid var(--line);display:grid;place-items:center}
+.park-fav-btn.on{background:#f0c419;color:#0e1705;border-color:#f0c419}
+.weather-box{background:linear-gradient(135deg,color-mix(in srgb,#4aa8ff 15%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,#4aa8ff 40%,var(--line));border-radius:14px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:14px}
+.weather-emoji{font-size:36px;line-height:1}
+.weather-info{flex:1;min-width:0}
+.weather-nm{font-family:var(--font-d);font-size:18px;letter-spacing:.5px;line-height:1.1}
+.weather-sub{color:var(--muted);font-size:12.5px;font-weight:600;margin-top:3px}
+.weather-verdict{color:#4aa8ff;font-size:12px;font-weight:800;margin-top:3px}
+/* YouTube */
+.yt-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:8px;background:#ff0033;color:#fff;font-size:11px;font-weight:800;margin-top:6px;text-decoration:none;border:none;cursor:pointer}
 .yt-btn svg{width:12px;height:12px}
-.yt-btn-workout{margin-top:6px;padding:7px 12px;border-radius:10px;background:#ff0033;color:#fff;font-size:12px;font-weight:800;display:inline-flex;align-items:center;gap:6px;transition:.14s;text-decoration:none;border:none}
-.yt-btn-workout:active{transform:scale(.95)}
+.yt-btn-workout{margin-top:6px;padding:7px 12px;border-radius:10px;background:#ff0033;color:#fff;font-size:12px;font-weight:800;display:inline-flex;align-items:center;gap:6px;text-decoration:none;border:none;cursor:pointer}
 .yt-btn-workout svg{width:13px;height:13px}
+.yt-embed{width:100%;aspect-ratio:16/9;border-radius:12px;margin:10px 0;border:none;background:#000}
+/* Home shortcuts */
 .home-shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 4px}
 .home-shortcuts .btn{padding:14px 12px;font-size:14px}
+/* Mode selector for special training modes */
+.mode-picker{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 14px}
+.mode-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;cursor:pointer;transition:.15s}
+.mode-card:active{transform:scale(.97)}
+.mode-card.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--panel))}
+.mode-card .mode-emoji{font-size:26px;line-height:1;margin-bottom:4px}
+.mode-card .mode-nm{font-family:var(--font-d);font-size:14px;letter-spacing:.5px;color:var(--chalk)}
+.mode-card .mode-desc{color:var(--muted);font-size:11px;font-weight:600;margin-top:2px;line-height:1.3}
+/* Live workout notes */
+.wk-note-btn{position:fixed;top:calc(env(safe-area-inset-top) + 66px);right:16px;width:38px;height:38px;border-radius:11px;background:var(--panel);border:1px solid var(--line);color:var(--chalk);display:grid;place-items:center;z-index:42}
+.wk-note-btn svg{width:18px;height:18px}
+.wk-note-btn.has{color:var(--work);border-color:var(--work)}
+/* Volume tracking heatmap enhanced */
+.vol-box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:16px}
+.vol-title{color:var(--muted2);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px}
+.vol-row{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:13px;font-weight:700}
+.vol-lbl{width:72px;flex:none;color:var(--muted)}
+.vol-bar{flex:1;height:12px;background:var(--panel2);border-radius:6px;overflow:hidden}
+.vol-bar i{display:block;height:100%;background:var(--accent);border-radius:6px}
+.vol-val{flex:none;min-width:50px;text-align:right;color:var(--chalk);font-family:var(--font-d);font-size:14px;letter-spacing:.5px}
+/* Forecast */
+.forecast-card{background:linear-gradient(135deg,color-mix(in srgb,#a273ff 15%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,#a273ff 35%,var(--line));border-radius:16px;padding:14px;margin-bottom:16px}
+.forecast-lbl{color:#a273ff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px}
+.forecast-item{display:flex;justify-content:space-between;font-size:13.5px;font-weight:700;padding:5px 0}
+.forecast-item span{color:var(--muted)}
+.forecast-item b{color:var(--chalk);font-family:var(--font-d);font-size:15px}
+/* PR Timeline */
+.pr-timeline{display:flex;flex-direction:column;gap:10px;margin:10px 0}
+.pr-tl-item{display:flex;align-items:center;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:10px 13px}
+.pr-tl-date{color:var(--muted);font-size:11.5px;font-weight:700;flex:none;min-width:76px}
+.pr-tl-val{flex:1;font-family:var(--font-d);font-size:17px;letter-spacing:.5px;color:var(--chalk)}
+.pr-tl-delta{color:var(--work);font-weight:800;font-size:12px}
+/* Onboarding */
+.ob-scrim{position:fixed;inset:0;background:rgba(3,6,10,.9);backdrop-filter:blur(6px);z-index:70;display:flex;align-items:center;justify-content:center;padding:20px}
+.ob-card{width:100%;max-width:440px;background:var(--panel);border:1px solid var(--line2);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
+.ob-step{color:var(--muted2);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.3px;margin-bottom:8px}
+.ob-title{font-family:var(--font-d);font-size:26px;letter-spacing:.5px;margin-bottom:6px;line-height:1.1}
+.ob-sub{color:var(--muted);font-size:14px;font-weight:600;margin-bottom:18px;line-height:1.4}
+.ob-choices{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.ob-choice{display:flex;align-items:center;gap:12px;padding:14px;background:var(--panel2);border:2px solid var(--line);border-radius:14px;font-weight:700;cursor:pointer;text-align:left;transition:.14s;width:100%}
+.ob-choice:active{transform:scale(.98)}
+.ob-choice.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--panel))}
+.ob-choice .em{font-size:26px;flex:none;line-height:1}
+.ob-choice .info{flex:1;min-width:0}
+.ob-choice .nm{font-size:15px;font-weight:800;color:var(--chalk)}
+.ob-choice .de{color:var(--muted);font-size:12px;font-weight:600;margin-top:1px}
+.ob-actions{display:flex;gap:10px;margin-top:8px}
+.ob-actions button{flex:1;padding:14px;border-radius:12px;font-weight:800;font-size:14.5px}
+/* Music/Media */
+.media-mini{display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-top:8px;font-size:12px;font-weight:700;color:var(--muted)}
+.media-mini svg{width:14px;height:14px;color:var(--accent)}
+/* Leaderboard */
+.lb-item{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:8px}
+.lb-item.me{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--panel))}
+.lb-rank{width:30px;flex:none;font-family:var(--font-d);font-size:18px;color:var(--muted);text-align:center}
+.lb-rank.top{color:#f0c419}
+.lb-nm{flex:1;font-weight:800;font-size:14px}
+.lb-me-tag{font-size:10px;font-weight:800;color:var(--accent);letter-spacing:1px;margin-left:6px}
+.lb-val{font-family:var(--font-d);font-size:17px;letter-spacing:.5px;color:var(--accent)}
+/* Buddy */
+.buddy-card{background:linear-gradient(135deg,color-mix(in srgb,var(--work) 15%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--work) 35%,var(--line));border-radius:16px;padding:14px;margin-bottom:12px}
+.buddy-item{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:8px}
+.buddy-av{width:40px;height:40px;flex:none;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--font-d);font-size:17px}
+.buddy-info{flex:1;min-width:0}
+.buddy-nm{font-weight:800;font-size:14px}
+.buddy-sub{color:var(--muted);font-size:11.5px;font-weight:600;margin-top:1px}
+.buddy-actions{display:flex;gap:6px}
+.buddy-actions button{padding:7px 10px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);color:var(--chalk);font-size:12px;font-weight:800}
+/* Code box */
+.code-box{background:var(--ink);border:2px dashed var(--accent);border-radius:12px;padding:16px;text-align:center;margin:10px 0}
+.code-box .lbl{color:var(--muted2);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.code-box .code{font-family:var(--font-d);font-size:32px;letter-spacing:6px;color:var(--accent);line-height:1;word-break:break-all}
+.code-box .code.long{font-size:14px;letter-spacing:1px;font-family:monospace;word-break:break-all;user-select:all}
+/* Weekly report card */
+.report-card{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 18%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:18px;padding:16px;margin:8px 0 4px}
+.report-title{font-family:var(--font-d);font-size:20px;letter-spacing:.5px;margin-bottom:10px}
+.report-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.report-list .item{display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:var(--muted)}
+.report-list .item b{color:var(--chalk);font-family:var(--font-d);font-size:15px;letter-spacing:.5px}
+/* AMRAP/EMOM/Tabata indicator */
+.mode-badge{display:inline-flex;align-items:center;gap:5px;background:#a273ff;color:#fff;font-size:11px;font-weight:900;padding:4px 9px;border-radius:8px;letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+.mode-badge.tabata{background:#ff5478}
+.mode-badge.emom{background:#4aa8ff}
+.mode-badge.amrap{background:#ff9124}
+/* Warm-up / Cool-down plan editor entry */
+.wc-plan-preview{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.wc-plan-preview b{color:var(--chalk)}
+.wc-plan-preview .ex{display:inline-block;background:var(--ink2);padding:2px 7px;border-radius:6px;margin:2px 3px 2px 0;font-size:11px;color:var(--chalk);font-weight:700}
 
 /* Compact plan cards */
 body[data-compact="1"] .plan-list{gap:8px}
@@ -847,6 +948,7 @@ body[data-compact="1"] .plan-card .pc-menu{width:30px;height:30px}
       <div id="install-banner" style="display:none"></div>
       <div id="resume-banner" class="resume-banner" style="display:none"></div>
       <div id="deload-banner" class="deload-banner" style="display:none"></div>
+      <div id="report-slot"></div>
       <div id="streak-banner" class="streak-banner" style="display:none"></div>
       <div id="goal-card" class="goal-card" style="display:none"></div>
       <div id="progr-host"></div>
@@ -1056,7 +1158,7 @@ body[data-compact="1"] .plan-card .pc-menu{width:30px;height:30px}
     <div class="view-head">
       <button class="back-btn" data-nav="home"><span id="chal-back-ic"></span>Zurück</button>
       <h2>Challenges</h2>
-      <span style="width:44px"></span>
+      <button class="icon-btn" id="btn-new-chal" aria-label="Neu"></button>
     </div>
     <main class="home-main" id="chal-main"></main>
   </div>
@@ -1373,12 +1475,17 @@ const DEFAULTS={
   favorites:[], prs:{}, skills:{},
   streakFreeze:{ tokens:2, lastGranted:0, usedThisMonth:0, monthKey:'', appliedWeeks:[] },
   deloadDismissedAt:0,
-  challenges:{},
-  parks:{ favorites:[] },
-  flags:{ homeHintDismissed:false },
+  challenges:{}, customChallenges:[],
+  parks:{ favorites:[], notes:{} },
+  exerciseNotes:{}, /* per-exercise persistent notes */
+  warmupPlan:null, cooldownPlan:null, /* separate warm-up/cool-down plans */
+  buddyCode:'', buddies:[],
+  lastReport:{ weekKey:'', dismissedAt:0 },
+  flags:{ homeHintDismissed:false, onboarded:false },
   settings:{ sound:true, vibrate:true, wakeLock:true, beeps:true, prepare:5,
              theme:'dark', accent:'green', compact:false, defaultPlanColor:'none',
-             bodyWeightKg:75,
+             bodyWeightKg:75, autoRestTimer:true, mediaSession:true,
+             leaderboardOptIn:false, nickname:'',
              defaultRestEx:30, defaultRestCycle:120,
              trackReps:true, askRpe:true, askNotes:true, voice:false, weeklyGoal:3,
              reminderEnabled:false, reminderTime:'18:00', reminderDays:[1,2,3,4,5],
@@ -1494,27 +1601,25 @@ const ACHIEVEMENTS=[
   {id:'time_600',     emoji:'💎', name:'10 Stunden',  desc:'10 Stunden Gesamttraining',check:(s)=>s.totalMinutes>=600}
 ];
 
-/* YouTube search URL helper */
-function ytUrl(exerciseName){
-  const q = encodeURIComponent(String(exerciseName||'').trim()+' calisthenics tutorial');
-  return 'https://www.youtube.com/results?search_query='+q;
-}
-/* 1RM equivalents - Brzycki-inspired for bodyweight */
+/* YouTube helper */
+function ytUrl(name){ return 'https://www.youtube.com/results?search_query='+encodeURIComponent(String(name||'').trim()+' calisthenics tutorial'); }
+function ytEmbedFirst(name){ return 'https://www.youtube.com/embed?listType=search&list='+encodeURIComponent(String(name||'').trim()+' calisthenics tutorial'); }
+/* 1RM equivalents */
 function computeStrengthEquiv(){
-  const bw = +DB.settings.bodyWeightKg || 75;
-  const out = [];
-  const push_pr = (DB.prs.push_up && DB.prs.push_up.bestReps) || 0;
-  const chin_pr = (DB.prs.chin_up && DB.prs.chin_up.bestReps) || 0;
-  const pull_pr = (DB.prs.pull_up && DB.prs.pull_up.bestReps) || 0;
-  const dip_pr  = (DB.prs.dips && DB.prs.dips.bestReps) || 0;
-  const squat_pr = (DB.prs.squats && DB.prs.squats.bestReps) || 0;
-  if(push_pr>0){ const load=bw*0.65; out.push({label:'Bankdrücken', reps:push_pr+' Push Ups', kg:Math.round(load*(1+push_pr/30))}); }
-  if(pull_pr>0 || chin_pr>0){ const reps=Math.max(pull_pr,chin_pr); out.push({label:'Latzug', reps:reps+' Pull Ups', kg:Math.round(bw*(1+reps/30))}); }
-  if(dip_pr>0){ const load=bw*0.9; out.push({label:'Dips (gewichtet)', reps:dip_pr+' Dips', kg:Math.round(load*(1+dip_pr/30))}); }
-  if(squat_pr>0){ const load=bw*0.85; out.push({label:'Kniebeuge', reps:squat_pr+' Squats', kg:Math.round(load*(1+squat_pr/30))}); }
+  const bw=+DB.settings.bodyWeightKg||75; const out=[];
+  const p=DB.prs||{};
+  const push=(p.push_up&&p.push_up.bestReps)||0;
+  const chin=(p.chin_up&&p.chin_up.bestReps)||0;
+  const pull=(p.pull_up&&p.pull_up.bestReps)||0;
+  const dip=(p.dips&&p.dips.bestReps)||0;
+  const sq=(p.squats&&p.squats.bestReps)||0;
+  if(push>0) out.push({label:'Bankdrücken',reps:push+' Push Ups',kg:Math.round(bw*0.65*(1+push/30))});
+  if(pull>0||chin>0){const r=Math.max(pull,chin); out.push({label:'Latzug',reps:r+' Pull Ups',kg:Math.round(bw*(1+r/30))});}
+  if(dip>0) out.push({label:'Dips (gewichtet)',reps:dip+' Dips',kg:Math.round(bw*0.9*(1+dip/30))});
+  if(sq>0)  out.push({label:'Kniebeuge',reps:sq+' Squats',kg:Math.round(bw*0.85*(1+sq/30))});
   return out;
 }
-/* Streak Freeze Tokens */
+/* Streak Freeze */
 function grantMonthlyFreeze(){
   if(!DB.streakFreeze) DB.streakFreeze={tokens:2,lastGranted:0,usedThisMonth:0,monthKey:'',appliedWeeks:[]};
   const now=new Date(); const mk=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
@@ -1526,91 +1631,123 @@ function grantMonthlyFreeze(){
 }
 function autoConsumeFreeze(){
   const hist=DB.history||[]; if(!hist.length) return;
-  const sf=DB.streakFreeze; if(!sf || !sf.tokens || sf.tokens<=0) return;
+  const sf=DB.streakFreeze; if(!sf||!sf.tokens||sf.tokens<=0) return;
   const weeks=new Set(hist.map(h=>isoWeekKey(h.date)));
   const now=new Date(); const day=now.getDay()||7;
-  const thisMonday=new Date(now); thisMonday.setDate(now.getDate()-(day-1)); thisMonday.setHours(0,0,0,0);
-  const lastMonday=new Date(thisMonday); lastMonday.setDate(lastMonday.getDate()-7);
-  const twoAgo=new Date(thisMonday); twoAgo.setDate(twoAgo.getDate()-14);
-  const twoAgoKey=isoWeekKey(twoAgo), lastWkKey=isoWeekKey(lastMonday);
-  if(weeks.has(twoAgoKey) && !weeks.has(lastWkKey) && (sf.usedThisMonth||0)<2){
-    if(!(sf.appliedWeeks||[]).includes(lastWkKey)){
+  const thisMon=new Date(now); thisMon.setDate(now.getDate()-(day-1)); thisMon.setHours(0,0,0,0);
+  const lastMon=new Date(thisMon); lastMon.setDate(lastMon.getDate()-7);
+  const twoAgo=new Date(thisMon); twoAgo.setDate(twoAgo.getDate()-14);
+  const twoKey=isoWeekKey(twoAgo), lastKey=isoWeekKey(lastMon);
+  if(weeks.has(twoKey)&&!weeks.has(lastKey)&&(sf.usedThisMonth||0)<2){
+    if(!(sf.appliedWeeks||[]).includes(lastKey)){
       sf.tokens-=1; sf.usedThisMonth=(sf.usedThisMonth||0)+1;
-      sf.appliedWeeks=(sf.appliedWeeks||[]).concat([lastWkKey]).slice(-6);
-      save(); toast('🧊 Streak-Joker eingesetzt – deine Serie ist gerettet!');
+      sf.appliedWeeks=(sf.appliedWeeks||[]).concat([lastKey]).slice(-6);
+      save(); toast('🧊 Streak-Joker eingesetzt!');
     }
   }
 }
 function effectiveWeeksSet(){
   const s=new Set((DB.history||[]).map(h=>isoWeekKey(h.date)));
-  const applied=(DB.streakFreeze && DB.streakFreeze.appliedWeeks)||[];
+  const applied=(DB.streakFreeze&&DB.streakFreeze.appliedWeeks)||[];
   applied.forEach(w=>s.add(w)); return s;
 }
-/* Deload detection */
+/* Deload */
 function needsDeload(){
-  if(DB.deloadDismissedAt && (Date.now()-DB.deloadDismissedAt)<3*86400000) return null;
-  const recent=(DB.history||[]).slice(0,6);
-  if(recent.length<3) return null;
-  const last3=recent.slice(0,3);
-  if(last3.every(h=>h.rpe===4)) return {reason:'Du hast die letzten 3 Trainings als brutal bewertet.',tip:'Plane einen Ruhetag oder eine leichte Woche ein.'};
-  const weekAgo=Date.now()-7*86400000;
-  const inWeek=(DB.history||[]).filter(h=>h.date>=weekAgo).length;
-  if(inWeek>=6) return {reason:'Du hast in 7 Tagen '+inWeek+' Trainings absolviert.',tip:'Gönn deinem Körper 1–2 Tage Erholung.'};
-  const rpeVals=recent.slice(0,5).map(h=>h.rpe).filter(x=>x);
-  if(rpeVals.length>=4){ const avg=rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length;
-    if(avg>=3.5) return {reason:'Letzte Sessions waren durchschnittlich sehr hart (RPE '+avg.toFixed(1)+').',tip:'Ein Deload mit 60% Volumen boostet die Regeneration.'};
-  }
+  if(DB.deloadDismissedAt&&(Date.now()-DB.deloadDismissedAt)<3*86400000) return null;
+  const rec=(DB.history||[]).slice(0,6); if(rec.length<3) return null;
+  const l3=rec.slice(0,3); if(l3.every(h=>h.rpe===4)) return {reason:'Letzte 3 Trainings als brutal bewertet.',tip:'Plane einen Ruhetag ein.'};
+  const wk=(DB.history||[]).filter(h=>h.date>=Date.now()-7*86400000).length;
+  if(wk>=6) return {reason:wk+' Trainings in 7 Tagen.',tip:'1–2 Tage Erholung tun gut.'};
+  const rp=rec.slice(0,5).map(h=>h.rpe).filter(x=>x);
+  if(rp.length>=4){const a=rp.reduce((s,v)=>s+v,0)/rp.length; if(a>=3.5) return {reason:'Ø RPE '+a.toFixed(1)+' (sehr hart).',tip:'Ein Deload boostet Regeneration.'};}
   return null;
+}
+/* Weekly report */
+function computeWeeklyReport(weeksBack){
+  weeksBack=weeksBack||0;
+  const now=new Date(); const day=now.getDay()||7;
+  const monday=new Date(now); monday.setDate(now.getDate()-(day-1)-weeksBack*7); monday.setHours(0,0,0,0);
+  const nextMon=new Date(monday); nextMon.setDate(monday.getDate()+7);
+  const inWeek=(DB.history||[]).filter(h=>h.date>=monday.getTime()&&h.date<nextMon.getTime());
+  if(!inWeek.length) return null;
+  const totalMin=Math.round(inWeek.reduce((a,h)=>a+(h.durationSec||0),0)/60);
+  const reps={};
+  inWeek.forEach(h=>(h.entries||[]).forEach(en=>{ if(en.reps!=null){ const k=exKey(en.name); if(k) reps[k]=(reps[k]||0)+en.reps; }}));
+  const topEx=Object.entries(reps).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  const bestRpe=inWeek.filter(h=>h.rpe).sort((a,b)=>a.rpe-b.rpe)[0];
+  return { count:inWeek.length, totalMin, topEx, bestSession:bestRpe?bestRpe.planName:null, weekKey:isoWeekKey(monday) };
+}
+/* Volume tracking per muscle group */
+function volumeLastWeek(){
+  const cutoff=Date.now()-7*86400000;
+  const totals={};
+  (DB.history||[]).forEach(h=>{
+    if((h.date||0)<cutoff) return;
+    (h.entries||[]).forEach(en=>{
+      if(en.reps==null) return;
+      const info=libLookupOrRaw(en.name);
+      (info.muscle||[]).forEach(m=>{ totals[m]=(totals[m]||0)+en.reps; });
+    });
+  });
+  const max=Math.max(1,...Object.values(totals));
+  return Object.keys(totals).map(m=>({id:m,label:MUSCLE_LABEL[m]||m,val:totals[m],pct:Math.round(totals[m]/max*100)})).sort((a,b)=>b.val-a.val);
+}
+/* Forecast */
+function forecastReps(exId, targetReps){
+  const series=exerciseRepSeries(exId, 20);
+  if(series.length<3) return null;
+  const first=series[0], last=series[series.length-1];
+  const daysSpan=Math.max(1,(last.date-first.date)/86400000);
+  const repDelta=last.reps-first.reps;
+  if(repDelta<=0) return null;
+  const repsPerDay=repDelta/daysSpan;
+  const missing=targetReps-last.reps;
+  if(missing<=0) return {days:0, reached:true};
+  const days=Math.round(missing/repsPerDay);
+  return {days, reached:false, currentReps:last.reps, target:targetReps, ratePerWeek:(repsPerDay*7).toFixed(1)};
+}
+/* PR Timeline for one exercise */
+function prTimeline(exId){
+  const arr=[]; let best=0;
+  (DB.history||[]).slice().reverse().forEach(h=>{
+    (h.entries||[]).forEach(en=>{
+      if(en.reps==null) return;
+      if(exKey(en.name)!==exId) return;
+      if(en.reps>best){ arr.push({date:h.date, reps:en.reps, delta:en.reps-best}); best=en.reps; }
+    });
+  });
+  return arr;
 }
 /* Challenges Catalog */
 const CHALLENGES = [
-  { id:'ch_pushup100', name:'100 Push Ups Challenge', emoji:'💪', durationDays:30, desc:'In 30 Tagen zu 100 Push Ups am Stück.', target:100 },
-  { id:'ch_pullup10',  name:'0 auf 10 Pull Ups',      emoji:'🎖️', durationDays:60, desc:'Vom ersten Klimmzug bis zum Satz mit 10 sauberen Wdh.', target:10 },
+  { id:'ch_pushup100', name:'100 Push Ups Challenge', emoji:'💪', durationDays:30, desc:'In 30 Tagen zu 100 Push Ups.', target:100 },
+  { id:'ch_pullup10',  name:'0 auf 10 Pull Ups',      emoji:'🎖️', durationDays:60, desc:'Vom ersten Klimmzug zu 10 sauberen Wdh.', target:10 },
   { id:'ch_muscleup',  name:'Muscle Up in 60 Tagen',  emoji:'⚡', durationDays:60, desc:'Systematisch zum ersten Muscle Up.', target:1 },
-  { id:'ch_plank5',    name:'5-Minuten-Plank',        emoji:'🔥', durationDays:30, desc:'Vom 30-Sek.-Plank zum 5-Min.-Bauchkiller.', target:300, isTime:true },
-  { id:'ch_dip20',     name:'20 Dips in 30 Tagen',    emoji:'🦾', durationDays:30, desc:'Baue Trizeps und Brust für 20 saubere Dips auf.', target:20 },
-  { id:'ch_burpee500', name:'500 Burpees Total',      emoji:'💥', durationDays:14, desc:'Zwei Wochen, 500 Burpees insgesamt – frei einteilbar.', target:500, aggregate:true }
+  { id:'ch_plank5',    name:'5-Minuten-Plank',        emoji:'🔥', durationDays:30, desc:'Vom 30-Sek.-Plank zum 5-Min.-Killer.', target:300, isTime:true },
+  { id:'ch_dip20',     name:'20 Dips in 30 Tagen',    emoji:'🦾', durationDays:30, desc:'Trizeps für 20 Dips aufbauen.', target:20 },
+  { id:'ch_burpee500', name:'500 Burpees Total',      emoji:'💥', durationDays:14, desc:'500 Burpees in 2 Wochen – frei einteilbar.', target:500, aggregate:true }
 ];
+function allChallenges(){ return CHALLENGES.concat((DB.customChallenges||[]).map(c=>Object.assign({emoji:'🎯',custom:true},c))); }
+/* Buddy code */
+function genBuddyCode(){ const s='ABCDEFGHJKMNPQRSTUVWXYZ23456789'; let c=''; for(let i=0;i<6;i++) c+=s[Math.floor(Math.random()*s.length)]; return c; }
+function ensureBuddyCode(){ if(!DB.buddyCode){ DB.buddyCode=genBuddyCode(); save(); } return DB.buddyCode; }
+/* Plan share encoding */
+function encodePlan(p){ try{ return btoa(unescape(encodeURIComponent(JSON.stringify({v:1,p})))); }catch(e){ return ''; } }
+function decodePlan(s){ try{ const d=JSON.parse(decodeURIComponent(escape(atob(s)))); return d&&d.p||null; }catch(e){ return null; } }
 /* Skill catalog */
 const SKILL_CATALOG=[
-  {id:'pullup',    name:'Pull Up',      icon:'flame', category:'basic', stages:[
-    {label:'1 Pull Up',target:1},{label:'5 Pull Ups',target:5},{label:'10 Pull Ups',target:10},{label:'15 Pull Ups',target:15},{label:'20 Pull Ups',target:20}]},
-  {id:'pushup',    name:'Push Up',      icon:'flame', category:'basic', stages:[
-    {label:'10 Push Ups',target:10},{label:'25 Push Ups',target:25},{label:'50 Push Ups',target:50},{label:'75 Push Ups',target:75},{label:'100 Push Ups',target:100}]},
-  {id:'dip',       name:'Dip',          icon:'flame', category:'basic', stages:[
-    {label:'5 Dips',target:5},{label:'10 Dips',target:10},{label:'15 Dips',target:15},{label:'20 Dips',target:20},{label:'30 Dips',target:30}]},
-  {id:'pistol',    name:'Pistol Squat', icon:'flame', category:'basic', stages:[
-    {label:'Assisted Pistol Squat',target:1},{label:'1 Pistol Squat',target:1},{label:'3 Pistol Squats',target:3},{label:'5 Pistol Squats',target:5},{label:'10 Pistol Squats',target:10}]},
-  {id:'muscleup',  name:'Muscle Up',    icon:'bolt', category:'advanced',
-    requires:[{skill:'pullup',stage:3},{skill:'dip',stage:3}], stages:[
-    {label:'Assisted Muscle Up',target:1},{label:'1 Muscle Up',target:1},{label:'3 Muscle Ups',target:3},{label:'5 Muscle Ups',target:5},{label:'10 Muscle Ups',target:10}]},
-  {id:'handstand', name:'Handstand',    icon:'bolt', category:'advanced',
-    requires:[{skill:'pushup',stage:2}], stages:[
-    {label:'Wall Handstand 10 s',target:10},{label:'Wall Handstand 30 s',target:30},{label:'Freestanding 5 s',target:5},{label:'Freestanding 15 s',target:15},{label:'Freestanding 30 s',target:30}]},
-  {id:'frontlever',name:'Front Lever',  icon:'bolt', category:'advanced',
-    requires:[{skill:'pullup',stage:3}], stages:[
-    {label:'Tuck Front Lever 10 s',target:10},{label:'Advanced Tuck 10 s',target:10},{label:'One Leg Front Lever 5 s',target:5},{label:'Straddle Front Lever 5 s',target:5},{label:'Full Front Lever 5 s',target:5}]},
-  {id:'backlever', name:'Back Lever',   icon:'bolt', category:'advanced',
-    requires:[{skill:'pullup',stage:3}], stages:[
-    {label:'Tuck Back Lever 10 s',target:10},{label:'Advanced Tuck 10 s',target:10},{label:'Straddle Back Lever 5 s',target:5},{label:'Full Back Lever 5 s',target:5},{label:'Full Back Lever 10 s',target:10}]},
-  {id:'humanflag', name:'Human Flag',   icon:'bolt', category:'advanced',
-    requires:[{skill:'pullup',stage:3},{skill:'pushup',stage:3}], stages:[
-    {label:'Vertical Flag 5 s',target:5},{label:'Vertical Flag 10 s',target:10},{label:'Tuck Flag 5 s',target:5},{label:'Straddle Flag 5 s',target:5},{label:'Full Flag 5 s',target:5}]}
+  {id:'pullup',name:'Pull Up',icon:'flame',category:'basic',stages:[{label:'1 Pull Up',target:1},{label:'5 Pull Ups',target:5},{label:'10 Pull Ups',target:10},{label:'15 Pull Ups',target:15},{label:'20 Pull Ups',target:20}]},
+  {id:'pushup',name:'Push Up',icon:'flame',category:'basic',stages:[{label:'10 Push Ups',target:10},{label:'25 Push Ups',target:25},{label:'50 Push Ups',target:50},{label:'75 Push Ups',target:75},{label:'100 Push Ups',target:100}]},
+  {id:'dip',name:'Dip',icon:'flame',category:'basic',stages:[{label:'5 Dips',target:5},{label:'10 Dips',target:10},{label:'15 Dips',target:15},{label:'20 Dips',target:20},{label:'30 Dips',target:30}]},
+  {id:'pistol',name:'Pistol Squat',icon:'flame',category:'basic',stages:[{label:'Assisted Pistol',target:1},{label:'1 Pistol',target:1},{label:'3 Pistols',target:3},{label:'5 Pistols',target:5},{label:'10 Pistols',target:10}]},
+  {id:'muscleup',name:'Muscle Up',icon:'bolt',category:'advanced',requires:[{skill:'pullup',stage:3},{skill:'dip',stage:3}],stages:[{label:'Assisted MU',target:1},{label:'1 Muscle Up',target:1},{label:'3 Muscle Ups',target:3},{label:'5 Muscle Ups',target:5},{label:'10 Muscle Ups',target:10}]},
+  {id:'handstand',name:'Handstand',icon:'bolt',category:'advanced',requires:[{skill:'pushup',stage:2}],stages:[{label:'Wall HS 10s',target:10},{label:'Wall HS 30s',target:30},{label:'Free 5s',target:5},{label:'Free 15s',target:15},{label:'Free 30s',target:30}]},
+  {id:'frontlever',name:'Front Lever',icon:'bolt',category:'advanced',requires:[{skill:'pullup',stage:3}],stages:[{label:'Tuck FL 10s',target:10},{label:'Adv Tuck 10s',target:10},{label:'One Leg 5s',target:5},{label:'Straddle 5s',target:5},{label:'Full FL 5s',target:5}]},
+  {id:'backlever',name:'Back Lever',icon:'bolt',category:'advanced',requires:[{skill:'pullup',stage:3}],stages:[{label:'Tuck BL 10s',target:10},{label:'Adv Tuck 10s',target:10},{label:'Straddle 5s',target:5},{label:'Full BL 5s',target:5},{label:'Full BL 10s',target:10}]},
+  {id:'humanflag',name:'Human Flag',icon:'bolt',category:'advanced',requires:[{skill:'pullup',stage:3},{skill:'pushup',stage:3}],stages:[{label:'Vertical 5s',target:5},{label:'Vertical 10s',target:10},{label:'Tuck 5s',target:5},{label:'Straddle 5s',target:5},{label:'Full 5s',target:5}]}
 ];
-function skillIsUnlocked(sk){
-  if(!sk.requires||!sk.requires.length) return true;
-  return sk.requires.every(r=>{
-    const cur=(DB.skills[r.skill]&&DB.skills[r.skill].stage)||0;
-    return cur>=r.stage;
-  });
-}
-function skillPrereqLabel(sk){
-  if(!sk.requires||!sk.requires.length) return '';
-  return sk.requires.map(r=>{
-    const o=SKILL_CATALOG.find(x=>x.id===r.skill);
-    return o?(o.name+' Stufe '+r.stage):'';
-  }).filter(Boolean).join(' + ');
-}
+function skillIsUnlocked(sk){ if(!sk.requires||!sk.requires.length) return true; return sk.requires.every(r=>{ const c=(DB.skills[r.skill]&&DB.skills[r.skill].stage)||0; return c>=r.stage; }); }
+function skillPrereqLabel(sk){ if(!sk.requires) return ''; return sk.requires.map(r=>{const o=SKILL_CATALOG.find(x=>x.id===r.skill); return o?(o.name+' Stufe '+r.stage):'';}).filter(Boolean).join(' + '); }
 let DB;
 function load(){
   try{ DB = Object.assign({}, structuredClone(DEFAULTS), JSON.parse(localStorage.getItem(KEY)||'{}'));
@@ -1622,10 +1759,16 @@ function load(){
     if(!DB.achievements||typeof DB.achievements!=='object') DB.achievements={};
     if(!DB.progression||typeof DB.progression!=='object') DB.progression={};
     if(!DB.challenges||typeof DB.challenges!=='object') DB.challenges={};
+    if(!Array.isArray(DB.customChallenges)) DB.customChallenges=[];
     if(!DB.streakFreeze||typeof DB.streakFreeze!=='object') DB.streakFreeze=structuredClone(DEFAULTS.streakFreeze);
-    if(typeof DB.deloadDismissedAt!=='number') DB.deloadDismissedAt=0;
-    if(!DB.parks||typeof DB.parks!=='object') DB.parks={favorites:[]};
     if(!Array.isArray(DB.streakFreeze.appliedWeeks)) DB.streakFreeze.appliedWeeks=[];
+    if(typeof DB.deloadDismissedAt!=='number') DB.deloadDismissedAt=0;
+    if(!DB.parks||typeof DB.parks!=='object') DB.parks={favorites:[],notes:{}};
+    if(!Array.isArray(DB.parks.favorites)) DB.parks.favorites=[];
+    if(!DB.parks.notes||typeof DB.parks.notes!=='object') DB.parks.notes={};
+    if(!DB.exerciseNotes||typeof DB.exerciseNotes!=='object') DB.exerciseNotes={};
+    if(!Array.isArray(DB.buddies)) DB.buddies=[];
+    if(!DB.lastReport||typeof DB.lastReport!=='object') DB.lastReport={weekKey:'',dismissedAt:0};
   }catch(e){ DB = structuredClone(DEFAULTS); }
 }
 function save(){
@@ -1652,7 +1795,7 @@ function mergeUniqueById(a,b){ const m=new Map(); (a||[]).concat(b||[]).forEach(
 function mergeHistory(a,b){ const m=new Map(); (a||[]).concat(b||[]).forEach(x=>{ if(!x||!x.date) return; const k=[x.date,x.planId,x.durationSec,x.completed].join('|'); if(!m.has(k)) m.set(k,x); }); return Array.from(m.values()).sort((x,y)=>(y.date||0)-(x.date||0)).slice(0,200); }
 function mergePRs(a,b){ const out={}; const all=Object.assign({},b||{},a||{}); Object.keys(all).forEach(k=>{ const A=(a&&a[k])||{}, B=(b&&b[k])||{}; out[k]={ bestReps:Math.max(A.bestReps||0,B.bestReps||0), bestDuration:Math.max(A.bestDuration||0,B.bestDuration||0), lastDate:Math.max(A.lastDate||0,B.lastDate||0), prDate:(A.bestReps||0)>=(B.bestReps||0)?(A.prDate||A.lastDate||0):(B.prDate||B.lastDate||0) }; }); return out; }
 function mergeSkills(a,b){ const out={}; const all=Object.assign({},b||{},a||{}); Object.keys(all).forEach(k=>{ const A=(a&&a[k])||{}, B=(b&&b[k])||{}; out[k]={ stage:Math.max(A.stage||0,B.stage||0), updatedAt:Math.max(A.updatedAt||0,B.updatedAt||0) }; }); return out; }
-function mergeDb(local, remote){ if(!remote) return local; const l=structuredClone(local||DEFAULTS), r=structuredClone(remote||{}); const sfL=l.streakFreeze||{}, sfR=r.streakFreeze||{}; return { customPlans:mergeUniqueById(l.customPlans,r.customPlans), overrides:Object.assign({},r.overrides||{},l.overrides||{}), hidden:Array.from(new Set([...(r.hidden||[]),...(l.hidden||[])])), favorites:Array.from(new Set([...(r.favorites||[]),...(l.favorites||[])])), prs:mergePRs(l.prs,r.prs), skills:mergeSkills(l.skills,r.skills), history:mergeHistory(l.history,r.history), flags:Object.assign({},DEFAULTS.flags,r.flags||{},l.flags||{}), settings:Object.assign({},DEFAULTS.settings,r.settings||{},l.settings||{}), achievements:Object.assign({},r.achievements||{},l.achievements||{}), progression:Object.assign({},r.progression||{},l.progression||{}), challenges:Object.assign({},r.challenges||{},l.challenges||{}), streakFreeze:{ tokens:Math.max(sfL.tokens||0,sfR.tokens||0), lastGranted:Math.max(sfL.lastGranted||0,sfR.lastGranted||0), usedThisMonth:Math.max(sfL.usedThisMonth||0,sfR.usedThisMonth||0), monthKey:sfL.monthKey||sfR.monthKey||'', appliedWeeks:Array.from(new Set([...(sfL.appliedWeeks||[]),...(sfR.appliedWeeks||[])])) }, deloadDismissedAt:Math.max(l.deloadDismissedAt||0,r.deloadDismissedAt||0), parks:Object.assign({favorites:[]},r.parks||{},l.parks||{}) }; }
+function mergeDb(local, remote){ if(!remote) return local; const l=structuredClone(local||DEFAULTS), r=structuredClone(remote||{}); const sfL=l.streakFreeze||{}, sfR=r.streakFreeze||{}; return { customPlans:mergeUniqueById(l.customPlans,r.customPlans), overrides:Object.assign({},r.overrides||{},l.overrides||{}), hidden:Array.from(new Set([...(r.hidden||[]),...(l.hidden||[])])), favorites:Array.from(new Set([...(r.favorites||[]),...(l.favorites||[])])), prs:mergePRs(l.prs,r.prs), skills:mergeSkills(l.skills,r.skills), history:mergeHistory(l.history,r.history), flags:Object.assign({},DEFAULTS.flags,r.flags||{},l.flags||{}), settings:Object.assign({},DEFAULTS.settings,r.settings||{},l.settings||{}), achievements:Object.assign({},r.achievements||{},l.achievements||{}), progression:Object.assign({},r.progression||{},l.progression||{}), challenges:Object.assign({},r.challenges||{},l.challenges||{}), customChallenges:mergeUniqueById(l.customChallenges,r.customChallenges), streakFreeze:{ tokens:Math.max(sfL.tokens||0,sfR.tokens||0), lastGranted:Math.max(sfL.lastGranted||0,sfR.lastGranted||0), usedThisMonth:Math.max(sfL.usedThisMonth||0,sfR.usedThisMonth||0), monthKey:sfL.monthKey||sfR.monthKey||'', appliedWeeks:Array.from(new Set([...(sfL.appliedWeeks||[]),...(sfR.appliedWeeks||[])])) }, deloadDismissedAt:Math.max(l.deloadDismissedAt||0,r.deloadDismissedAt||0), parks:{ favorites:Array.from(new Set([...((r.parks&&r.parks.favorites)||[]),...((l.parks&&l.parks.favorites)||[])])), notes:Object.assign({},(r.parks&&r.parks.notes)||{},(l.parks&&l.parks.notes)||{}) }, exerciseNotes:Object.assign({},r.exerciseNotes||{},l.exerciseNotes||{}), warmupPlan:l.warmupPlan||r.warmupPlan||null, cooldownPlan:l.cooldownPlan||r.cooldownPlan||null, buddyCode:l.buddyCode||r.buddyCode||'', buddies:mergeUniqueById(l.buddies,r.buddies), lastReport:Object.assign({weekKey:'',dismissedAt:0},r.lastReport||{},l.lastReport||{}) }; }
 async function initFirebase(){
   try{
     const appMod=await import('https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js');
@@ -1870,12 +2013,28 @@ function renderStats(){
     }
     return `<div class="top-ex-row"><div class="top-ex-nm">${esc(disp)}</div>${spark}<div class="top-ex-val">${val}</div></div>`;
   }).join('');
-  const prBlock = prArr.length ? `<div class="section-label" style="margin-top:18px">Persönliche Rekorde</div><div class="top-ex-list">${prRows}</div>` : '';
+  const prBlock = prArr.length ? `<div class="section-label" style="margin-top:18px">Persönliche Rekorde (Tippen für Historie)</div><div class="top-ex-list" id="pr-list">${prRows}</div>` : '';
   const strengthArr = computeStrengthEquiv();
   const strengthBlock = strengthArr.length ? `<div class="strength-card">
     <div class="lbl">💪 Krafttraining-Äquivalente (${DB.settings.bodyWeightKg||75} kg)</div>
     <div class="strength-list">${strengthArr.map(s=>`<div class="strength-item"><span>${esc(s.label)} · ${esc(s.reps)}</span><b>~ ${s.kg} kg</b></div>`).join('')}</div>
-    <div class="hint" style="margin-top:8px;font-size:11px">Geschätzte 1RM nach Brzycki · Körpergewicht in Einstellungen anpassen</div>
+    <div class="hint" style="margin-top:8px;font-size:11px">Geschätzte 1RM nach Brzycki-Formel</div>
+  </div>` : '';
+  const vol = volumeLastWeek();
+  const volBlock = vol.length ? `<div class="vol-box"><div class="vol-title">🎯 Volumen (letzte 7 Tage)</div>${vol.map(v=>`<div class="vol-row"><div class="vol-lbl">${esc(v.label)}</div><div class="vol-bar"><i style="width:${v.pct}%"></i></div><div class="vol-val">${v.val}</div></div>`).join('')}</div>`:'';
+  /* Forecasts */
+  const forecasts=[];
+  ['push_up','pull_up','dips','chin_up','squats'].forEach(id=>{
+    const cur=(DB.prs[id]&&DB.prs[id].bestReps)||0;
+    if(cur<=0) return;
+    const target=cur+Math.max(2,Math.round(cur*0.2));
+    const f=forecastReps(id,target);
+    if(f && !f.reached) forecasts.push({name:exDisplay(id),cur,target,days:f.days,rate:f.ratePerWeek});
+  });
+  const forecastBlock = forecasts.length ? `<div class="forecast-card">
+    <div class="forecast-lbl">🔮 Prognose (aktuelles Wachstum)</div>
+    ${forecasts.slice(0,4).map(f=>`<div class="forecast-item"><span>${esc(f.name)}: ${f.cur} → ${f.target} Wdh.</span><b>${f.days<7?'&lt;1 Woche':'~ '+Math.ceil(f.days/7)+' Wochen'}</b></div>`).join('')}
+    <div class="hint" style="margin-top:8px;font-size:11px">Basiert auf deinem bisherigen Fortschritt</div>
   </div>` : '';
   /* Heatmap */
   const heat = muscleHeatmap(28);
@@ -1920,8 +2079,11 @@ function renderStats(){
     ${topBlock}
     ${prBlock}
     ${strengthBlock}
+    ${volBlock}
+    ${forecastBlock}
     ${renderAchievementsBlock()}
   `;
+  $$('#pr-list .top-ex-row').forEach((row,i)=>{ const k=prArr[i]&&prArr[i][0]; if(k){ row.style.cursor='pointer'; row.addEventListener('click',()=>openPrTimeline(k)); }});
 }
 function renderSkills(){
   $('#skills-back-ic').innerHTML=svg('left');
@@ -1931,37 +2093,22 @@ function renderSkills(){
     const total=sk.stages.length;
     const unlocked=skillIsUnlocked(sk);
     const stagesHTML=sk.stages.map((s,i)=>{
-      const cls = i<cur ? 'done' : (i===cur ? 'current' : '');
+      const cls=i<cur?'done':(i===cur?'current':'');
       return `<div class="skill-stage ${cls}" data-skill="${esc(sk.id)}" data-stage="${i+1}" ${!unlocked?'data-locked="1"':''}>${esc(s.label)}</div>`;
     }).join('');
     const pct=Math.round(cur/total*100);
-    const stageLbl = cur>=total ? 'Alle Stufen erreicht 🎉' : (cur>0 ? `Stufe ${cur} / ${total}` : 'Noch nicht begonnen');
-    const lockMsg = !unlocked ? `<div class="skill-locked-msg">${svg('eyeoff')} Voraussetzung: ${esc(skillPrereqLabel(sk))}</div>` : '';
-    return `<div class="skill-card ${!unlocked?'locked':''}">
-      <div class="skill-head">
-        <div class="skill-ic">${svg(sk.icon)}</div>
-        <div class="skill-info">
-          <div class="skill-nm">${esc(sk.name)}</div>
-          <div class="skill-stage-lbl">${stageLbl}</div>
-        </div>
-      </div>
-      <div class="skill-progress"><i style="width:${pct}%"></i></div>
-      <div class="skill-stages">${stagesHTML}</div>
-      ${lockMsg}
-    </div>`;
+    const lbl=cur>=total?'Alle Stufen erreicht 🎉':(cur>0?`Stufe ${cur} / ${total}`:'Noch nicht begonnen');
+    const lockMsg=!unlocked?`<div class="skill-locked-msg">${svg('eyeoff')} Voraussetzung: ${esc(skillPrereqLabel(sk))}</div>`:'';
+    return `<div class="skill-card ${!unlocked?'locked':''}"><div class="skill-head"><div class="skill-ic">${svg(sk.icon)}</div><div class="skill-info"><div class="skill-nm">${esc(sk.name)}</div><div class="skill-stage-lbl">${lbl}</div></div></div><div class="skill-progress"><i style="width:${pct}%"></i></div><div class="skill-stages">${stagesHTML}</div>${lockMsg}</div>`;
   };
   const basics=SKILL_CATALOG.filter(s=>s.category==='basic'||!s.category);
   const advanced=SKILL_CATALOG.filter(s=>s.category==='advanced');
-  m.innerHTML = `<div class="section-label">🏗️ Grundübungen (Basis für alle Skills)</div>
-    ${basics.map(renderCard).join('')}
-    <div class="section-label" style="margin-top:20px">⚡ Fortgeschrittene Skills (mit Voraussetzungen)</div>
-    ${advanced.map(renderCard).join('')}`;
+  m.innerHTML=`<div class="section-label">🏗️ Grundübungen</div>${basics.map(renderCard).join('')}<div class="section-label" style="margin-top:20px">⚡ Fortgeschrittene Skills</div>${advanced.map(renderCard).join('')}`;
   $$('#skills-main .skill-stage').forEach(el=>el.addEventListener('click',()=>{
     if(el.dataset.locked==='1'){ toast('Zuerst die Voraussetzungen erfüllen'); return; }
-    const id=el.dataset.skill; const stage=+el.dataset.stage;
+    const id=el.dataset.skill,stage=+el.dataset.stage;
     const cur=(DB.skills[id]&&DB.skills[id].stage)||0;
-    const newStage = cur===stage ? stage-1 : stage;
-    DB.skills[id]={ stage:newStage, updatedAt:Date.now() };
+    DB.skills[id]={stage:cur===stage?stage-1:stage,updatedAt:Date.now()};
     save(); renderSkills();
   }));
 }
@@ -2276,32 +2423,18 @@ function fireReminder(){
   scheduleNextReminder();
 }
 
-/* ========================= CHALLENGES ========================= */
-function getChallengeState(chId){ return (DB.challenges||{})[chId]||null; }
-function startChallenge(chId){
-  const ch=CHALLENGES.find(x=>x.id===chId); if(!ch) return;
-  if(!DB.challenges) DB.challenges={};
-  DB.challenges[chId]={ startDate:Date.now(), dayLogs:{}, completedAt:0 };
-  save(); toast('Challenge gestartet: '+ch.name); renderChallenges();
-}
-function cancelChallenge(chId){
-  const ch=CHALLENGES.find(x=>x.id===chId);
-  confirmSheet('Challenge abbrechen?', 'Der Fortschritt geht verloren.', 'Abbrechen', ()=>{
-    if(DB.challenges) delete DB.challenges[chId];
-    save(); renderChallenges(); toast('Abgebrochen');
-  });
-}
-function challengeDay(chId){
-  const st=getChallengeState(chId); if(!st) return 0;
-  return Math.floor((Date.now()-st.startDate)/86400000)+1;
-}
-function logChallengeDay(chId){
-  const ch=CHALLENGES.find(x=>x.id===chId); const st=getChallengeState(chId); if(!ch||!st) return;
-  const day=challengeDay(chId);
+/* ========================= CHALLENGES RENDER ========================= */
+function getChallenge(id){ return allChallenges().find(c=>c.id===id); }
+function startChallenge(id){ if(!DB.challenges) DB.challenges={}; DB.challenges[id]={ startDate:Date.now(), dayLogs:{}, completedAt:0 }; save(); toast('Challenge gestartet'); renderChallenges(); }
+function cancelChallenge(id){ confirmSheet('Challenge abbrechen?','Der Fortschritt geht verloren.','Abbrechen',()=>{ if(DB.challenges) delete DB.challenges[id]; save(); renderChallenges(); toast('Abgebrochen'); }); }
+function challengeDay(id){ const st=(DB.challenges||{})[id]; if(!st) return 0; return Math.floor((Date.now()-st.startDate)/86400000)+1; }
+function logChallengeDay(id){
+  const ch=getChallenge(id); const st=(DB.challenges||{})[id]; if(!ch||!st) return;
+  const day=challengeDay(id);
   const unit=ch.isTime?'Sek.':'Wdh.';
   const suggest=Math.max(1,Math.round((day/ch.durationDays)*(ch.target||10)));
-  const body=`<p style="color:var(--muted);font-weight:600;margin:2px 0 10px">Tag <b>${day}</b> von ${ch.durationDays} – wie viele hast du geschafft?</p>
-    <p style="color:var(--muted2);font-size:12px;font-weight:700;margin-bottom:14px">Vorschlag heute: <b style="color:var(--accent)">${suggest} ${unit}</b></p>
+  const body=`<p style="color:var(--muted);font-weight:600;margin:2px 0 10px">Tag <b>${day}</b> von ${ch.durationDays}</p>
+    <p style="color:var(--muted2);font-size:12px;font-weight:700;margin-bottom:14px">Vorschlag: <b style="color:var(--accent)">${suggest} ${unit}</b></p>
     <div class="field"><label>Deine Leistung</label><input class="input" id="chal-val" type="number" inputmode="numeric" min="0" value="${suggest}" style="text-align:center;font-size:22px;font-family:var(--font-d)"></div>
     <button class="btn btn-primary btn-block btn-lg" id="chal-save">${svg('check')} Eintragen</button>
     <div style="height:8px"></div>
@@ -2309,140 +2442,278 @@ function logChallengeDay(chId){
   openSheet(ch.emoji+' '+ch.name, body);
   $('#chal-save').addEventListener('click',()=>{
     const val=clampInt($('#chal-val').value,0,9999,0);
-    st.dayLogs[day]={ reps:val, date:Date.now() };
-    if(ch.aggregate){
-      const total=Object.values(st.dayLogs).reduce((a,l)=>a+(l.reps||0),0);
-      if(total>=(ch.target||0)){ st.completedAt=Date.now(); toast('🏆 Challenge gemeistert!'); }
-    } else if(day>=ch.durationDays){
-      st.completedAt=Date.now(); toast('🏆 Challenge komplett!');
-    }
+    st.dayLogs[day]={reps:val,date:Date.now()};
+    if(ch.aggregate){ const t=Object.values(st.dayLogs).reduce((a,l)=>a+(l.reps||0),0); if(t>=(ch.target||0)){ st.completedAt=Date.now(); toast('🏆 Challenge gemeistert!'); }}
+    else if(day>=ch.durationDays){ st.completedAt=Date.now(); toast('🏆 Challenge komplett!'); }
     save(); closeSheet(); renderChallenges();
   });
-  $('#chal-cancel').addEventListener('click', closeSheet);
+  $('#chal-cancel').addEventListener('click',closeSheet);
+}
+function openNewChallengeSheet(){
+  const exOpts=EX_LIB.filter(x=>x.type==='reps').map(x=>`<option value="${esc(x.id)}">${esc(x.name)}</option>`).join('');
+  const body=`<div class="field"><label>Name der Challenge</label><input class="input" id="nc-name" placeholder="z. B. 50 Klimmzüge in 30 Tagen" maxlength="60"></div>
+    <div class="field"><label>Emoji</label><input class="input" id="nc-emoji" value="🎯" maxlength="4" style="text-align:center;font-size:22px"></div>
+    <div class="field"><label>Kurzbeschreibung (optional)</label><input class="input" id="nc-desc" placeholder="Was ist dein Ziel?" maxlength="120"></div>
+    <div class="grid2">
+      <div class="field"><label>Dauer (Tage)</label><input class="input" id="nc-days" type="number" min="7" max="365" value="30"></div>
+      <div class="field"><label>Ziel-Wdh. am Ende</label><input class="input" id="nc-target" type="number" min="1" max="9999" value="50"></div>
+    </div>
+    <div class="field"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="nc-agg" style="width:auto"> Kumulativ (Summe zählt, frei einteilbar)</label></div>
+    <button class="btn btn-primary btn-block btn-lg" id="nc-save">${svg('save')} Challenge erstellen</button>`;
+  openSheet('Eigene Challenge erstellen', body);
+  $('#nc-save').addEventListener('click',()=>{
+    const name=$('#nc-name').value.trim(); if(!name){ toast('Bitte Name eingeben'); return; }
+    const c={ id:'cc_'+uid(), name, emoji:$('#nc-emoji').value.trim()||'🎯', desc:$('#nc-desc').value.trim()||'Eigene Challenge', durationDays:clampInt($('#nc-days').value,7,365,30), target:clampInt($('#nc-target').value,1,9999,50), aggregate:$('#nc-agg').checked };
+    if(!Array.isArray(DB.customChallenges)) DB.customChallenges=[];
+    DB.customChallenges.push(c); save(); closeSheet(); toast('Challenge erstellt'); renderChallenges();
+  });
+}
+function deleteCustomChallenge(id){
+  confirmSheet('Challenge löschen?','Auch der Fortschritt wird entfernt.','Löschen',()=>{
+    DB.customChallenges=(DB.customChallenges||[]).filter(c=>c.id!==id);
+    if(DB.challenges) delete DB.challenges[id]; save(); renderChallenges(); toast('Gelöscht');
+  });
 }
 function renderChallenges(){
   const bi=$('#chal-back-ic'); if(bi) bi.innerHTML=svg('left');
+  const nb=$('#btn-new-chal'); if(nb) nb.innerHTML=svg('plus');
   const m=$('#chal-main'); if(!m) return;
   if(!DB.challenges) DB.challenges={};
-  const active=CHALLENGES.filter(c=>DB.challenges[c.id]&&!DB.challenges[c.id].completedAt);
-  const available=CHALLENGES.filter(c=>!DB.challenges[c.id]);
-  const done=CHALLENGES.filter(c=>DB.challenges[c.id]&&DB.challenges[c.id].completedAt);
-  const renderCard=(ch)=>{
-    const st=DB.challenges[ch.id];
-    const day=st?challengeDay(ch.id):0;
-    const isDone=st&&st.completedAt;
+  const all=allChallenges();
+  const active=all.filter(c=>DB.challenges[c.id]&&!DB.challenges[c.id].completedAt);
+  const available=all.filter(c=>!DB.challenges[c.id]);
+  const done=all.filter(c=>DB.challenges[c.id]&&DB.challenges[c.id].completedAt);
+  const card=(ch)=>{
+    const st=DB.challenges[ch.id]; const day=st?challengeDay(ch.id):0; const isDone=st&&st.completedAt;
     let progress=0, statsHTML='', actionsHTML='';
     if(!st){
-      actionsHTML=`<div class="chal-actions"><button class="start" data-cstart="${esc(ch.id)}">${svgFill('play')} Challenge starten</button></div>`;
+      actionsHTML=`<div class="chal-actions"><button class="start" data-cstart="${esc(ch.id)}">${svgFill('play')} Challenge starten</button>${ch.custom?`<button class="cancel" data-cdel="${esc(ch.id)}">${svg('trash')} Löschen</button>`:''}</div>`;
     } else if(isDone){
       progress=100;
-      statsHTML=`<div class="chal-done">🎉 Challenge komplett am ${new Date(st.completedAt).toLocaleDateString('de-DE')}</div>`;
+      statsHTML=`<div class="chal-done">🎉 Komplett am ${new Date(st.completedAt).toLocaleDateString('de-DE')}</div>`;
     } else {
-      const totalLogged=Object.keys(st.dayLogs||{}).length;
+      const total=Object.keys(st.dayLogs||{}).length;
       if(ch.aggregate){
         const sum=Object.values(st.dayLogs).reduce((a,l)=>a+(l.reps||0),0);
         progress=Math.min(100,Math.round(sum/(ch.target||1)*100));
-        statsHTML=`<div class="chal-stats"><span>Tag <b>${Math.min(day,ch.durationDays)}</b> / ${ch.durationDays}</span><span><b>${sum}</b> / ${ch.target} gesamt</span></div>`;
+        statsHTML=`<div class="chal-stats"><span>Tag <b>${Math.min(day,ch.durationDays)}</b>/${ch.durationDays}</span><span><b>${sum}</b>/${ch.target}</span></div>`;
       } else {
-        progress=Math.min(100,Math.round(totalLogged/ch.durationDays*100));
-        statsHTML=`<div class="chal-stats"><span>Tag <b>${Math.min(day,ch.durationDays)}</b> / ${ch.durationDays}</span><span><b>${totalLogged}</b> Einträge</span></div>`;
+        progress=Math.min(100,Math.round(total/ch.durationDays*100));
+        statsHTML=`<div class="chal-stats"><span>Tag <b>${Math.min(day,ch.durationDays)}</b>/${ch.durationDays}</span><span><b>${total}</b> Einträge</span></div>`;
       }
-      const alreadyToday=!!st.dayLogs[day];
-      actionsHTML=`<div class="chal-actions">
-        ${alreadyToday?`<button class="active" disabled>${svg('check')} Heute erledigt</button>`:`<button class="log" data-clog="${esc(ch.id)}">${svg('plus')} Heute eintragen</button>`}
-        <button class="cancel" data-ccancel="${esc(ch.id)}">${svg('close')} Abbrechen</button>
-      </div>`;
+      const doneToday=!!st.dayLogs[day];
+      actionsHTML=`<div class="chal-actions">${doneToday?`<button class="active" disabled>${svg('check')} Heute erledigt</button>`:`<button class="log" data-clog="${esc(ch.id)}">${svg('plus')} Heute eintragen</button>`}<button class="cancel" data-ccancel="${esc(ch.id)}">${svg('close')} Abbrechen</button></div>`;
     }
-    return `<div class="chal-card">
-      <div class="chal-head">
-        <div class="chal-emoji">${ch.emoji}</div>
-        <div class="chal-info">
-          <div class="chal-nm">${esc(ch.name)}</div>
-          <div class="chal-desc">${esc(ch.desc)}</div>
-        </div>
-      </div>
-      <div class="chal-progress"><i style="width:${progress}%"></i></div>
-      ${statsHTML}
-      ${actionsHTML}
-    </div>`;
+    return `<div class="chal-card ${ch.custom?'custom':''}"><div class="chal-head"><div class="chal-emoji">${ch.emoji}</div><div class="chal-info"><div class="chal-nm">${esc(ch.name)}</div><div class="chal-desc">${esc(ch.desc)}</div></div></div><div class="chal-progress"><i style="width:${progress}%"></i></div>${statsHTML}${actionsHTML}</div>`;
   };
   let html='';
-  if(active.length) html+='<div class="section-label">🔥 Aktive Challenges</div>'+active.map(renderCard).join('');
-  if(available.length) html+='<div class="section-label" style="margin-top:20px">🎯 Verfügbare Challenges</div>'+available.map(renderCard).join('');
-  if(done.length) html+='<div class="section-label" style="margin-top:20px">🏆 Gemeistert</div>'+done.map(renderCard).join('');
-  m.innerHTML = html || `<div class="empty">${svg('target')}<h3>Keine Challenges verfügbar</h3></div>`;
+  if(active.length) html+='<div class="section-label">🔥 Aktive</div>'+active.map(card).join('');
+  if(available.length) html+='<div class="section-label" style="margin-top:20px">🎯 Verfügbar</div>'+available.map(card).join('');
+  if(done.length) html+='<div class="section-label" style="margin-top:20px">🏆 Gemeistert</div>'+done.map(card).join('');
+  m.innerHTML=html||`<div class="empty">${svg('target')}<h3>Keine Challenges</h3></div>`;
   $$('#chal-main [data-cstart]').forEach(b=>b.addEventListener('click',()=>startChallenge(b.dataset.cstart)));
   $$('#chal-main [data-clog]').forEach(b=>b.addEventListener('click',()=>logChallengeDay(b.dataset.clog)));
   $$('#chal-main [data-ccancel]').forEach(b=>b.addEventListener('click',()=>cancelChallenge(b.dataset.ccancel)));
+  $$('#chal-main [data-cdel]').forEach(b=>b.addEventListener('click',()=>deleteCustomChallenge(b.dataset.cdel)));
 }
 /* ========================= PARK FINDER ========================= */
-function haversine(lat1,lon1,lat2,lon2){
-  const R=6371, toRad=x=>x*Math.PI/180;
-  const dLat=toRad(lat2-lat1), dLon=toRad(lon2-lon1);
-  const a=Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
-  return 2*R*Math.asin(Math.sqrt(a));
+function haversine(lat1,lon1,lat2,lon2){ const R=6371,tR=x=>x*Math.PI/180; const dLat=tR(lat2-lat1),dLon=tR(lon2-lon1); const a=Math.sin(dLat/2)**2+Math.cos(tR(lat1))*Math.cos(tR(lat2))*Math.sin(dLon/2)**2; return 2*R*Math.asin(Math.sqrt(a)); }
+function isParkFav(pid){ return ((DB.parks&&DB.parks.favorites)||[]).includes(String(pid)); }
+function toggleParkFav(pid){ if(!DB.parks) DB.parks={favorites:[],notes:{}}; const s=String(pid); const i=DB.parks.favorites.indexOf(s); if(i>=0){DB.parks.favorites.splice(i,1); toast('Favorit entfernt');} else {DB.parks.favorites.push(s); toast('Als Favorit markiert');} save(); }
+async function fetchWeather(lat,lng){
+  try{
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,weather_code,precipitation&hourly=precipitation_probability,temperature_2m&timezone=auto&forecast_days=1`;
+    const res=await fetch(url); const d=await res.json();
+    return d;
+  }catch(e){ return null; }
+}
+function weatherEmoji(code){
+  if(code==0) return '☀️'; if(code<=3) return '⛅'; if(code<=48) return '🌫️'; if(code<=57) return '🌧️'; if(code<=67) return '🌧️'; if(code<=77) return '❄️'; if(code<=82) return '🌧️'; if(code<=86) return '🌨️'; if(code<=99) return '⛈️'; return '🌤️';
+}
+function weatherVerdict(temp, rainProb){
+  if(rainProb>=60) return 'Lieber drinnen trainieren – hohe Regenwahrscheinlichkeit.';
+  if(temp<0) return 'Sehr kalt – Aufwärmen nicht vergessen!';
+  if(temp<8) return 'Kühl – warme Kleidung sinnvoll.';
+  if(temp>28) return 'Heiß – genug trinken und schattig trainieren.';
+  if(rainProb>=30) return 'Wechselhaft – schnell trainieren, bevor es regnet.';
+  return '✨ Perfektes Wetter für Outdoor-Training!';
 }
 async function renderParks(){
   const bi=$('#parks-back-ic'); if(bi) bi.innerHTML=svg('left');
   const m=$('#parks-main'); if(!m) return;
-  m.innerHTML = `<div class="section-label">🗺️ Calisthenics-Parks & Outdoor-Gyms in der Nähe</div>
-    <div id="parks-status" style="text-align:center;padding:30px 20px;color:var(--muted)">
-      ${svg('target')}<p style="margin-top:12px">Standort wird ermittelt...</p>
-    </div>`;
-  if(!navigator.geolocation){
-    $('#parks-status').innerHTML = `<div class="empty">${svg('eyeoff')}<h3>Geolocation nicht verfügbar</h3></div>`;
-    return;
-  }
+  m.innerHTML=`<div id="weather-slot"></div><div class="section-label">🗺️ Calisthenics-Parks & Outdoor-Gyms</div><div id="parks-status" style="text-align:center;padding:30px 20px;color:var(--muted)">${svg('target')}<p style="margin-top:12px">Standort wird ermittelt...</p></div>`;
+  if(!navigator.geolocation){ $('#parks-status').innerHTML=`<div class="empty">${svg('eyeoff')}<h3>Geolocation nicht verfügbar</h3></div>`; return; }
   navigator.geolocation.getCurrentPosition(async pos=>{
     const lat=pos.coords.latitude, lng=pos.coords.longitude;
-    $('#parks-status').innerHTML = `<p style="color:var(--muted)">Suche im Umkreis von 15 km...</p>`;
+    /* Wetter */
+    fetchWeather(lat,lng).then(w=>{
+      const ws=$('#weather-slot'); if(!ws||!w||!w.current) return;
+      const t=Math.round(w.current.temperature_2m);
+      const code=w.current.weather_code;
+      const rainProb=w.hourly&&w.hourly.precipitation_probability?Math.max(...w.hourly.precipitation_probability.slice(0,3)):0;
+      const em=weatherEmoji(code); const verd=weatherVerdict(t,rainProb);
+      ws.innerHTML=`<div class="weather-box"><div class="weather-emoji">${em}</div><div class="weather-info"><div class="weather-nm">${t}°C · ${rainProb}% Regen</div><div class="weather-sub">Nächste 3 Stunden vor Ort</div><div class="weather-verdict">${esc(verd)}</div></div></div>`;
+    });
+    $('#parks-status').innerHTML=`<p style="color:var(--muted)">Suche im Umkreis von 15 km...</p>`;
     try{
-      const query = `[out:json][timeout:20];(
-        node["leisure"="fitness_station"](around:15000,${lat},${lng});
-        way["leisure"="fitness_station"](around:15000,${lat},${lng});
-        node["sport"="calisthenics"](around:15000,${lat},${lng});
-        way["sport"="calisthenics"](around:15000,${lat},${lng});
-        node["leisure"="outdoor_fitness"](around:15000,${lat},${lng});
-      );out center;`;
-      const res=await fetch('https://overpass-api.de/api/interpreter', { method:'POST', body:'data='+encodeURIComponent(query) });
+      const query=`[out:json][timeout:20];(node["leisure"="fitness_station"](around:15000,${lat},${lng});way["leisure"="fitness_station"](around:15000,${lat},${lng});node["sport"="calisthenics"](around:15000,${lat},${lng});way["sport"="calisthenics"](around:15000,${lat},${lng});node["leisure"="outdoor_fitness"](around:15000,${lat},${lng}););out center;`;
+      const res=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',body:'data='+encodeURIComponent(query)});
       const data=await res.json();
       const parks=(data.elements||[]).map(el=>{
-        const plat=el.lat||(el.center&&el.center.lat);
-        const plng=el.lon||(el.center&&el.center.lon);
-        if(plat==null||plng==null) return null;
+        const plat=el.lat||(el.center&&el.center.lat); const plng=el.lon||(el.center&&el.center.lon); if(plat==null||plng==null) return null;
         const name=(el.tags&&(el.tags.name||el.tags['name:de']))||'Fitness-Station';
         const type=(el.tags&&el.tags.sport)||(el.tags&&el.tags.leisure)||'';
-        return { name, type, lat:plat, lng:plng, dist:haversine(lat,lng,plat,plng) };
-      }).filter(Boolean).sort((a,b)=>a.dist-b.dist).slice(0,30);
-      if(!parks.length){
-        $('#parks-status').innerHTML = `<div class="empty">${svg('eyeoff')}<h3>Keine Spots gefunden</h3><p>Trage neue Spots auf <a href="https://www.openstreetmap.org" target="_blank" style="color:var(--accent)">OpenStreetMap</a> ein!</p></div>`;
-        return;
-      }
+        return {id:el.id, name, type, lat:plat, lng:plng, dist:haversine(lat,lng,plat,plng)};
+      }).filter(Boolean).sort((a,b)=>{ const fa=isParkFav(a.id)?-100:0, fb=isParkFav(b.id)?-100:0; return (a.dist+fa)-(b.dist+fb); }).slice(0,30);
+      if(!parks.length){ $('#parks-status').innerHTML=`<div class="empty">${svg('eyeoff')}<h3>Keine Spots gefunden</h3><p>Trage neue Spots auf <a href="https://www.openstreetmap.org" target="_blank" style="color:var(--accent)">OpenStreetMap</a> ein!</p></div>`; return; }
       const listHTML=parks.map(p=>{
         const distStr=p.dist<1?Math.round(p.dist*1000)+' m':p.dist.toFixed(1)+' km';
         const navUrl=`https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}`;
         const mapUrl=`https://www.openstreetmap.org/?mlat=${p.lat}&mlon=${p.lng}#map=18/${p.lat}/${p.lng}`;
-        return `<div class="park-item">
-          <div class="park-ic">${svg('target')}</div>
-          <div class="park-info">
-            <div class="park-nm">${esc(p.name)}</div>
-            <div class="park-sub">${esc(p.type||'Fitness-Station')} · ${distStr}</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:6px;flex:none">
-            <a class="park-btn" href="${navUrl}" target="_blank" rel="noopener">${svg('right')} Route</a>
-            <a class="park-btn" href="${mapUrl}" target="_blank" rel="noopener">${svg('list')} Karte</a>
-          </div>
-        </div>`;
+        const fav=isParkFav(p.id);
+        return `<div class="park-item ${fav?'fav':''}"><div class="park-ic">${svg('target')}</div><div class="park-info"><div class="park-nm">${esc(p.name)}</div><div class="park-sub">${esc(p.type||'Fitness-Station')} · ${distStr}</div></div><button class="park-fav-btn ${fav?'on':''}" data-pfav="${esc(p.id)}" aria-label="Favorit">${fav?svgFill('starFill'):svg('star')}</button><div style="display:flex;flex-direction:column;gap:6px;flex:none"><a class="park-btn" href="${navUrl}" target="_blank" rel="noopener">${svg('right')} Route</a><a class="park-btn" href="${mapUrl}" target="_blank" rel="noopener">${svg('list')} Karte</a></div></div>`;
       }).join('');
       $('#parks-status').style.display='none';
-      m.insertAdjacentHTML('beforeend', `<div class="section-label" style="margin-top:8px">📍 ${parks.length} Spots im Umkreis von 15 km</div><div class="park-list">${listHTML}</div>
-        <div class="hint" style="text-align:center;margin-top:16px">Daten von <a href="https://www.openstreetmap.org" target="_blank" style="color:var(--accent)">OpenStreetMap</a>.</div>`);
-    }catch(err){
-      $('#parks-status').innerHTML = `<div class="empty">${svg('eyeoff')}<h3>Suche fehlgeschlagen</h3><p>${esc(err.message||'Netzwerkfehler')}</p></div>`;
-    }
-  }, ()=>{
-    $('#parks-status').innerHTML = `<div class="empty">${svg('eyeoff')}<h3>Standort verweigert</h3><p>Bitte erlaube den Standort-Zugriff.</p></div>`;
-  }, {timeout:10000, maximumAge:600000});
+      m.insertAdjacentHTML('beforeend',`<div class="section-label" style="margin-top:8px">📍 ${parks.length} Spots (Favoriten oben)</div><div class="park-list">${listHTML}</div><div class="hint" style="text-align:center;margin-top:16px">Daten von <a href="https://www.openstreetmap.org" target="_blank" style="color:var(--accent)">OpenStreetMap</a> · Wetter von <a href="https://open-meteo.com" target="_blank" style="color:var(--accent)">Open-Meteo</a>.</div>`);
+      $$('#parks-main [data-pfav]').forEach(b=>b.addEventListener('click',(e)=>{ e.stopPropagation(); toggleParkFav(b.dataset.pfav); renderParks(); }));
+    }catch(err){ $('#parks-status').innerHTML=`<div class="empty">${svg('eyeoff')}<h3>Suche fehlgeschlagen</h3><p>${esc(err.message||'Netzwerkfehler')}</p></div>`; }
+  }, ()=>{ $('#parks-status').innerHTML=`<div class="empty">${svg('eyeoff')}<h3>Standort verweigert</h3><p>Bitte erlaube den Standort-Zugriff.</p></div>`; }, {timeout:10000,maximumAge:600000});
+}
+/* ========================= WEEKLY REPORT BANNER ========================= */
+function renderWeeklyReport(){
+  const el=$('#report-slot'); if(!el) return;
+  const now=new Date(); const day=now.getDay()||7;
+  /* Show only on Sunday or Monday for the past week */
+  if(day!==7 && day!==1){ el.innerHTML=''; return; }
+  const r=computeWeeklyReport(day===1?1:0);
+  if(!r){ el.innerHTML=''; return; }
+  if(DB.lastReport && DB.lastReport.weekKey===r.weekKey && DB.lastReport.dismissedAt) { el.innerHTML=''; return; }
+  const topText=r.topEx.length?r.topEx.map(([k,v])=>`${exDisplay(k)}: ${v}`).join(' · '):'—';
+  el.innerHTML=`<div class="report-card"><div class="report-title">📊 Deine letzte Woche</div>
+    <div class="report-list">
+      <div class="item"><span>Trainings</span><b>${r.count}</b></div>
+      <div class="item"><span>Trainingszeit</span><b>${r.totalMin} Min</b></div>
+      ${r.bestSession?`<div class="item"><span>Beste Session</span><b>${esc(r.bestSession)}</b></div>`:''}
+    </div>
+    <div class="hint" style="margin-top:6px">${esc(topText)}</div>
+    <button class="btn btn-ghost btn-sm" id="rep-close" style="margin-top:10px">Ausblenden</button>
+  </div>`;
+  $('#rep-close').addEventListener('click',()=>{
+    DB.lastReport={weekKey:r.weekKey, dismissedAt:Date.now()}; save(); el.innerHTML='';
+  });
+}
+/* ========================= PLAN MARKETPLACE (Sharing Link) ========================= */
+function sharePlanLink(planId){
+  const p=findPlan(planId); if(!p) return;
+  const code=encodePlan(p);
+  const url=location.origin+location.pathname+'#plan='+code;
+  const body=`<p style="color:var(--muted);font-weight:600;margin:2px 0 12px">Teile diesen Link mit anderen BARWORK-Nutzern – ein Klick reicht zum Importieren.</p>
+    <div class="code-box"><div class="lbl">Import-Link</div><div class="code long">${esc(url)}</div></div>
+    <button class="btn btn-primary btn-block btn-lg" id="sp-copy">${svg('copy')} Link kopieren</button>
+    <div style="height:8px"></div>
+    ${navigator.share?`<button class="btn btn-soft btn-block" id="sp-share">${svg('share2')} Teilen</button>`:''}`;
+  openSheet('Plan teilen', body);
+  $('#sp-copy').addEventListener('click',()=>{
+    navigator.clipboard.writeText(url).then(()=>toast('Link kopiert'));
+  });
+  if($('#sp-share')) $('#sp-share').addEventListener('click',async()=>{
+    try{ await navigator.share({title:'BARWORK Plan',text:'Trainiere mit meinem Plan: '+p.name,url}); }catch(e){}
+  });
+}
+function checkPlanImportUrl(){
+  const hash=location.hash||'';
+  const m=hash.match(/^#plan=(.+)$/);
+  if(!m) return;
+  const p=decodePlan(m[1]);
+  if(!p||!p.name){ toast('Ungültiger Plan-Link'); location.hash=''; return; }
+  const body=`<p style="color:var(--muted);font-weight:600;margin:2px 0 14px">Möchtest du diesen geteilten Plan importieren?</p>
+    <div style="background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px">
+      <div style="font-family:var(--font-d);font-size:20px;letter-spacing:.5px">${esc(p.name)}</div>
+      ${p.author?`<div style="color:var(--muted);font-size:12px;font-weight:600;margin-top:4px">by ${esc(p.author)}</div>`:''}
+      <div style="color:var(--muted);font-size:13px;margin-top:8px">${p.cycles} Runden · ${(p.exercises||[]).length} Übungen · ~${Math.round(estimate(p)/60)} Min</div>
+    </div>
+    <button class="btn btn-primary btn-block btn-lg" id="pi-import">${svg('save')} In meine Pläne importieren</button>
+    <div style="height:8px"></div>
+    <button class="btn btn-ghost btn-block" id="pi-cancel">Abbrechen</button>`;
+  setTimeout(()=>{
+    openSheet('Plan importieren', body);
+    $('#pi-import').addEventListener('click',()=>{
+      const copy=structuredClone(p); copy.id=uid(); copy.builtin=false;
+      DB.customPlans.push(copy); save(); closeSheet(); location.hash=''; toast('Plan importiert'); renderHome();
+    });
+    $('#pi-cancel').addEventListener('click',()=>{ closeSheet(); location.hash=''; });
+  }, 500);
+}
+/* ========================= ONBOARDING ========================= */
+let _obState={ step:1, level:null, goal:null, freq:null };
+function startOnboarding(){
+  if(DB.flags.onboarded) return;
+  _obState={step:1,level:null,goal:null,freq:null};
+  renderOnboarding();
+}
+function renderOnboarding(){
+  const existing=$('#ob-scrim'); if(existing) existing.remove();
+  const s=_obState;
+  let content='';
+  if(s.step===1){
+    content=`<div class="ob-step">Schritt 1 / 3</div>
+      <div class="ob-title">Willkommen bei BARWORK 💪</div>
+      <div class="ob-sub">Wie viel Erfahrung hast du mit Calisthenics/Street Workout?</div>
+      <div class="ob-choices">
+        ${[{v:'Beginner',em:'🌱',nm:'Beginner',de:'Erste Klimmzüge & Push Ups'},{v:'Medium',em:'💪',nm:'Fortgeschritten',de:'Solide Basis, will Skills lernen'},{v:'Advanced',em:'🏆',nm:'Advanced',de:'Muscle Ups & mehr auf der Roadmap'}].map(o=>`<button class="ob-choice ${s.level===o.v?'on':''}" data-oblvl="${o.v}"><div class="em">${o.em}</div><div class="info"><div class="nm">${o.nm}</div><div class="de">${o.de}</div></div></button>`).join('')}
+      </div>
+      <div class="ob-actions"><button class="btn btn-ghost" id="ob-skip">Später</button><button class="btn btn-primary" id="ob-next" ${!s.level?'disabled':''}>Weiter</button></div>`;
+  } else if(s.step===2){
+    content=`<div class="ob-step">Schritt 2 / 3</div>
+      <div class="ob-title">Was ist dein Hauptziel?</div>
+      <div class="ob-sub">Wir empfehlen dir passende Pläne.</div>
+      <div class="ob-choices">
+        ${[{v:'strength',em:'🏋️',nm:'Kraft aufbauen',de:'Push Ups, Pull Ups, Dips maximieren'},{v:'skills',em:'⚡',nm:'Skills lernen',de:'Muscle Up, Handstand, Levers'},{v:'endurance',em:'🔥',nm:'Ausdauer',de:'HIIT, Kondition, Fettverbrennung'},{v:'balanced',em:'⚖️',nm:'Ausgewogen',de:'Gesunde Mischung aus allem'}].map(o=>`<button class="ob-choice ${s.goal===o.v?'on':''}" data-obgoal="${o.v}"><div class="em">${o.em}</div><div class="info"><div class="nm">${o.nm}</div><div class="de">${o.de}</div></div></button>`).join('')}
+      </div>
+      <div class="ob-actions"><button class="btn btn-ghost" id="ob-back">Zurück</button><button class="btn btn-primary" id="ob-next" ${!s.goal?'disabled':''}>Weiter</button></div>`;
+  } else {
+    content=`<div class="ob-step">Schritt 3 / 3</div>
+      <div class="ob-title">Wie oft trainierst du pro Woche?</div>
+      <div class="ob-sub">Das setzt dein Wochenziel.</div>
+      <div class="ob-choices">
+        ${[{v:2,em:'🌿',nm:'2 × Woche',de:'Einsteiger-Frequenz'},{v:3,em:'💪',nm:'3 × Woche',de:'Optimal für die meisten'},{v:4,em:'🔥',nm:'4 × Woche',de:'Ambitioniert'},{v:5,em:'⚡',nm:'5+ × Woche',de:'Für Fortgeschrittene'}].map(o=>`<button class="ob-choice ${s.freq===o.v?'on':''}" data-obfreq="${o.v}"><div class="em">${o.em}</div><div class="info"><div class="nm">${o.nm}</div><div class="de">${o.de}</div></div></button>`).join('')}
+      </div>
+      <div class="ob-actions"><button class="btn btn-ghost" id="ob-back">Zurück</button><button class="btn btn-primary" id="ob-finish" ${!s.freq?'disabled':''}>Los geht's! 🚀</button></div>`;
+  }
+  const el=document.createElement('div'); el.className='ob-scrim'; el.id='ob-scrim';
+  el.innerHTML=`<div class="ob-card">${content}</div>`;
+  document.body.appendChild(el);
+  $$('[data-oblvl]',el).forEach(b=>b.addEventListener('click',()=>{ s.level=b.dataset.oblvl; renderOnboarding(); }));
+  $$('[data-obgoal]',el).forEach(b=>b.addEventListener('click',()=>{ s.goal=b.dataset.obgoal; renderOnboarding(); }));
+  $$('[data-obfreq]',el).forEach(b=>b.addEventListener('click',()=>{ s.freq=+b.dataset.obfreq; renderOnboarding(); }));
+  const nx=$('#ob-next',el); if(nx) nx.addEventListener('click',()=>{ if((s.step===1&&s.level)||(s.step===2&&s.goal)){ s.step++; renderOnboarding(); }});
+  const bk=$('#ob-back',el); if(bk) bk.addEventListener('click',()=>{ s.step--; renderOnboarding(); });
+  const sk=$('#ob-skip',el); if(sk) sk.addEventListener('click',()=>{ DB.flags.onboarded=true; save(); el.remove(); });
+  const fn=$('#ob-finish',el); if(fn) fn.addEventListener('click',()=>{
+    DB.settings.weeklyGoal=s.freq;
+    /* Favorisiere passende Pläne */
+    const recommendations={
+      Beginner:['b-basic-beginner','b-shoulder-routine','b-pull-push'],
+      Medium:['b-fullbody-7r','b-pull-it','b-abs-core'],
+      Advanced:['b-fullbody-luis','b-muscleup-hunt','b-arm-routine']
+    };
+    (recommendations[s.level]||[]).forEach(id=>{ if(!DB.favorites.includes(id)) DB.favorites.push(id); });
+    if(s.goal==='endurance' && !DB.favorites.includes('b-insane-cardio')) DB.favorites.push('b-insane-cardio');
+    DB.flags.onboarded=true; save(); el.remove();
+    toast('🎉 Willkommen! Passende Pläne sind markiert.'); renderHome();
+  });
+}
+/* ========================= PR TIMELINE SHEET ========================= */
+function openPrTimeline(exId){
+  const tl=prTimeline(exId);
+  if(!tl.length){ toast('Noch keine PR-Historie'); return; }
+  const name=exDisplay(exId);
+  const rows=tl.map(x=>{
+    const d=new Date(x.date).toLocaleDateString('de-DE',{day:'2-digit',month:'short',year:'numeric'});
+    const delta=x.delta>0?`+${x.delta} Wdh.`:'Start';
+    return `<div class="pr-tl-item"><div class="pr-tl-date">${d}</div><div class="pr-tl-val">${x.reps} Wdh.</div><div class="pr-tl-delta">${delta}</div></div>`;
+  }).join('');
+  openSheet('PR-Historie · '+name,`<div class="pr-timeline">${rows}</div>`);
 }
 /* ========================= ROUTER ========================= */
 let currentView='home';
@@ -2518,6 +2789,7 @@ function renderHome(){
   const b4=$('#btn-parks'); if(b4) b4.innerHTML=svg('target')+' Parks';
   renderResumeBanner();
   renderDeloadBanner();
+  renderWeeklyReport();
   renderStreakBanner();
   renderGoalCard();
   const ph=$('#progr-host'); if(ph) renderProgressionCards(ph);
@@ -2652,7 +2924,8 @@ function openPlanMenu(id){
     {ic:'play', label:'Training starten', fn:()=>{closeSheet();startWorkout(id);}},
     {ic:'list', label:'Details ansehen', fn:()=>{closeSheet();openDetail(id);}},
     {ic:'edit', label:'Bearbeiten', fn:()=>{closeSheet();openEditor(id);}},
-    {ic:'copy', label:'Duplizieren', fn:()=>{closeSheet();duplicatePlan(id);}}
+    {ic:'copy', label:'Duplizieren', fn:()=>{closeSheet();duplicatePlan(id);}},
+    {ic:'share2', label:'Plan teilen (Link)', fn:()=>{closeSheet();setTimeout(()=>sharePlanLink(id),200);}}
   ];
   if(bi){
     if(hasOverride) acts.push({ic:'reset', label:'Auf Original zurücksetzen', fn:()=>{closeSheet();resetBuiltin(id);}});
@@ -3416,11 +3689,12 @@ function renderSettings(){
         </div>
       </div>
     </div>
-    <div class="set-note">Körpergewicht (für Krafttrainings-Äquivalente)</div>
+    <div class="set-note">Körpergewicht (für 1RM-Berechnungen)</div>
     <div class="set-group">
-      <div class="set-row"><div class="grow"><div class="st-title">Dein Körpergewicht</div><div class="st-sub">Basis für 1RM-Berechnungen in der Statistik</div></div>
+      <div class="set-row"><div class="grow"><div class="st-title">Dein Körpergewicht</div><div class="st-sub">Basis für Krafttrainings-Äquivalente</div></div>
         <div class="mini-input" style="width:100px"><input class="input" id="set-bw" type="number" inputmode="decimal" min="30" max="200" value="${s.bodyWeightKg||75}"></div>
       </div>
+      <div class="set-row" data-action="restart-onboarding"><div class="grow"><div class="st-title">Onboarding erneut anzeigen</div><div class="st-sub">Empfehlungen basierend auf Erfahrung neu setzen</div></div><span class="set-ic">${svg('play')}</span></div>
     </div>
     <div class="set-note">Erinnerungen</div>
     <div class="set-group">
@@ -3482,6 +3756,7 @@ function renderSettings(){
   $$('#accent-picker [data-a]').forEach(b=> b.addEventListener('click',()=>{ DB.settings.accent=b.dataset.a; document.body.dataset.accent=b.dataset.a; save(); renderSettings(); toast('Akzentfarbe geändert'); }));
   $$('#def-plan-color [data-defcol]').forEach(el=>el.addEventListener('click',()=>{ DB.settings.defaultPlanColor=el.dataset.defcol; save(); renderSettings(); toast('Standardfarbe gespeichert'); }));
   const bw=$('#set-bw'); if(bw) bw.addEventListener('change',()=>{ DB.settings.bodyWeightKg=Math.max(30,Math.min(200,+bw.value||75)); save(); });
+  const ro=$$('#settings-main [data-action="restart-onboarding"]'); ro.forEach(r=>r.addEventListener('click',()=>{ DB.flags.onboarded=false; save(); toast('Onboarding wird gestartet...'); setTimeout(()=>{ show('home',true); startOnboarding(); },300); }));
   const rt=$('#set-remtime'); if(rt) rt.addEventListener('change',()=>{ s.reminderTime=rt.value||'18:00'; save(); scheduleNextReminder(); });
   $$('#days-picker [data-remday]').forEach(b=> b.addEventListener('click',()=>{
     const day=+b.dataset.remday;
@@ -4039,6 +4314,7 @@ function init(){
   document.body.dataset.compact=DB.settings.compact?'1':'';
   grantMonthlyFreeze();
   autoConsumeFreeze();
+  setTimeout(()=>{ checkPlanImportUrl(); if(!DB.flags.onboarded && (DB.history||[]).length===0) startOnboarding(); },800);
   const m=document.querySelector('meta[name=theme-color]'); if(m) m.setAttribute('content', DB.settings.theme==='light'?'#eef1f5':'#0B0E13');
   history.replaceState({view:'auth'},'');
   show('auth',false);
