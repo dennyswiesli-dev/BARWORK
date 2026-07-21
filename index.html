@@ -2310,48 +2310,67 @@ async function loadCloudDb(){
       const localFresh = !DB.ts || Object.keys(DB.ts||{}).length===0;
       const localEmpty = (!DB.customPlans||!DB.customPlans.length) && (!DB.history||!DB.history.length);
       if(localFresh || localEmpty){
-        /* Cloud ist die Wahrheit → komplett übernehmen mit Merge von DEFAULTS für neue Felder */
-        DB = Object.assign({}, structuredClone(DEFAULTS), cloudDb);
-        DB.settings = Object.assign({}, DEFAULTS.settings, cloudDb.settings||{});
-        DB.flags = Object.assign({}, DEFAULTS.flags, cloudDb.flags||{});
+        /* Cloud ist die Wahrheit → tief mergen mit DEFAULTS für neue Felder */
+        const merged = structuredClone(DEFAULTS);
+        Object.keys(cloudDb||{}).forEach(key=>{
+          const cVal = cloudDb[key];
+          const dVal = merged[key];
+          if(cVal && typeof cVal === 'object' && !Array.isArray(cVal) && dVal && typeof dVal === 'object' && !Array.isArray(dVal)){
+            /* Objekt: Feld-Merge (Cloud gewinnt, Defaults füllen fehlende Felder) */
+            merged[key] = Object.assign({}, dVal, cVal);
+          } else {
+            /* Array oder Primitive: direkt übernehmen */
+            merged[key] = cVal;
+          }
+        });
+        DB = merged;
       } else {
         /* Beide Seiten haben Daten → normales timestamp-basiertes Merging */
         DB = mergeDb(DB, cloudDb);
       }
     } else {
-      /* NEUER USER: Cloud ist leer */
+      /* NEUER USER: Cloud ist leer - lokale Daten behalten wenn vorhanden */
       const hadLocalData = (DB.customPlans||[]).length > 0 || (DB.history||[]).length > 0 || (DB.favorites||[]).length > 0;
-      if(hadLocalData){
-        const wantMigrate = await new Promise(resolve => {
-          const body = `<p style="color:var(--muted);font-weight:600;margin:2px 0 12px">Du hast bereits <b style="color:var(--chalk)">lokale Trainingsdaten</b>. Willst du sie in dein neues Cloud-Konto übernehmen?</p>
-            <button class="btn btn-primary btn-block btn-lg" id="mig-yes">${svg('save')} Lokale Daten übernehmen</button>
-            <div style="height:8px"></div>
-            <button class="btn btn-ghost btn-block" id="mig-no">Mit leerem Konto starten</button>`;
-          openSheet('Neues Konto', body);
-          $('#mig-yes').addEventListener('click', ()=>{ closeSheet(); resolve(true); });
-          $('#mig-no').addEventListener('click', ()=>{ closeSheet(); resolve(false); });
-        });
-        if(!wantMigrate) DB = structuredClone(DEFAULTS);
-      } else {
+      if(!hadLocalData){
         DB = structuredClone(DEFAULTS);
       }
+      /* Bei hadLocalData: DB bleibt wie es ist und wird beim cloudSaveNow hochgeladen */
     }
     try{ localStorage.setItem(KEY, JSON.stringify(DB)); }catch(e){}
     document.body.dataset.theme = DB.settings.theme || 'dark';
     document.body.dataset.accent = DB.settings.accent || 'green';
     document.body.dataset.compact = DB.settings.compact ? '1' : '';
-    if(currentView==='settings') renderSettings();
-    else if(currentView==='home') renderHome();
-    else if(currentView==='stats') renderStats();
-    await cloudSaveNow(true);
+    /* Views nur neu rendern wenn wir tatsächlich in einer View sind - kein Crash beim Login-Flow */
+    try{
+      if(currentView==='settings') renderSettings();
+      else if(currentView==='home') renderHome();
+      else if(currentView==='stats') renderStats();
+    }catch(renderErr){}
+    /* cloudSaveNow im Hintergrund - nicht blockierend */
+    cloudSaveNow(true).catch(()=>{});
     setTimeout(()=>maybeStartOnboarding(), 400);
   }catch(err){
     FB.lastError = err.message || String(err);
-    toast('Cloud-Sync fehlgeschlagen');
+    toast('Cloud-Sync fehlgeschlagen: '+(err.message||err));
   }
 }
 function cloudScheduleSave(){ if(!FB.ready||!FB.user||FB.syncing) return; clearTimeout(FB.saveTimer); FB.saveTimer=setTimeout(()=>cloudSaveNow(false),900); }
-async function cloudSaveNow(silent){ if(!FB.ready||!FB.user) return; FB.syncing=true; FB.lastError=''; renderSettings(); try{ await FIRE.setDoc(userDocRef(), { db:cleanForCloud(DB), updatedAt:FIRE.serverTimestamp(), app:'BARWORK' }, { merge:true }); if(!silent) toast('Fortschritt synchronisiert'); }catch(err){ FB.lastError=err.message||String(err); if(!silent) toast('Cloud-Sync fehlgeschlagen'); } finally{ FB.syncing=false; renderSettings(); } }
+async function cloudSaveNow(silent){
+  if(!FB.ready||!FB.user) return;
+  FB.syncing=true; FB.lastError='';
+  /* Settings nur re-rendern wenn wir tatsächlich auf der Settings-View sind */
+  try{ if(currentView==='settings') renderSettings(); }catch(e){}
+  try{
+    await FIRE.setDoc(userDocRef(), { db:cleanForCloud(DB), updatedAt:FIRE.serverTimestamp(), app:'BARWORK' }, { merge:true });
+    if(!silent) toast('Fortschritt synchronisiert');
+  }catch(err){
+    FB.lastError=err.message||String(err);
+    if(!silent) toast('Cloud-Sync fehlgeschlagen');
+  }finally{
+    FB.syncing=false;
+    try{ if(currentView==='settings') renderSettings(); }catch(e){}
+  }
+}
 async function doAuth(mode){ if(!FB.ready){ authStatus('Firebase ist noch nicht bereit. Bitte kurz warten.',false); return; } const email=$('#auth-email').value.trim(); const pass=$('#auth-pass').value; if(!email||!pass){ authStatus('Bitte E-Mail und Passwort eingeben.',false); return; } if(pass.length<6){ authStatus('Das Passwort muss mindestens 6 Zeichen haben.',false); return; } authStatus(mode==='register'?'Konto wird erstellt...':'Login läuft...',true); try{ if(mode==='register') await FIRE.createUserWithEmailAndPassword(FB.auth,email,pass); else await FIRE.signInWithEmailAndPassword(FB.auth,email,pass); FB.localMode=false; authStatus('',true); }catch(err){ authStatus(firebaseErrorText(err),false); } }
 async function doGoogleLogin(){
   if(!FB.ready){ authStatus('Firebase ist noch nicht bereit. Bitte kurz warten.', false); return; }
