@@ -2268,6 +2268,17 @@ async function loadCloudDb(){
     else if(currentView==='stats') renderStats();
     await cloudSaveNow(true);
     setTimeout(()=>maybeStartOnboarding(), 400);
+    /* Buddy-Invites verarbeiten: (a) offener Pending-Invite aus URL-Klick, (b) eingehende Buddy-Requests von anderen Usern */
+    setTimeout(async ()=>{
+      try{
+        if(DB.pendingBuddyInvite){
+          const code = DB.pendingBuddyInvite;
+          delete DB.pendingBuddyInvite; save();
+          await processPendingBuddyInvite(code);
+        }
+        await fetchIncomingBuddyRequests();
+      }catch(e){}
+    }, 1200);
   }catch(err){
     FB.lastError = err.message || String(err);
     toast('Cloud-Sync fehlgeschlagen');
@@ -3936,7 +3947,8 @@ function renderBuddiesView(){
     html += '<div class="banner" style="margin-bottom:14px"><div class="banner-ic">'+svg('edit')+'</div><div class="grow"><b>Nickname fehlt</b><span>Setze oben einen Nickname, damit Buddies dich erkennen.</span></div></div>';
   }
   /* 3. Aktionen */
-  html += '<div class="pc-actions" style="margin-bottom:14px"><button class="btn btn-primary" style="flex:1" id="bv-add">'+svg('plus')+' Buddy hinzufügen</button><button class="btn btn-ghost" style="flex:1" id="bv-lb">'+svg('trophy')+' Leaderboard</button></div>';
+  html += '<div class="pc-actions" style="margin-bottom:8px"><button class="btn btn-primary" style="flex:1" id="bv-invite">'+svg('share2')+' Freund einladen</button></div>';
+  html += '<div class="pc-actions" style="margin-bottom:14px"><button class="btn btn-soft" style="flex:1" id="bv-add">'+svg('plus')+' Code eingeben</button><button class="btn btn-ghost" style="flex:1" id="bv-lb">'+svg('trophy')+' Leaderboard</button></div>';
   /* 4. Buddy-Liste */
   const buddies = DB.buddies||[];
   if(!buddies.length){
@@ -3964,6 +3976,7 @@ function renderBuddiesView(){
   });
   const bv=$('#bv-add'); if(bv) bv.addEventListener('click', openAddBuddySheet);
   const lb=$('#bv-lb'); if(lb) lb.addEventListener('click', openLeaderboardSheet);
+  const iv=$('#bv-invite'); if(iv) iv.addEventListener('click', openInviteShareSheet);
   $$('#buddies-main [data-buddyrm]').forEach(function(b){ b.addEventListener('click',function(){
     const c=b.dataset.buddyrm;
     confirmSheet('Buddy entfernen?','Diese Aktion kann nicht rückgängig gemacht werden.','Entfernen',function(){
@@ -3971,6 +3984,167 @@ function renderBuddiesView(){
       save(); renderBuddiesView(); toast('Entfernt');
     });
   }); });
+}
+/* ========================= BUDDY INVITE LINKS ========================= */
+function buddyInviteUrl(){
+  const code = ensureBuddyCode();
+  return location.origin + location.pathname + '#buddy=' + code;
+}
+function openInviteShareSheet(){
+  if(!FB.user){ toast('Login erforderlich für Einladungen'); return; }
+  const url = buddyInviteUrl();
+  const code = ensureBuddyCode();
+  const nick = (DB.settings.nickname||'').trim() || 'Ein BARWORK-User';
+  const shareText = nick+' lädt dich zu BARWORK ein! Werde mein Trainings-Buddy: '+url;
+  const body = '<p style="color:var(--muted);font-weight:600;margin:2px 0 12px">Teile diesen Link mit einem Freund. Sobald er/sie sich registriert oder einloggt, seid ihr automatisch als Buddies verknüpft!</p>'
+    +'<div class="code-box"><div class="lbl">Dein Einladungslink</div><div class="code long">'+esc(url)+'</div></div>'
+    +'<button class="btn btn-primary btn-block btn-lg" id="inv-copy">'+svg('copy')+' Link kopieren</button>'
+    +'<div style="height:8px"></div>'
+    + (navigator.share ? '<button class="btn btn-soft btn-block" id="inv-share">'+svg('share2')+' Über Apps teilen</button><div style="height:8px"></div>' : '')
+    +'<button class="btn btn-ghost btn-block" id="inv-close">Schließen</button>'
+    +'<div class="hint" style="text-align:center;margin-top:12px">Dein Buddy-Code: <b style="color:var(--accent)">'+esc(code)+'</b></div>';
+  openSheet('🎯 Buddy einladen', body);
+  $('#inv-copy').addEventListener('click', function(){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(function(){ toast('Link kopiert'); }).catch(function(){ toast('Kopieren fehlgeschlagen'); });
+    } else {
+      /* Fallback */
+      try{
+        const ta=document.createElement('textarea'); ta.value=url; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); ta.remove(); toast('Link kopiert');
+      }catch(e){ toast('Kopieren fehlgeschlagen'); }
+    }
+  });
+  const shareBtn = $('#inv-share');
+  if(shareBtn) shareBtn.addEventListener('click', async function(){
+    try{
+      await navigator.share({ title:'BARWORK Buddy-Einladung', text:shareText, url:url });
+    }catch(err){ /* User hat Share abgebrochen */ }
+  });
+  $('#inv-close').addEventListener('click', closeSheet);
+}
+function checkBuddyInviteUrl(){
+  const hash = location.hash || '';
+  const m = hash.match(/^#buddy=([A-Z0-9]{6})$/i);
+  if(!m) return;
+  const code = m[1].toUpperCase();
+  /* Hash entfernen, damit er nicht erneut ausgewertet wird */
+  try{ history.replaceState({view:currentView||'auth'}, '', location.pathname+location.search); }catch(e){ location.hash=''; }
+  if(FB.user){
+    /* Direkt verarbeiten */
+    processPendingBuddyInvite(code);
+  } else {
+    /* Für später merken */
+    DB.pendingBuddyInvite = code;
+    try{ localStorage.setItem(KEY, JSON.stringify(DB)); }catch(e){}
+    setTimeout(function(){
+      const body = '<p style="color:var(--muted);font-weight:600;margin:2px 0 14px">Du wurdest zu <b style="color:var(--chalk)">BARWORK</b> als Trainings-Buddy eingeladen! 🎯</p>'
+        +'<p style="color:var(--muted);font-size:13px;margin-bottom:14px">Melde dich an oder registriere ein neues Konto – die Buddy-Verknüpfung passiert dann automatisch.</p>'
+        +'<div class="code-box"><div class="lbl">Buddy-Code</div><div class="code">'+esc(code)+'</div></div>'
+        +'<button class="btn btn-primary btn-block btn-lg" id="pinv-login">Jetzt anmelden / registrieren</button>'
+        +'<div style="height:8px"></div>'
+        +'<button class="btn btn-ghost btn-block" id="pinv-later">Später</button>';
+      openSheet('🎯 Buddy-Einladung', body);
+      $('#pinv-login').addEventListener('click', function(){ closeSheet(); show('auth', true); });
+      $('#pinv-later').addEventListener('click', closeSheet);
+    }, 700);
+  }
+}
+async function processPendingBuddyInvite(rawCode){
+  const code = String(rawCode||'').toUpperCase().trim();
+  if(!code || code.length!==6) return;
+  if(!FB.user){ DB.pendingBuddyInvite = code; save(); return; }
+  ensureBuddyCode();
+  if(code === DB.buddyCode){
+    toast('Das ist dein eigener Einladungslink 😊');
+    if(DB.pendingBuddyInvite){ delete DB.pendingBuddyInvite; save(); }
+    return;
+  }
+  if(!Array.isArray(DB.buddies)) DB.buddies = [];
+  if(DB.buddies.some(function(b){ return b.code===code; })){
+    if(DB.pendingBuddyInvite){ delete DB.pendingBuddyInvite; save(); }
+    return; /* schon verbunden - silent */
+  }
+  toast('Verknüpfe Buddy...');
+  const data = await fetchBuddyByCode(code);
+  if(!data){
+    toast('Einladungs-Code ungültig oder abgelaufen');
+    if(DB.pendingBuddyInvite){ delete DB.pendingBuddyInvite; save(); }
+    return;
+  }
+  /* Lokal hinzufügen */
+  DB.buddies.push({
+    id:'bd_'+code, code:code,
+    nickname:data.nickname||'Buddy',
+    weekWorkouts:data.weekWorkouts||0,
+    weekMinutes:data.weekMinutes||0,
+    streakCurrent:data.streakCurrent||0,
+    streakBest:data.streakBest||0,
+    addedAt:Date.now(), refreshedAt:Date.now(),
+    viaInvite:true
+  });
+  /* Einladenden benachrichtigen: eigenen Code als "incoming" beim Einladenden hinterlassen */
+  try{
+    await pushBuddyProfile(); /* eigenes Profil in Cloud sicherstellen */
+    if(FIRE && FB.db){
+      const ref = FIRE.doc(FB.db, 'buddies', code, 'incoming', DB.buddyCode);
+      const nick = (DB.settings.nickname||'Buddy').slice(0,20);
+      await FIRE.setDoc(ref, {
+        code: DB.buddyCode,
+        nickname: nick,
+        createdAt: FIRE.serverTimestamp()
+      });
+    }
+  }catch(err){ /* silent - Firestore-Regeln evtl. restriktiv */ }
+  if(DB.pendingBuddyInvite){ delete DB.pendingBuddyInvite; }
+  save();
+  toast('🎉 Buddy verknüpft: ' + (data.nickname || code));
+  if(currentView === 'buddies') renderBuddiesView();
+}
+async function fetchIncomingBuddyRequests(){
+  if(!FB.ready || !FB.user || !DB.buddyCode) return;
+  try{
+    const colRef = FIRE.collection(FB.db, 'buddies', DB.buddyCode, 'incoming');
+    const snap = await FIRE.getDocs(colRef);
+    if(snap.empty) return;
+    if(!Array.isArray(DB.buddies)) DB.buddies = [];
+    const added = [];
+    for(let i=0;i<snap.docs.length;i++){
+      const docSnap = snap.docs[i];
+      const d = docSnap.data();
+      if(!d || !d.code) continue;
+      if(d.code === DB.buddyCode){
+        try{ await FIRE.deleteDoc(docSnap.ref); }catch(e){}
+        continue;
+      }
+      if(DB.buddies.some(function(b){ return b.code===d.code; })){
+        try{ await FIRE.deleteDoc(docSnap.ref); }catch(e){}
+        continue;
+      }
+      const fresh = await fetchBuddyByCode(d.code);
+      if(!fresh){
+        try{ await FIRE.deleteDoc(docSnap.ref); }catch(e){}
+        continue;
+      }
+      DB.buddies.push({
+        id:'bd_'+d.code, code:d.code,
+        nickname: fresh.nickname || d.nickname || 'Buddy',
+        weekWorkouts: fresh.weekWorkouts||0,
+        weekMinutes: fresh.weekMinutes||0,
+        streakCurrent: fresh.streakCurrent||0,
+        streakBest: fresh.streakBest||0,
+        addedAt: Date.now(), refreshedAt: Date.now(),
+        viaInvite: true
+      });
+      added.push(fresh.nickname || d.code);
+      try{ await FIRE.deleteDoc(docSnap.ref); }catch(e){}
+    }
+    if(added.length){
+      save();
+      toast('🎉 Neuer Buddy: ' + added.join(', '));
+      if(currentView === 'buddies') renderBuddiesView();
+    }
+  }catch(err){ /* silent */ }
 }
 /* ========================= LEADERBOARD & BUDDY SHEETS ========================= */
 function openAddBuddySheet(){
@@ -6172,7 +6346,7 @@ function init(){
   document.body.dataset.compact=DB.settings.compact?'1':'';
   grantMonthlyFreeze();
   autoConsumeFreeze();
-  setTimeout(()=>{ checkPlanImportUrl(); if(!FB.user && !FB.ready){ maybeStartOnboarding(); } },800);
+  setTimeout(()=>{ checkPlanImportUrl(); checkBuddyInviteUrl(); if(!FB.user && !FB.ready){ maybeStartOnboarding(); } },800);
   const m=document.querySelector('meta[name=theme-color]'); if(m) m.setAttribute('content', DB.settings.theme==='light'?'#eef1f5':'#0B0E13');
   history.replaceState({view:'auth'},'');
   show('auth',false);
