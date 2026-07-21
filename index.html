@@ -926,6 +926,19 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .home-shortcuts-6{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 4px}
 .home-shortcuts-6 .btn{padding:12px 8px;font-size:12.5px;flex-direction:column;gap:3px;display:flex;align-items:center;justify-content:center}
 .home-shortcuts-6 .btn svg{width:20px;height:20px;margin-bottom:2px}
+/* ============ SETTINGS SUB-MENU ============ */
+.settings-menu{display:flex;flex-direction:column;gap:8px;margin:6px 0 8px}
+.settings-cat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:14px;text-align:left;transition:.14s;width:100%;cursor:pointer;font-family:inherit}
+.settings-cat:active{transform:scale(.98);background:var(--panel2)}
+.settings-cat .cat-em{font-size:24px;line-height:1;flex:none;width:44px;height:44px;display:grid;place-items:center;background:var(--panel2);border-radius:12px;border:1px solid var(--line)}
+.settings-cat .cat-info{flex:1;min-width:0}
+.settings-cat .cat-nm{font-family:var(--font-d);font-size:16.5px;letter-spacing:.5px;color:var(--chalk);line-height:1.1}
+.settings-cat .cat-de{color:var(--muted);font-size:12px;font-weight:600;margin-top:3px;line-height:1.3}
+.settings-cat .cat-arrow{flex:none;color:var(--muted2);display:grid;place-items:center}
+.settings-cat .cat-arrow svg{width:20px !important;height:20px !important}
+.settings-back-btn{display:flex;align-items:center;gap:8px;padding:11px 14px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-weight:800;font-size:13.5px;color:var(--muted);width:100%;margin:2px 0 14px;justify-content:flex-start;font-family:inherit;cursor:pointer;transition:.14s}
+.settings-back-btn:active{transform:scale(.98);background:var(--panel2)}
+.settings-back-btn svg{width:18px !important;height:18px !important;flex:0 0 18px}
 
 /* Compact plan cards */
 body[data-compact="1"] .plan-list{gap:8px}
@@ -3908,12 +3921,11 @@ function renderBuddiesView(){
   const s = DB.settings;
   const code = ensureBuddyCode();
   const nick = (s.nickname||'').trim();
-  /* 1. Nickname-Einstellung (früher in Settings) */
+  /* 1. Community-Profil (Nickname + Leaderboard-Opt-in) */
   let html = '<div class="section-label">👤 Dein Community-Profil</div>';
   html += '<div class="set-group" style="margin-bottom:14px">';
   html += '<div class="set-row"><div class="grow"><div class="st-title">Nickname</div><div class="st-sub">Wird für Leaderboard & Buddies angezeigt</div></div>'
         + '<div class="mini-input" style="width:140px"><input class="input" id="bv-nick" placeholder="Anonym" maxlength="20" value="'+esc(nick)+'"></div></div>';
-  /* Leaderboard opt-in switch */
   const lbOn = !!s.leaderboardOptIn;
   html += '<div class="set-row"><div class="grow"><div class="st-title">Am Leaderboard teilnehmen</div><div class="st-sub">Wöchentliche Stats werden anonym geteilt</div></div>'
         + '<button class="switch '+(lbOn?'on':'')+'" id="bv-lb-toggle" role="switch" aria-checked="'+lbOn+'"></button></div>';
@@ -3923,7 +3935,7 @@ function renderBuddiesView(){
   if(!nick){
     html += '<div class="banner" style="margin-bottom:14px"><div class="banner-ic">'+svg('edit')+'</div><div class="grow"><b>Nickname fehlt</b><span>Setze oben einen Nickname, damit Buddies dich erkennen.</span></div></div>';
   }
-  /* 3. Buddy-Aktionen */
+  /* 3. Aktionen */
   html += '<div class="pc-actions" style="margin-bottom:14px"><button class="btn btn-primary" style="flex:1" id="bv-add">'+svg('plus')+' Buddy hinzufügen</button><button class="btn btn-ghost" style="flex:1" id="bv-lb">'+svg('trophy')+' Leaderboard</button></div>';
   /* 4. Buddy-Liste */
   const buddies = DB.buddies||[];
@@ -3935,13 +3947,11 @@ function renderBuddiesView(){
       const av = esc((b.nickname||'B')[0].toUpperCase());
       return '<div class="buddy-item"><div class="buddy-av">'+av+'</div><div class="buddy-info"><div class="buddy-nm">'+esc(b.nickname||'Buddy')+'</div><div class="buddy-sub">🔥 '+(b.streakCurrent||0)+' Wo · '+(b.weekWorkouts||0)+' Tr · '+(b.weekMinutes||0)+' Min</div></div><div class="buddy-actions"><button data-buddyrm="'+esc(b.code)+'" aria-label="Entfernen">'+svg('trash')+'</button></div></div>';
     }).join('');
-    /* Silent refresh - fire and forget */
     if(typeof refreshBuddies==='function'){
       refreshBuddies().then(function(){ if(currentView==='buddies') renderBuddiesView(); }).catch(function(){});
     }
   }
   m.innerHTML = html;
-  /* Handlers */
   const nk=$('#bv-nick'); if(nk) nk.addEventListener('change',function(){
     DB.settings.nickname = nk.value.trim().slice(0,20);
     save(); toast('Nickname gespeichert');
@@ -4034,7 +4044,7 @@ function show(view, push=true){
   if(view==='auth') renderAuth();
   if(view==='home') renderHome();
   if(view==='history') renderHistory();
-  if(view==='settings') renderSettings();
+  if(view==='settings'){ if(prev!=='settings') _settingsSection=null; renderSettings(); }
   if(view==='stats') renderStats();
   if(view==='skills') renderSkills();
   if(view==='challenges') renderChallenges();
@@ -5175,6 +5185,99 @@ function renderHistory(){
   }));
 }
 
+/* ========================= SETTINGS SUB-SECTIONS ========================= */
+let _settingsSection = null;
+const SETTINGS_CATEGORIES = [
+  { id:'account',  em:'👤', nm:'Konto & Sync',        de:'Login, Passwort, E-Mail, Konto verwalten' },
+  { id:'training', em:'💪', nm:'Training',            de:'Timer, Ton, Wochenziel, Warm-up, Standards' },
+  { id:'design',   em:'🎨', nm:'Darstellung',         de:'Theme, Farben, Plan-Karten' },
+  { id:'body',     em:'🧘', nm:'Körper & Regeneration', de:'Körpermaße, Recovery, Fotos' },
+  { id:'notif',    em:'🔔', nm:'Erinnerungen & App',   de:'Push-Nachrichten, App-Installation' },
+  { id:'data',     em:'💾', nm:'Daten & Sicherung',    de:'Export, Import, Zurücksetzen' }
+];
+const SETTINGS_SECTION_MAP = {
+  'Konto & Sync': 'account',
+  'App': 'notif',
+  'Während des Trainings': 'training',
+  'Wochenziel': 'training',
+  'Standardwerte für neue Pläne': 'training',
+  'Darstellung': 'design',
+  'Körper & Regeneration': 'body',
+  'Plan-Werkzeuge': 'training',
+  'Erinnerungen': 'notif',
+  'Aufwärm- & Cool-Down-Pläne': 'training',
+  'Ausgeblendete Pläne': 'training',
+  'Daten': 'data'
+};
+function applySettingsSectionView(){
+  const m = $('#settings-main');
+  if(!m) return;
+  const nodes = Array.from(m.children);
+  const groups = [];
+  for(let i=0; i<nodes.length; i++){
+    const n = nodes[i];
+    if(n.classList && n.classList.contains('set-note')){
+      const title = (n.textContent||'').trim();
+      const section = SETTINGS_SECTION_MAP[title] || 'other';
+      const next = nodes[i+1];
+      if(next && next.classList && next.classList.contains('set-group')){
+        groups.push({ note:n, group:next, section, title });
+      }
+    }
+  }
+  const foot = m.querySelector('.app-foot');
+  const h2 = document.querySelector('#view-settings .view-head h2');
+  if(_settingsSection === null){
+    groups.forEach(g=>{ g.note.style.display='none'; g.group.style.display='none'; });
+    if(foot) foot.style.display='';
+    const menu = document.createElement('div');
+    menu.className = 'settings-menu';
+    menu.innerHTML = SETTINGS_CATEGORIES.map(c =>
+      '<button class="settings-cat" data-cat="'+c.id+'">'+
+        '<span class="cat-em">'+c.em+'</span>'+
+        '<div class="cat-info">'+
+          '<div class="cat-nm">'+esc(c.nm)+'</div>'+
+          '<div class="cat-de">'+esc(c.de)+'</div>'+
+        '</div>'+
+        '<span class="cat-arrow">'+svg('right')+'</span>'+
+      '</button>'
+    ).join('');
+    m.insertBefore(menu, m.firstChild);
+    menu.querySelectorAll('[data-cat]').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        _settingsSection = b.dataset.cat;
+        renderSettings();
+      });
+    });
+    if(h2) h2.textContent = 'Einstellungen';
+  } else {
+    let anyVisible = false;
+    groups.forEach(g=>{
+      const show_ = g.section === _settingsSection;
+      g.note.style.display = show_ ? '' : 'none';
+      g.group.style.display = show_ ? '' : 'none';
+      if(show_) anyVisible = true;
+    });
+    if(foot) foot.style.display = 'none';
+    const backBtn = document.createElement('button');
+    backBtn.className = 'settings-back-btn';
+    backBtn.innerHTML = svg('left') + '<span>Zurück zur Übersicht</span>';
+    backBtn.addEventListener('click', ()=>{
+      _settingsSection = null;
+      renderSettings();
+    });
+    m.insertBefore(backBtn, m.firstChild);
+    if(!anyVisible){
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      empty.style.padding = '30px 20px';
+      empty.innerHTML = svg('list') + '<h3>Keine Einträge</h3><p>Hier gibt es aktuell nichts zu konfigurieren.</p>';
+      m.appendChild(empty);
+    }
+    const cat = SETTINGS_CATEGORIES.find(c=>c.id===_settingsSection);
+    if(h2 && cat) h2.textContent = cat.nm;
+  }
+}
 /* ========================= SETTINGS ========================= */
 function renderSettings(){
   $('#set-back-ic').innerHTML=svg('left');
@@ -5370,6 +5473,8 @@ function renderSettings(){
   const lo=$('#btn-logout'); if(lo) lo.addEventListener('click', logout);
   const sn=$('#btn-sync-now'); if(sn) sn.addEventListener('click', ()=>cloudSaveNow(false));
   const gl=$('#btn-go-login'); if(gl) gl.addEventListener('click', ()=>show('auth',true));
+  /* Untermenü-Filter anwenden */
+  applySettingsSectionView();
 }
 
 function switchRow(key,title,sub,on){
