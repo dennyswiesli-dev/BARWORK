@@ -767,6 +767,36 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .wc-plan-preview{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:12.5px;font-weight:600;color:var(--muted)}
 .wc-plan-preview b{color:var(--chalk)}
 .wc-plan-preview .ex{display:inline-block;background:var(--ink2);padding:2px 7px;border-radius:6px;margin:2px 3px 2px 0;font-size:11px;color:var(--chalk);font-weight:700}
+.wc-plan-preview .edit-lnk{color:var(--accent);font-weight:800;font-size:12px;cursor:pointer;margin-top:6px;display:inline-block}
+/* Training mode picker in editor */
+.mode-picker-3{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 10px}
+.mode-picker-3 .mode-card{padding:10px 8px}
+/* AMRAP timer display */
+.amrap-info{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:8px;text-align:center}
+.amrap-info .lbl{color:var(--muted2);font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
+.amrap-info .val{font-family:var(--font-d);font-size:32px;letter-spacing:.5px;color:var(--accent);margin-top:2px;line-height:1}
+.amrap-info .sub{color:var(--muted);font-size:12px;font-weight:700;margin-top:4px}
+.amrap-plus{margin-top:10px;display:flex;gap:8px}
+.amrap-plus button{flex:1;padding:12px;border-radius:12px;background:var(--work);color:var(--work-ink);font-family:var(--font-d);font-size:18px;letter-spacing:.5px;border:none}
+.amrap-plus button:active{transform:scale(.96)}
+/* EMOM indicator */
+.emom-clock{background:var(--panel);border:2px solid var(--accent);border-radius:14px;padding:12px 14px;margin-top:8px;text-align:center}
+.emom-clock .lbl{color:var(--accent);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.emom-clock .val{font-family:var(--font-d);font-size:36px;letter-spacing:1px;color:var(--chalk);line-height:1;margin-top:2px}
+.emom-clock.warn{border-color:var(--rest)}
+.emom-clock.warn .lbl,.emom-clock.warn .val{color:var(--rest)}
+/* Live notes button + sheet */
+.wk-live-note-btn{position:fixed;top:calc(env(safe-area-inset-top) + 14px);left:50%;transform:translateX(-50%);padding:6px 12px;border-radius:9px;background:var(--panel);border:1px solid var(--line);color:var(--muted);font-size:11px;font-weight:800;display:flex;align-items:center;gap:5px;z-index:41}
+.wk-live-note-btn svg{width:12px;height:12px}
+.wk-live-note-btn.has{color:var(--work);border-color:color-mix(in srgb,var(--work) 40%,var(--line))}
+/* Superset+ chain indicator */
+.ss-chain-label{background:linear-gradient(90deg,var(--accent) 0%,color-mix(in srgb,var(--accent) 50%,var(--panel)) 100%);color:var(--accent-ink);padding:4px 10px;border-radius:8px;font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;display:inline-block;margin-bottom:6px}
+/* Music mini controller */
+.music-mini{position:fixed;bottom:calc(env(safe-area-inset-bottom) + 4px);left:12px;right:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 12px;display:none;align-items:center;gap:10px;z-index:42;box-shadow:var(--shadow)}
+.music-mini.show{display:flex}
+.music-mini .m-title{flex:1;min-width:0;font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-mini button{width:34px;height:34px;border-radius:9px;background:var(--panel2);color:var(--chalk);border:1px solid var(--line);display:grid;place-items:center}
+.music-mini button svg{width:16px;height:16px}
 
 /* Compact plan cards */
 body[data-compact="1"] .plan-list{gap:8px}
@@ -979,6 +1009,9 @@ body[data-compact="1"] .plan-card .pc-menu{width:30px;height:30px}
     </div>
     <div class="progress"><i id="wk-progress"></i></div>
     <div class="dots" id="wk-dots"></div>
+    <button class="wk-live-note-btn" id="wk-live-note" style="display:none">
+      <span id="wk-live-note-ic"></span><span id="wk-live-note-txt">Notiz</span>
+    </button>
 
     <div class="stage" id="wk-stage">
       <div class="ring" id="wk-ring">
@@ -1152,6 +1185,33 @@ body[data-compact="1"] .plan-card .pc-menu{width:30px;height:30px}
   </div>
 </section>
 
+<!-- ===================== WARMUP/COOLDOWN PLAN EDITOR ===================== -->
+<section id="view-wc-editor" class="view">
+  <div class="wrap">
+    <div class="view-head">
+      <button class="back-btn" data-nav="settings"><span id="wc-back-ic"></span>Zurück</button>
+      <h2 id="wc-editor-title">Aufwärm-Plan</h2>
+      <span style="width:44px"></span>
+    </div>
+    <main class="form-main">
+      <div class="field">
+        <label for="wc-name">Name</label>
+        <input class="input" id="wc-name" placeholder="Mein Standard-Warm-up" maxlength="60">
+      </div>
+      <div class="hint" id="wc-hint" style="margin-bottom:14px"></div>
+      <div class="section-label" style="margin-top:8px">Übungen</div>
+      <div id="wc-ex-editor"></div>
+      <button class="btn btn-soft btn-block" id="wc-btn-add-ex" style="margin-top:4px"></button>
+      <div style="height:30px"></div>
+    </main>
+  </div>
+  <div class="form-footer">
+    <div class="wrap">
+      <button class="btn btn-ghost" id="wc-btn-delete">Löschen</button>
+      <button class="btn btn-primary" id="wc-btn-save">Speichern</button>
+    </div>
+  </div>
+</section>
 <!-- ===================== CHALLENGES ===================== -->
 <section id="view-challenges" class="view">
   <div class="wrap">
@@ -2423,6 +2483,102 @@ function fireReminder(){
   scheduleNextReminder();
 }
 
+/* ========================= WARM-UP / COOL-DOWN PLAN EDITOR ========================= */
+let _editingWc=null; /* {kind:'warmup'|'cooldown', plan:{name,exercises:[]}} */
+function defaultWarmup(){
+  return { name:'Standard-Warm-up', exercises:[
+    { name:'Arm Circles',   de:'Arm-Kreisen',       duration:30 },
+    { name:'Jumping Jacks', de:'Hampelmänner',      duration:45 },
+    { name:'Bodyweight Squats', de:'Kniebeugen (leicht)', duration:30 },
+    { name:'High Knees',    de:'Hohe Knie',         duration:30 }
+  ]};
+}
+function defaultCooldown(){
+  return { name:'Standard-Cool-down', exercises:[
+    { name:'Chest Stretch',    de:'Brust dehnen',       duration:30 },
+    { name:'Shoulder Stretch', de:'Schulter dehnen',    duration:30 },
+    { name:'Hamstring Stretch',de:'Beinrückseite dehnen',duration:45 },
+    { name:'Cat-Cow',          de:'Katze-Kuh',          duration:30 },
+    { name:'Child\'s Pose',    de:'Kindsstellung',      duration:45 }
+  ]};
+}
+function getWarmupPlan(){ return DB.warmupPlan || defaultWarmup(); }
+function getCooldownPlan(){ return DB.cooldownPlan || defaultCooldown(); }
+function openWcEditor(kind){
+  const stored = kind==='warmup' ? DB.warmupPlan : DB.cooldownPlan;
+  const fallback = kind==='warmup' ? defaultWarmup() : defaultCooldown();
+  _editingWc = { kind, plan: structuredClone(stored||fallback) };
+  $('#wc-back-ic').innerHTML=svg('left');
+  $('#wc-editor-title').textContent = kind==='warmup' ? '🌡️ Aufwärm-Plan' : '🧘 Cool-Down-Plan';
+  $('#wc-hint').innerHTML = kind==='warmup'
+    ? 'Diese Übungen werden automatisch vor jedem Training gestartet, wenn du "Aufwärmen aktivieren" im Plan ankreuzt.'
+    : 'Diese Übungen laufen automatisch nach jedem Training, wenn du "Cool-Down aktivieren" im Plan ankreuzt.';
+  $('#wc-name').value = _editingWc.plan.name || '';
+  $('#wc-btn-add-ex').innerHTML=svg('plus')+' Übung hinzufügen';
+  $('#wc-btn-delete').style.display = stored ? '' : 'none';
+  renderWcExEditor();
+  show('wc-editor');
+}
+function renderWcExEditor(){
+  const c=$('#wc-ex-editor'); if(!c||!_editingWc) return;
+  c.innerHTML = _editingWc.plan.exercises.map((e,i)=>{
+    const isTime = !!e.duration;
+    const val = isTime ? e.duration : (e.reps!=null?e.reps:'');
+    return `<div class="ex-edit" data-i="${i}">
+      <div class="ex-edit-head">
+        <div class="ex-edit-num">${i+1}</div>
+        <input class="input grow" data-f="name" placeholder="Übungsname" value="${esc(e.name||'')}" maxlength="50">
+        <div class="ex-tools">
+          <button class="tool" data-mv="up" ${i===0?'disabled':''}>${svg('up')}</button>
+          <button class="tool" data-mv="down" ${i===_editingWc.plan.exercises.length-1?'disabled':''}>${svg('down')}</button>
+          <button class="tool del" data-rm>${svg('trash')}</button>
+        </div>
+      </div>
+      <div class="picker-btn-row">
+        <button class="picker-btn" data-pickopen="${i}">${svg('book')} Aus Bibliothek</button>
+      </div>
+      <div class="ex-edit-grid">
+        <div class="field"><label>Art & Menge</label>
+          <div class="field-inline">
+            <div class="seg" data-seg>
+              <button data-type="reps" class="${isTime?'':'on'}">Wdh.</button>
+              <button data-type="time" class="${isTime?'on':''}">Zeit</button>
+            </div>
+            <input class="input" data-f="val" type="number" inputmode="numeric" min="1" max="999" value="${esc(val)}" style="max-width:96px">
+            <span class="suffix" data-unit>${isTime?'Sek.':'Wdh.'}</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function syncWcEditor(){
+  if(!_editingWc) return;
+  _editingWc.plan.name = $('#wc-name').value.trim() || (_editingWc.kind==='warmup'?'Warm-up':'Cool-down');
+  $$('#wc-ex-editor .ex-edit').forEach(row=>{
+    const i=+row.dataset.i; const e=_editingWc.plan.exercises[i]; if(!e) return;
+    e.name=$('[data-f=name]',row).value.trim();
+    const isTime = $('[data-seg] [data-type=time]',row).classList.contains('on');
+    const v=clampInt($('[data-f=val]',row).value,1,999,isTime?30:10);
+    if(isTime){ e.duration=v; delete e.reps; } else { e.reps=v; delete e.duration; }
+  });
+}
+function saveWcPlan(){
+  syncWcEditor();
+  _editingWc.plan.exercises = _editingWc.plan.exercises.filter(e=>e.name);
+  if(!_editingWc.plan.exercises.length){ toast('Mindestens eine Übung nötig'); return; }
+  if(_editingWc.kind==='warmup') DB.warmupPlan = _editingWc.plan;
+  else DB.cooldownPlan = _editingWc.plan;
+  save(); _editingWc=null; show('settings'); toast('Gespeichert');
+}
+function deleteWcPlan(){
+  if(!_editingWc) return;
+  const kind=_editingWc.kind;
+  confirmSheet('Auf Standard zurücksetzen?','Deine Anpassungen gehen verloren.','Zurücksetzen',()=>{
+    if(kind==='warmup') DB.warmupPlan=null; else DB.cooldownPlan=null;
+    save(); _editingWc=null; show('settings'); toast('Auf Standard zurückgesetzt');
+  });
+}
 /* ========================= CHALLENGES RENDER ========================= */
 function getChallenge(id){ return allChallenges().find(c=>c.id===id); }
 function startChallenge(id){ if(!DB.challenges) DB.challenges={}; DB.challenges[id]={ startDate:Date.now(), dayLogs:{}, completedAt:0 }; save(); toast('Challenge gestartet'); renderChallenges(); }
@@ -2770,6 +2926,7 @@ function show(view, push=true){
   if(view==='skills') renderSkills();
   if(view==='challenges') renderChallenges();
   if(view==='parks') renderParks();
+  if(view==='wc-editor'){ /* handled by openWcEditor */ }
   window.scrollTo(0,0);
   if(push){ try{ history.pushState({view},''); }catch(e){} }
   // status bar color
@@ -3161,23 +3318,30 @@ function vibe(p){ if(DB.settings.vibrate&&navigator.vibrate){ try{navigator.vibr
 
 function buildSteps(p){
   const steps=[]; const n=p.exercises.length; const prep=DB.settings.prepare||0;
-  /* Warmup */
-  if(p.warmupEnabled && p.warmupDuration>0){
-    steps.push({kind:'warmup',dur:p.warmupDuration});
+  /* NEUE Warmup-Logik: verwendet gespeicherten Warm-up-Plan aus Einstellungen */
+  if(p.warmupEnabled){
+    const wu = getWarmupPlan();
+    (wu.exercises||[]).forEach((ex,i)=>{
+      steps.push({kind:'warmupEx', ex, wcIndex:i, wcTotal:wu.exercises.length, wcName:wu.name});
+      if(i<wu.exercises.length-1) steps.push({kind:'warmupRest', dur:10, wcName:wu.name, nextEx:wu.exercises[i+1]});
+    });
   }
   if(prep>0) steps.push({kind:'prepare',dur:prep,cycle:1,nextEx:p.exercises[0]});
   for(let c=1;c<=p.cycles;c++){
     for(let i=0;i<n;i++){
       steps.push({kind:'exercise',cycle:c,exIndex:i,ex:p.exercises[i]});
-      /* Skip rest if this exercise is linked as superset to next */
       const isSSLink = !!p.exercises[i].supersetLink;
       if(i<n-1 && !isSSLink) steps.push({kind:'rest',cycle:c,dur:p.restBetweenExercises,nextEx:p.exercises[i+1],nextIndex:i+1});
     }
     if(c<p.cycles) steps.push({kind:'cycleRest',cycle:c,dur:p.restBetweenCycles,nextEx:p.exercises[0],nextCycle:c+1});
   }
-  /* Cooldown */
-  if(p.cooldownEnabled && p.cooldownDuration>0){
-    steps.push({kind:'cooldown',dur:p.cooldownDuration});
+  /* NEUE Cooldown-Logik: verwendet gespeicherten Cool-down-Plan */
+  if(p.cooldownEnabled){
+    const cd = getCooldownPlan();
+    (cd.exercises||[]).forEach((ex,i)=>{
+      steps.push({kind:'cooldownEx', ex, wcIndex:i, wcTotal:cd.exercises.length, wcName:cd.name});
+      if(i<cd.exercises.length-1) steps.push({kind:'cooldownRest', dur:5, wcName:cd.name, nextEx:cd.exercises[i+1]});
+    });
   }
   return steps;
 }
@@ -3216,11 +3380,20 @@ function startWorkout(id){
   requestWake();
   goTo(0,true);
   startLoop();
+  updateLiveNoteBtn();
 }
 function startLoop(){ stopLoop(); W.lastTs=performance.now(); W._timer=setInterval(tick,180); }
 function stopLoop(){ if(W&&W._timer){ clearInterval(W._timer); W._timer=null; } }
 function currentStep(){ return W.steps[W.idx]; }
-function isCountdown(st){ return st && (st.kind==='prepare'||st.kind==='rest'||st.kind==='cycleRest'||st.kind==='warmup'||st.kind==='cooldown'|| (st.kind==='exercise'&&st.ex.duration)); }
+function isCountdown(st){
+  if(!st) return false;
+  if(st.kind==='prepare'||st.kind==='rest'||st.kind==='cycleRest') return true;
+  if(st.kind==='warmup'||st.kind==='cooldown') return true;
+  if(st.kind==='warmupRest'||st.kind==='cooldownRest') return true;
+  if(st.kind==='exercise' && st.ex.duration) return true;
+  if((st.kind==='warmupEx'||st.kind==='cooldownEx') && st.ex && st.ex.duration) return true;
+  return false;
+}
 
 function goTo(idx, initial){
   if(idx<0) idx=0;
@@ -3228,7 +3401,10 @@ function goTo(idx, initial){
   W.idx=idx; W.lastBeepSec=null;
   const st=currentStep();
   if(isCountdown(st)){
-    const dur = st.kind==='exercise'? st.ex.duration : st.dur;
+    let dur;
+    if(st.kind==='exercise') dur = st.ex.duration;
+    else if(st.kind==='warmupEx' || st.kind==='cooldownEx') dur = st.ex.duration || 30;
+    else dur = st.dur;
     W.total=dur; W.remaining=dur*1000;
   } else { W.total=0; W.remaining=0; }
   W.currentRepInput=null;
@@ -3329,24 +3505,36 @@ function renderStep(){
     adjust.style.display='none';
     primary.classList.remove('paused');
     primary.innerHTML= W.paused? svgFill('play')+' Weiter' : svgFill('pause')+' Pause';
-  } else if(st.kind==='warmup'){
-    phaseEl.textContent='Aufwärmen';
-    nameEl.textContent='Warm-up Time';
-    deEl.textContent='Arm Circles · Jumping Jacks · Bodyweight Squats';
+  } else if(st.kind==='warmupEx' || st.kind==='cooldownEx'){
+    const isWU = st.kind==='warmupEx';
+    phaseEl.textContent = isWU ? '🌡️ Aufwärmen' : '🧘 Cool-Down';
+    nameEl.textContent = st.ex.name || (isWU?'Warm-up':'Cool-down');
+    deEl.textContent = (st.ex.de||'') + ` · ${st.wcIndex+1}/${st.wcTotal}`;
+    if(st.ex.duration){
+      unitEl.textContent='Sekunden';
+      ring.classList.remove('tap');
+      adjust.style.display='flex';
+      primary.classList.remove('paused');
+      primary.innerHTML= W.paused? svgFill('play')+' Weiter' : svgFill('pause')+' Pause';
+    } else {
+      bigEl.textContent = st.ex.reps;
+      unitEl.textContent='Wiederholungen';
+      ring.classList.add('tap');
+      $('#wk-ringfill').style.setProperty('--p',100);
+      adjust.style.display='none';
+      primary.classList.remove('paused');
+      primary.innerHTML = svg('check')+' Fertig';
+    }
+    hintEl.innerHTML = '<span class="tap-hint">'+esc(st.wcName||'')+'</span>';
+  } else if(st.kind==='warmupRest' || st.kind==='cooldownRest'){
+    phaseEl.textContent = st.kind==='warmupRest' ? '🌡️ Aufwärm-Pause' : '🧘 Cool-Down-Pause';
+    nameEl.textContent = 'Kurze Pause';
     unitEl.textContent='Sekunden';
     ring.classList.remove('tap');
     adjust.style.display='flex';
     primary.classList.remove('paused');
     primary.innerHTML= W.paused? svgFill('play')+' Weiter' : svgFill('pause')+' Pause';
-  } else if(st.kind==='cooldown'){
-    phaseEl.textContent='Cool-down';
-    nameEl.textContent='Stretching-Time';
-    deEl.textContent='Rücken, Schultern und Beine sanft dehnen';
-    unitEl.textContent='Sekunden';
-    ring.classList.remove('tap');
-    adjust.style.display='flex';
-    primary.classList.remove('paused');
-    primary.innerHTML= W.paused? svgFill('play')+' Weiter' : svgFill('pause')+' Pause';
+    if(st.nextEx){ nextEl.innerHTML='Als Nächstes: <b>'+esc(st.nextEx.name)+'</b>'; }
   } else { // rest / cycleRest
     phaseEl.textContent = st.kind==='cycleRest'? 'Rundenpause' : 'Pause';
     nameEl.textContent = st.kind==='cycleRest'? ('Runde '+(st.nextCycle)+' kommt') : 'Kurze Pause';
@@ -3415,7 +3603,10 @@ function tick(){
 }
 function recordCurrentEntry(actualRepsOverride){
   if(!W) return;
-  const st=currentStep(); if(!st||st.kind!=='exercise') return;
+  const st=currentStep(); if(!st) return;
+  /* Warm-up/Cool-down-Übungen werden NICHT im Verlauf gespeichert */
+  if(st.kind==='warmupEx'||st.kind==='cooldownEx') return;
+  if(st.kind!=='exercise') return;
   const e=st.ex;
   const entry={ name:e.name, cycle:st.cycle, exIndex:st.exIndex };
   if(e.duration){ entry.duration=e.duration; entry.completedFully=true; }
@@ -3466,7 +3657,8 @@ function finishWorkout(){
   DB.history.unshift({ planId:W.plan.id, planName:W.plan.name, date:now,
     durationSec:dur, cyclesCompleted, cyclesTotal:W.plan.cycles,
     exercises:exercisesDone, completed:true, earlyFinish: early || undefined,
-    entries:structuredClone(W.entries||[]) });
+    entries:structuredClone(W.entries||[]),
+    note: W.liveNote || undefined });
   DB.history=DB.history.slice(0,200); save();
   W.newPRs=newPRs;
   resetWorkoutAccent();
@@ -3747,14 +3939,25 @@ function renderSettings(){
         ${['Mo','Di','Mi','Do','Fr','Sa','So'].map((d,i)=>{ const day=i+1===7?0:i+1; const on=(s.reminderDays||[]).includes(day); return `<button class="btn ${on?'btn-primary':'btn-soft'} btn-sm" data-remday="${day}">${d}</button>`; }).join('')}
       </div></div>
     </div>
-    <div class="set-note">Aufwärmen & Cool-Down (Standard)</div>
+    <div class="set-note">Aufwärm- & Cool-Down-Pläne</div>
     <div class="set-group">
-      ${switchRow('warmupEnabled','Aufwärmen aktivieren','Standard für neue Pläne',s.warmupEnabled)}
-      <div class="set-row"><div class="grow"><div class="st-title">Aufwärm-Dauer</div><div class="st-sub">Sekunden</div></div>
-        <div class="mini-input"><input class="input" id="set-warmupdur" type="number" min="30" max="600" value="${s.warmupDuration||120}"></div></div>
-      ${switchRow('cooldownEnabled','Cool-Down aktivieren','Standard für neue Pläne',s.cooldownEnabled)}
-      <div class="set-row"><div class="grow"><div class="st-title">Cool-Down-Dauer</div><div class="st-sub">Sekunden</div></div>
-        <div class="mini-input"><input class="input" id="set-cooldur" type="number" min="30" max="900" value="${s.cooldownDuration||180}"></div></div>
+      ${switchRow('warmupEnabled','Aufwärmen als Standard','Wird bei neuen Plänen vorausgewählt',s.warmupEnabled)}
+      <div class="set-row" data-action="edit-warmup" style="cursor:pointer">
+        <div class="grow">
+          <div class="st-title">🌡️ Aufwärm-Plan bearbeiten</div>
+          <div class="st-sub" id="wu-preview">${(DB.warmupPlan?DB.warmupPlan.name:'Standard-Warm-up (4 Übungen)')}</div>
+        </div>
+        <span class="set-ic">${svg('edit')}</span>
+      </div>
+      ${switchRow('cooldownEnabled','Cool-Down als Standard','Wird bei neuen Plänen vorausgewählt',s.cooldownEnabled)}
+      <div class="set-row" data-action="edit-cooldown" style="cursor:pointer">
+        <div class="grow">
+          <div class="st-title">🧘 Cool-Down-Plan bearbeiten</div>
+          <div class="st-sub" id="cd-preview">${(DB.cooldownPlan?DB.cooldownPlan.name:'Standard-Cool-down (5 Übungen)')}</div>
+        </div>
+        <span class="set-ic">${svg('edit')}</span>
+      </div>
+      ${switchRow('autoRestTimer','Auto-Rest-Timer','Nach Wdh.-Übungen automatisch Pause starten',s.autoRestTimer!==false)}
     </div>
 
     ${hiddenBuiltins.length?`<div class="set-note">Ausgeblendete Pläne</div>
@@ -3817,6 +4020,8 @@ function renderSettings(){
     if(a==='exportcsv') exportCSV();
     if(a==='import') $('#import-file').click();
     if(a==='reset') resetAll();
+    if(a==='edit-warmup') openWcEditor('warmup');
+    if(a==='edit-cooldown') openWcEditor('cooldown');
   }));
   $('#import-file').addEventListener('change',importData);
   // install
@@ -3905,6 +4110,63 @@ document.addEventListener('click',e=>{
 });
 $('#btn-new-plan').addEventListener('click',()=>openEditor(null));
 $('#btn-save-plan').addEventListener('click',savePlan);
+/* Warm-up / Cool-down plan editor events */
+$('#wc-btn-save').addEventListener('click',saveWcPlan);
+$('#wc-btn-delete').addEventListener('click',deleteWcPlan);
+$('#wc-btn-add-ex').addEventListener('click',()=>{ syncWcEditor(); _editingWc.plan.exercises.push({name:'',duration:30}); renderWcExEditor(); });
+$('#wc-ex-editor').addEventListener('click',e=>{
+  const pick=e.target.closest('[data-pickopen]');
+  if(pick){ e.stopPropagation(); syncWcEditor(); openWcExercisePicker(+pick.dataset.pickopen); return; }
+  const row=e.target.closest('.ex-edit'); if(!row) return; const i=+row.dataset.i;
+  if(e.target.closest('[data-rm]')){ syncWcEditor();
+    if(_editingWc.plan.exercises.length<=1){ toast('Mindestens eine Übung nötig'); return; }
+    _editingWc.plan.exercises.splice(i,1); renderWcExEditor(); return; }
+  const mv=e.target.closest('[data-mv]'); if(mv){ syncWcEditor();
+    const dir=mv.dataset.mv==='up'?-1:1; const j=i+dir;
+    if(j<0||j>=_editingWc.plan.exercises.length) return;
+    const a=_editingWc.plan.exercises; [a[i],a[j]]=[a[j],a[i]]; renderWcExEditor(); return; }
+  const seg=e.target.closest('[data-type]'); if(seg){
+    const w=seg.closest('[data-seg]');
+    $$('[data-type]',w).forEach(b=>b.classList.toggle('on',b===seg));
+    $('[data-unit]',row).textContent = seg.dataset.type==='time'?'Sek.':'Wdh.';
+  }
+});
+function openWcExercisePicker(targetIdx){
+  const cats=['all','shoulders','back','core','legs','cardio','full'];
+  const cb=cats.map(c=>`<button data-pcat="${c}" class="${c==='all'?'on':''}">${esc(CAT_LABEL[c])}</button>`).join('');
+  const body=`<div class="picker-search"><input class="input" id="wcpick-q" placeholder="Suche..." autocomplete="off"></div>
+    <div class="picker-cat" id="wcpick-cats">${cb}</div>
+    <div class="picker-list" id="wcpick-list"></div>`;
+  openSheet('Übung auswählen', body);
+  let state={q:'',cat:'all'};
+  const render=()=>{
+    const q=state.q.toLowerCase().trim();
+    const items=EX_LIB.filter(x=>{
+      if(state.cat!=='all' && !(x.muscle||[]).includes(state.cat)) return false;
+      if(!q) return true;
+      return (x.name+' '+x.de+' '+(x.aliases||[]).join(' ')).toLowerCase().includes(q);
+    });
+    $('#wcpick-list').innerHTML = items.map(x=>{
+      const def=x.type==='time'?`${x.defDur}<small>Sek.</small>`:`${x.defReps}<small>Wdh.</small>`;
+      return `<button class="picker-item" data-wcpid="${esc(x.id)}"><div class="pi-info"><div class="pi-nm">${esc(x.name)}</div><div class="pi-de">${esc(x.de||'')}</div></div><div class="pi-def">${def}</div></button>`;
+    }).join('') || '<div class="empty" style="padding:20px 0">Keine Treffer</div>';
+    $$('#wcpick-list [data-wcpid]').forEach(b=>b.addEventListener('click',()=>{
+      const x=libGet(b.dataset.wcpid);
+      const ex=_editingWc.plan.exercises[targetIdx];
+      if(ex && x){ ex.name=x.name; ex.de=x.de; ex.libId=x.id;
+        if(x.type==='time'){ ex.duration=x.defDur; delete ex.reps; } else { ex.reps=x.defReps; delete ex.duration; }
+      }
+      closeSheet(); renderWcExEditor();
+    }));
+  };
+  $('#wcpick-q').addEventListener('input',(e)=>{ state.q=e.target.value; render(); });
+  $$('#wcpick-cats [data-pcat]').forEach(b=>b.addEventListener('click',()=>{
+    state.cat=b.dataset.pcat;
+    $$('#wcpick-cats [data-pcat]').forEach(x=>x.classList.toggle('on',x===b));
+    render();
+  }));
+  render();
+}
 $('#btn-add-ex').addEventListener('click',()=>{ syncEditorFromDom(); editing.exercises.push({name:'',reps:10}); renderExEditor(); });
 $('#btn-reset-plan').addEventListener('click',()=>{ if(editing){ confirmSheet('Zurücksetzen?','Deine Änderungen an diesem Standardplan gehen verloren.','Zurücksetzen',()=>{ resetBuiltin(editing.id); editing=null; show('home'); }); } });
 $('#btn-clear-hist').addEventListener('click',()=>{
@@ -3961,6 +4223,36 @@ $('#f-restcy').addEventListener('input',()=>{ $('#restcy-hint').textContent='= '
 // workout controls
 $('#wk-close').addEventListener('click',closeWorkout);
 $('#wk-sound').addEventListener('click',()=>{ DB.settings.sound=!DB.settings.sound; save(); updateSoundBtn(); if(DB.settings.sound) beep(880,0.08,0.14); });
+/* Live workout notes */
+function openLiveNoteSheet(){
+  if(!W) return;
+  const cur = W.liveNote || '';
+  const body = `<p style="color:var(--muted);font-weight:600;margin:2px 0 10px">Schnelle Notiz zur laufenden Session:</p>
+    <textarea class="notes-field" id="live-note-field" placeholder="z.B. Linke Schulter zwickt bei Dip 6..." style="min-height:120px">${esc(cur)}</textarea>
+    <div style="height:10px"></div>
+    <button class="btn btn-primary btn-block btn-lg" id="live-note-save">${svg('check')} Speichern</button>
+    <div style="height:8px"></div>
+    <button class="btn btn-ghost btn-block" id="live-note-cancel">Abbrechen</button>`;
+  openSheet('📝 Live-Notiz', body);
+  setTimeout(()=>{ const f=$('#live-note-field'); if(f) f.focus(); }, 300);
+  $('#live-note-save').addEventListener('click',()=>{
+    W.liveNote = $('#live-note-field').value.trim();
+    updateLiveNoteBtn();
+    closeSheet();
+    if(W.liveNote) toast('Notiz gespeichert');
+  });
+  $('#live-note-cancel').addEventListener('click',closeSheet);
+}
+function updateLiveNoteBtn(){
+  const btn=$('#wk-live-note'); if(!btn) return;
+  if(!W || W.done){ btn.style.display='none'; return; }
+  btn.style.display='';
+  const has = W.liveNote && W.liveNote.length>0;
+  btn.classList.toggle('has', has);
+  $('#wk-live-note-ic').innerHTML = svg('note');
+  $('#wk-live-note-txt').textContent = has ? 'Notiz ✓' : 'Notiz';
+}
+$('#wk-live-note').addEventListener('click', openLiveNoteSheet);
 $('#wk-primary').addEventListener('click',togglePause);
 $('#wk-prev').addEventListener('click',prevStep);
 $('#wk-skip').addEventListener('click',skipStep);
